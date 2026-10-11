@@ -1,0 +1,49 @@
+{
+  "name": "@vibecommerce/office-preview",
+  "version": "0.1.0",
+  "description": "Office file viewer components of the Office_vibecom plugin for BB: Excel, OpenDocument and CSV spreadsheets, Word .docx, PowerPoint .pptx with speaker notes, read-only. TypeScript sources, built by the BB plugin bundler.",
+  "license": "MIT",
+  "author": "Vadim Bakanov",
+  "type": "module",
+  "keywords": [
+    "bb-plugin",
+    "xlsx",
+    "docx",
+    "pptx",
+    "viewer",
+    "react"
+  ],
+  "files": [
+    "*.ts",
+    "*.tsx"
+  ],
+  "dependencies": {
+    "@aiden0z/pptx-renderer": "1.3.0",
+    "docx-preview": "0.4.1",
+    "exceljs": "4.4.0",
+    "jszip": "3.10.2",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz",
+    "zod": "4.6.5"
+  },
+  "peerDependencies": {
+    "@get-bb/plugin-sdk": ">=0.5.9",
+    "react": "^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@get-bb/plugin-sdk": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
+  },
+  "bb": {
+    "pluginTailwindContent": [
+      "*.ts",
+      "*.tsx"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

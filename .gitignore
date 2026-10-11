@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.tgz
+# Explorer_vibecom bundles its viewers as packed archives
+!plugins/files-editor/vendor/*.tgz
+*.log
+.DS_Store
+# release artifacts are attached to GitHub Releases, not committed
+release/

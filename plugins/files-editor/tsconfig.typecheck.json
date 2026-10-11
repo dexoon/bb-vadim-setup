@@ -1,0 +1,24 @@
+{
+  "//": "Typecheck only. The panel imports the viewers (@vibecommerce/*: vendor/*.tgz, or links to ../markdown-view/src and ../office-preview/src after `npm run link-viewers`); this points every file, theirs included, at one copy of the SDK and React declarations. Kept out of tsconfig.json, which `bb plugin build` reads. skipLibCheck: pdfjs-dist drags in @napi-rs/canvas declarations (a Node-only optional dependency) that need a newer lib than this plugin targets.",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "@get-bb/plugin-sdk": [
+        "./node_modules/@get-bb/plugin-sdk/bundled-types/bb-plugin-sdk.d.ts"
+      ],
+      "@get-bb/plugin-sdk/app": [
+        "./node_modules/@get-bb/plugin-sdk/bundled-types/bb-plugin-sdk-app.d.ts"
+      ],
+      "react": [
+        "./node_modules/@types/react"
+      ],
+      "react/*": [
+        "./node_modules/@types/react/*"
+      ]
+    },
+    "skipLibCheck": true
+  }
+}

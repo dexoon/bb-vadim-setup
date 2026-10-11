@@ -1,0 +1,44 @@
+{
+  "name": "@vibecommerce/markdown-view",
+  "version": "0.1.0",
+  "description": "Markdown viewer and editor components of the Markdown_vibecom plugin for BB: a Typora-like read-only view with an outline and live refresh, and editing in place with Vditor that saves only the changed lines. TypeScript sources, built by the BB plugin bundler.",
+  "license": "MIT",
+  "author": "Vadim Bakanov",
+  "type": "module",
+  "keywords": [
+    "bb-plugin",
+    "markdown",
+    "viewer",
+    "vditor",
+    "react"
+  ],
+  "files": [
+    "*.ts",
+    "*.tsx"
+  ],
+  "dependencies": {
+    "diff": "9.0.0",
+    "vditor": "4.0.0"
+  },
+  "peerDependencies": {
+    "@get-bb/plugin-sdk": ">=0.5.9",
+    "react": "^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@get-bb/plugin-sdk": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
+  },
+  "bb": {
+    "pluginTailwindContent": [
+      "*.ts",
+      "*.tsx"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

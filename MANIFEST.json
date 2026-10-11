@@ -1,0 +1,1629 @@
+{
+  "format": 1,
+  "created": "2026-10-11",
+  "name": "bb-vadim-setup",
+  "version": "0.2.0",
+  "license": "MIT",
+  "checked_environment": [
+    {
+      "bb": "0.46.0",
+      "bb_sdk": "0.6.37",
+      "node": "25.2.1",
+      "os": "macOS",
+      "scope": "release 0.2.0: tagged clone, BB-style npm install (--omit=dev) and bb plugin build for five plugins; developer npm ci, tests, typecheck; author's working copies of the same plugin code running",
+      "bb_npm": "11.16.0"
+    },
+    {
+      "bb": "0.45.0",
+      "bb_sdk": "0.6.15",
+      "node": "25.2.1",
+      "os": "macOS",
+      "scope": "release 0.1.0: clean npm ci, build, tests"
+    },
+    {
+      "bb": "0.44.0",
+      "bb_sdk": "0.5.29",
+      "node": "25.2.1",
+      "os": "macOS",
+      "scope": "release 0.1.0 source kit: plugins running, theme active"
+    }
+  ],
+  "plugins": [
+    {
+      "id": "markdown-view",
+      "name": "Markdown_vibecom",
+      "version": "0.2.0",
+      "path": "plugins/markdown-view",
+      "pinned_sdk": "0.6.15",
+      "tests": 28
+    },
+    {
+      "id": "office-preview",
+      "name": "Office_vibecom",
+      "version": "0.2.0",
+      "path": "plugins/office-preview",
+      "pinned_sdk": "0.6.15",
+      "tests": 10
+    },
+    {
+      "id": "folder-links",
+      "name": "Folder links_vibecom",
+      "version": "0.2.0",
+      "path": "plugins/folder-links",
+      "pinned_sdk": "0.5.9",
+      "tests": 10
+    },
+    {
+      "id": "files-editor",
+      "name": "Explorer_vibecom",
+      "version": "0.1.6",
+      "path": "plugins/files-editor",
+      "pinned_sdk": "0.6.15",
+      "tests": 366,
+      "upstream": {
+        "source": "https://github.com/abdoutelb/bb-plugin-files-editor",
+        "tag": "v0.1.6",
+        "commit": "10657efcf2079862e9d81b329924b20030bc19f8",
+        "license": "MIT"
+      },
+      "ported_code": {
+        "source": "https://github.com/xMinor-1/bb-plugins",
+        "subdirectory": "plugins/file-manager",
+        "tag": "file-manager/v0.9.2",
+        "commit": "dfd8e07786b0fff90307c3e77c2f9c163a90e7b6",
+        "license": "MIT"
+      },
+      "vendored_packages": [
+        "@vibecommerce/markdown-view@0.1.0",
+        "@vibecommerce/office-preview@0.1.0"
+      ],
+      "git_install": true
+    },
+    {
+      "id": "floating-terminal",
+      "name": "Terminal_vibecom",
+      "version": "0.6.2",
+      "path": "plugins/floating-terminal",
+      "pinned_sdk": "0.6.15",
+      "tests": 86,
+      "upstream": {
+        "source": "https://github.com/vburojevic/bb-plugin-floating-terminal",
+        "tag": "v0.5.3",
+        "commit": "ff6df634885a",
+        "license": "MIT"
+      }
+    }
+  ],
+  "theme": {
+    "id": "atom-one_vibecom",
+    "previous_id": "atom-one",
+    "syntax_base": "Atom One Dark",
+    "syntax_license": "MIT",
+    "path": "theme/atom-one_vibecom"
+  },
+  "previous_release": {
+    "version": "0.1.0",
+    "changed": [
+      ".gitignore",
+      "CHANGELOG.md",
+      "GUIDE.md",
+      "README.md",
+      "THIRD_PARTY_NOTICES.md",
+      "VALIDATION.md",
+      "VERSION",
+      "examples/README.md",
+      "examples/demo.md",
+      "plugins/README.md",
+      "plugins/folder-links/README.md",
+      "plugins/folder-links/package-lock.json",
+      "plugins/folder-links/package.json",
+      "plugins/markdown-view/README.md",
+      "plugins/markdown-view/app.tsx",
+      "plugins/markdown-view/package-lock.json",
+      "plugins/markdown-view/package.json",
+      "plugins/markdown-view/server.ts",
+      "plugins/markdown-view/src/Editor.tsx",
+      "plugins/markdown-view/src/MarkdownOpener.tsx",
+      "plugins/markdown-view/src/file-access.ts",
+      "plugins/markdown-view/src/ui.tsx",
+      "plugins/markdown-view/src/vditor.ts",
+      "plugins/office-preview/README.md",
+      "plugins/office-preview/app.tsx",
+      "plugins/office-preview/package-lock.json",
+      "plugins/office-preview/package.json",
+      "plugins/office-preview/server.ts",
+      "plugins/office-preview/src/LegacyDocView.tsx",
+      "plugins/office-preview/src/fetch-file.ts",
+      "plugins/office-preview/src/opener-ui.tsx",
+      "plugins/office-preview/tsconfig.json",
+      "theme/README.md"
+    ],
+    "added": [
+      "plugins/files-editor/LICENSE",
+      "plugins/files-editor/README.md",
+      "plugins/files-editor/app.tsx",
+      "plugins/files-editor/assets/icon.svg",
+      "plugins/files-editor/components.json",
+      "plugins/files-editor/components/DocumentView.tsx",
+      "plugins/files-editor/components/EditorTabs.tsx",
+      "plugins/files-editor/components/EntryMenu.tsx",
+      "plugins/files-editor/components/Explorer.tsx",
+      "plugins/files-editor/components/FileDialogs.tsx",
+      "plugins/files-editor/components/FileGlyph.tsx",
+      "plugins/files-editor/components/FileView.tsx",
+      "plugins/files-editor/components/FindBar.tsx",
+      "plugins/files-editor/components/NameResults.tsx",
+      "plugins/files-editor/components/PdfPages.tsx",
+      "plugins/files-editor/components/QuickOpen.tsx",
+      "plugins/files-editor/components/RecentMenu.tsx",
+      "plugins/files-editor/components/RootSwitcher.tsx",
+      "plugins/files-editor/components/SearchResults.tsx",
+      "plugins/files-editor/components/SortMenu.tsx",
+      "plugins/files-editor/components/TabContextMenu.tsx",
+      "plugins/files-editor/components/Workspace.tsx",
+      "plugins/files-editor/components/WorkspacePicker.tsx",
+      "plugins/files-editor/components/ui/button.tsx",
+      "plugins/files-editor/components/ui/card.tsx",
+      "plugins/files-editor/components/ui/checkbox.tsx",
+      "plugins/files-editor/components/ui/coarse-pointer-sizing.ts",
+      "plugins/files-editor/components/ui/dialog.tsx",
+      "plugins/files-editor/components/ui/hooks/use-compact-viewport.tsx",
+      "plugins/files-editor/components/ui/hooks/use-media-query.ts",
+      "plugins/files-editor/components/ui/icon-extended.tsx",
+      "plugins/files-editor/components/ui/icon-registry.ts",
+      "plugins/files-editor/components/ui/icon.tsx",
+      "plugins/files-editor/components/ui/input.tsx",
+      "plugins/files-editor/components/ui/motion.ts",
+      "plugins/files-editor/components/ui/overlay-trigger.ts",
+      "plugins/files-editor/components/ui/responsive-overlay.tsx",
+      "plugins/files-editor/components/use-file-operations.tsx",
+      "plugins/files-editor/components/use-file-tabs.ts",
+      "plugins/files-editor/components/use-transfers.tsx",
+      "plugins/files-editor/hooks/useBrowserDimmingModal.ts",
+      "plugins/files-editor/lib/cli-output.test.ts",
+      "plugins/files-editor/lib/cli-output.ts",
+      "plugins/files-editor/lib/entry-menu.test.ts",
+      "plugins/files-editor/lib/entry-menu.ts",
+      "plugins/files-editor/lib/entry-paths.ts",
+      "plugins/files-editor/lib/file-kind.ts",
+      "plugins/files-editor/lib/find.test.ts",
+      "plugins/files-editor/lib/find.ts",
+      "plugins/files-editor/lib/gitignore.test.ts",
+      "plugins/files-editor/lib/gitignore.ts",
+      "plugins/files-editor/lib/home.test.ts",
+      "plugins/files-editor/lib/home.ts",
+      "plugins/files-editor/lib/lazy-tree.test.ts",
+      "plugins/files-editor/lib/lazy-tree.ts",
+      "plugins/files-editor/lib/markdown.test.ts",
+      "plugins/files-editor/lib/markdown.ts",
+      "plugins/files-editor/lib/mutations.test.ts",
+      "plugins/files-editor/lib/mutations.ts",
+      "plugins/files-editor/lib/open-with.test.ts",
+      "plugins/files-editor/lib/open-with.ts",
+      "plugins/files-editor/lib/panel-state.test.ts",
+      "plugins/files-editor/lib/panel-state.ts",
+      "plugins/files-editor/lib/paths.test.ts",
+      "plugins/files-editor/lib/paths.ts",
+      "plugins/files-editor/lib/portal-scope.ts",
+      "plugins/files-editor/lib/regex-worker.ts",
+      "plugins/files-editor/lib/route.test.ts",
+      "plugins/files-editor/lib/route.ts",
+      "plugins/files-editor/lib/search-run.test.ts",
+      "plugins/files-editor/lib/search-run.ts",
+      "plugins/files-editor/lib/search-sources.test.ts",
+      "plugins/files-editor/lib/search-sources.ts",
+      "plugins/files-editor/lib/secrets.test.ts",
+      "plugins/files-editor/lib/secrets.ts",
+      "plugins/files-editor/lib/text-search.test.ts",
+      "plugins/files-editor/lib/text-search.ts",
+      "plugins/files-editor/lib/transfer.test.ts",
+      "plugins/files-editor/lib/transfer.ts",
+      "plugins/files-editor/lib/tree.test.ts",
+      "plugins/files-editor/lib/tree.ts",
+      "plugins/files-editor/lib/upload-manager.test.ts",
+      "plugins/files-editor/lib/upload-manager.ts",
+      "plugins/files-editor/lib/uploads.test.ts",
+      "plugins/files-editor/lib/uploads.ts",
+      "plugins/files-editor/lib/utils.ts",
+      "plugins/files-editor/lib/vendor-viewers.test.ts",
+      "plugins/files-editor/lib/walk.test.ts",
+      "plugins/files-editor/lib/walk.ts",
+      "plugins/files-editor/lib/workspaces.test.ts",
+      "plugins/files-editor/lib/workspaces.ts",
+      "plugins/files-editor/package-lock.json",
+      "plugins/files-editor/package.json",
+      "plugins/files-editor/server.ts",
+      "plugins/files-editor/skills/project-files/SKILL.md",
+      "plugins/files-editor/tsconfig.json",
+      "plugins/files-editor/tsconfig.typecheck.json",
+      "plugins/files-editor/vendor/README.md",
+      "plugins/files-editor/vendor/markdown-view.tgz",
+      "plugins/files-editor/vendor/office-preview.tgz",
+      "plugins/files-editor/vitest.config.ts",
+      "plugins/floating-terminal/LICENSE",
+      "plugins/floating-terminal/README.md",
+      "plugins/floating-terminal/app.tsx",
+      "plugins/floating-terminal/components.json",
+      "plugins/floating-terminal/components/find-bar.tsx",
+      "plugins/floating-terminal/components/floating-terminal.tsx",
+      "plugins/floating-terminal/components/key-toolbar.tsx",
+      "plugins/floating-terminal/components/panel-terminal.tsx",
+      "plugins/floating-terminal/components/shell-picker.tsx",
+      "plugins/floating-terminal/components/tab-bar.tsx",
+      "plugins/floating-terminal/components/terminal-surface.tsx",
+      "plugins/floating-terminal/components/terminal-view.tsx",
+      "plugins/floating-terminal/components/ui/badge.tsx",
+      "plugins/floating-terminal/components/ui/button.tsx",
+      "plugins/floating-terminal/components/ui/card.tsx",
+      "plugins/floating-terminal/components/ui/coarse-pointer-sizing.ts",
+      "plugins/floating-terminal/components/ui/command.tsx",
+      "plugins/floating-terminal/components/ui/dialog.tsx",
+      "plugins/floating-terminal/components/ui/drawer.tsx",
+      "plugins/floating-terminal/components/ui/dropdown-menu.tsx",
+      "plugins/floating-terminal/components/ui/hooks/use-compact-viewport.tsx",
+      "plugins/floating-terminal/components/ui/hooks/use-media-query.ts",
+      "plugins/floating-terminal/components/ui/hooks/use-pointer-coarse.ts",
+      "plugins/floating-terminal/components/ui/icon.tsx",
+      "plugins/floating-terminal/components/ui/input.tsx",
+      "plugins/floating-terminal/components/ui/menu-item-hover.tsx",
+      "plugins/floating-terminal/components/ui/motion.ts",
+      "plugins/floating-terminal/components/ui/overlay-trigger.ts",
+      "plugins/floating-terminal/components/ui/responsive-overlay.tsx",
+      "plugins/floating-terminal/components/ui/scroll-area.tsx",
+      "plugins/floating-terminal/components/ui/select.tsx",
+      "plugins/floating-terminal/components/ui/tooltip.tsx",
+      "plugins/floating-terminal/fonts/LICENSE-nerd-fonts",
+      "plugins/floating-terminal/fonts/README.md",
+      "plugins/floating-terminal/fonts/nerd-symbols.css",
+      "plugins/floating-terminal/hooks/useBrowserDimmingModal.ts",
+      "plugins/floating-terminal/lib/controller.ts",
+      "plugins/floating-terminal/lib/frame.test.ts",
+      "plugins/floating-terminal/lib/frame.ts",
+      "plugins/floating-terminal/lib/keys.test.ts",
+      "plugins/floating-terminal/lib/keys.ts",
+      "plugins/floating-terminal/lib/portal-scope.ts",
+      "plugins/floating-terminal/lib/pump.ts",
+      "plugins/floating-terminal/lib/rpc.ts",
+      "plugins/floating-terminal/lib/scopes.test.ts",
+      "plugins/floating-terminal/lib/scopes.ts",
+      "plugins/floating-terminal/lib/scroll.test.ts",
+      "plugins/floating-terminal/lib/scroll.ts",
+      "plugins/floating-terminal/lib/symbol-font.test.ts",
+      "plugins/floating-terminal/lib/symbol-font.ts",
+      "plugins/floating-terminal/lib/tabs.test.ts",
+      "plugins/floating-terminal/lib/tabs.ts",
+      "plugins/floating-terminal/lib/terminal-io.test.ts",
+      "plugins/floating-terminal/lib/terminal-io.ts",
+      "plugins/floating-terminal/lib/theme.test.ts",
+      "plugins/floating-terminal/lib/theme.ts",
+      "plugins/floating-terminal/lib/utils.ts",
+      "plugins/floating-terminal/lib/viewport.ts",
+      "plugins/floating-terminal/package-lock.json",
+      "plugins/floating-terminal/package.json",
+      "plugins/floating-terminal/server.ts",
+      "plugins/floating-terminal/styles.css",
+      "plugins/floating-terminal/tests/mobile-e2e.mjs",
+      "plugins/floating-terminal/tests/run-mobile-matrix.mjs",
+      "plugins/floating-terminal/tsconfig.json",
+      "plugins/floating-terminal/types/assets.d.ts",
+      "plugins/markdown-view/src/LICENSE",
+      "plugins/markdown-view/src/README.md",
+      "plugins/markdown-view/src/links.ts",
+      "plugins/markdown-view/src/look.ts",
+      "plugins/markdown-view/src/package.json",
+      "plugins/markdown-view/src/touch-toolbar.ts",
+      "plugins/markdown-view/tests/file-access.test.ts",
+      "plugins/markdown-view/tests/links.test.ts",
+      "plugins/markdown-view/tests/lute.test.ts",
+      "plugins/markdown-view/tests/package.test.ts",
+      "plugins/markdown-view/tests/touch-toolbar.test.ts",
+      "plugins/office-preview/src/LICENSE",
+      "plugins/office-preview/src/README.md",
+      "plugins/office-preview/src/openers.tsx",
+      "plugins/office-preview/src/package.json",
+      "plugins/office-preview/src/rpc.ts",
+      "plugins/office-preview/tests/fetch-file.test.ts",
+      "plugins/office-preview/tests/package.test.ts"
+    ],
+    "removed": [
+      "plugins/markdown-view/src/Viewer.tsx",
+      "plugins/office-preview/rpc.ts"
+    ],
+    "renamed": [
+      {
+        "from": "theme/atom-one/LICENSE-One-Dark.txt",
+        "to": "theme/atom-one_vibecom/LICENSE-One-Dark.txt"
+      },
+      {
+        "from": "theme/atom-one/one-dark.json",
+        "to": "theme/atom-one_vibecom/one-dark.json"
+      },
+      {
+        "from": "theme/atom-one/theme.css",
+        "to": "theme/atom-one_vibecom/theme.css"
+      },
+      {
+        "from": "theme/atom-one/theme.json",
+        "to": "theme/atom-one_vibecom/theme.json"
+      }
+    ]
+  },
+  "distribution": {
+    "repository": "https://github.com/vibe-commerce-org/bb-vadim-setup",
+    "release_asset": "bb-vadim-setup-v0.2.0.zip",
+    "windows_executed": false
+  },
+  "manifest_note": "Hashes cover every other tracked file; this manifest excludes itself.",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 211,
+      "sha256": "c62ba8a58e14132ba64528670a338fc24761a469ab78823733aed08d3d33c6ce"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 5127,
+      "sha256": "ff565726c900576bf22c20189149b328ed60265ab983581fb4a833eb7c6315d2"
+    },
+    {
+      "path": "GUIDE.md",
+      "bytes": 57503,
+      "sha256": "c8e3fa8cd2fb520d91b4724271d3d0a9b325e15a904aa1a7c0a37c40d661250f"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1070,
+      "sha256": "b89c1394c40952ae54f2333fcef1d45dda360fbf8ea27b4d20361ba2794e3373"
+    },
+    {
+      "path": "README.md",
+      "bytes": 8868,
+      "sha256": "cd0dfe6c2f247934904c7e6763f0b2a5dc8c1c28d4e58f217ab735abce8bb71a"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "bytes": 11221,
+      "sha256": "5c895aa43df16dbf275d573fd841d7f54c546bf59c6a315bbe601f99e7a7c6ab"
+    },
+    {
+      "path": "VALIDATION.md",
+      "bytes": 6503,
+      "sha256": "a4c7e17d075c75493b23da5ddc3f5cd397340d002465e78d27c7d00d66ac8fc7"
+    },
+    {
+      "path": "VERSION",
+      "bytes": 6,
+      "sha256": "1f930dd1f133c1f97a94fe3acb8db34372cf4c01ffdb2b3ff4ca72f9494121e9"
+    },
+    {
+      "path": "examples/README.md",
+      "bytes": 341,
+      "sha256": "e1a2a7c07d9efdffb04ca6bf04cdfb40b9c369df568eeeb3fafa8988c455dce5"
+    },
+    {
+      "path": "examples/demo.md",
+      "bytes": 740,
+      "sha256": "f0a4f47149c1524612b54b80b3ba67c24b44e804865429e14e0423371119f30c"
+    },
+    {
+      "path": "instructions/AGENTS.md",
+      "bytes": 5339,
+      "sha256": "0262fe955580a37b28f43fd0af64c042d0162027ec67b158a6caa292eaf8ff82"
+    },
+    {
+      "path": "instructions/README.md",
+      "bytes": 635,
+      "sha256": "5288fc15b5453b21d6e6af76c92d169b238bb18c53389061f150f10d8d54ac04"
+    },
+    {
+      "path": "plugins/README.md",
+      "bytes": 2699,
+      "sha256": "2f6941ffb5d875e266058d98d0068cf59acab3c8e6e3de4926d2274388dcad36"
+    },
+    {
+      "path": "plugins/files-editor/LICENSE",
+      "bytes": 1264,
+      "sha256": "3ad53b023ef4c2b1b13dae33fd36805c5bf2ca93cbae48022b7d1c325539b237"
+    },
+    {
+      "path": "plugins/files-editor/README.md",
+      "bytes": 4042,
+      "sha256": "16990cf3499afe771c2459c1547caba7b341c1c7937bbce58d04c776cdb124f6"
+    },
+    {
+      "path": "plugins/files-editor/app.tsx",
+      "bytes": 14806,
+      "sha256": "4be705639319884f18e8ca7512383891541e43efff358e11e456edbfb13b755e"
+    },
+    {
+      "path": "plugins/files-editor/assets/icon.svg",
+      "bytes": 697,
+      "sha256": "435290766601c915b9d24ec1e0a06d4980b439174dded0fdf66fcc1fbcf675ca"
+    },
+    {
+      "path": "plugins/files-editor/components.json",
+      "bytes": 494,
+      "sha256": "1ef97f518dde736da85bbffe868ffe2339d40168163b6d446e2ad5800787fc62"
+    },
+    {
+      "path": "plugins/files-editor/components/DocumentView.tsx",
+      "bytes": 3501,
+      "sha256": "5857776de479063c696b4d30c40f1a810c5d13436d8c27b5dfcfa539e777a102"
+    },
+    {
+      "path": "plugins/files-editor/components/EditorTabs.tsx",
+      "bytes": 4063,
+      "sha256": "93a997453fe0b27a6cf42d19072d32a196e33f9155947d0866471f160e63ac2e"
+    },
+    {
+      "path": "plugins/files-editor/components/EntryMenu.tsx",
+      "bytes": 5436,
+      "sha256": "85d341598366dd0091e81a3a275d155a30d0802584ab534bb47b40b043428763"
+    },
+    {
+      "path": "plugins/files-editor/components/Explorer.tsx",
+      "bytes": 44049,
+      "sha256": "efc8d1385d83d1395d56e03ee8823e759d2bf4b72e58c574d77a07dd6a3df302"
+    },
+    {
+      "path": "plugins/files-editor/components/FileDialogs.tsx",
+      "bytes": 9035,
+      "sha256": "a244a7702d04eea15658b12c6265d9de4c82c4adddd7e80fa6779ef478a7436a"
+    },
+    {
+      "path": "plugins/files-editor/components/FileGlyph.tsx",
+      "bytes": 1168,
+      "sha256": "905a91581b666411f9cac64b7547188b01e3cbea2ebf7600868240c2882dd064"
+    },
+    {
+      "path": "plugins/files-editor/components/FileView.tsx",
+      "bytes": 24157,
+      "sha256": "42fcb8577bf49f7d1ecfe1f139dd940d7579c6b11529369928a06645e051d3fe"
+    },
+    {
+      "path": "plugins/files-editor/components/FindBar.tsx",
+      "bytes": 4835,
+      "sha256": "576794793c9713c5eecb38b29d5457c1e8b5fa998f664f0fdd08387aec3210f3"
+    },
+    {
+      "path": "plugins/files-editor/components/NameResults.tsx",
+      "bytes": 4531,
+      "sha256": "d154b55fabf72c046611a257c4ff25fe89caa5883db96730f0114ba6d7b8f912"
+    },
+    {
+      "path": "plugins/files-editor/components/PdfPages.tsx",
+      "bytes": 10428,
+      "sha256": "9b3af2c882747123fe989ac499a85819cd5a7d6d219ae9cd276e06c094481c80"
+    },
+    {
+      "path": "plugins/files-editor/components/QuickOpen.tsx",
+      "bytes": 6847,
+      "sha256": "e4e9e2a5e5c5d45bd096453ee0eb4719ce9ce1dfb2113b9d2cc14d83f4f5b632"
+    },
+    {
+      "path": "plugins/files-editor/components/RecentMenu.tsx",
+      "bytes": 2937,
+      "sha256": "ea955659e99761cf19ef0a9137629bf7d1fbf39b0a29abf0e5a50691f5b193b0"
+    },
+    {
+      "path": "plugins/files-editor/components/RootSwitcher.tsx",
+      "bytes": 3759,
+      "sha256": "70d46b4abd12b5260ab4d2d323572c654f645f27d3e0ee4efd177bff5d07012a"
+    },
+    {
+      "path": "plugins/files-editor/components/SearchResults.tsx",
+      "bytes": 11438,
+      "sha256": "790b3cfea21b65d03d1b9b07b1280bcd38a502ea864bccaac8ce24360bf39b5b"
+    },
+    {
+      "path": "plugins/files-editor/components/SortMenu.tsx",
+      "bytes": 5077,
+      "sha256": "e9090f17710bfeacef14b36b5f513568688049d4245d9cad36e64c5abc991a01"
+    },
+    {
+      "path": "plugins/files-editor/components/TabContextMenu.tsx",
+      "bytes": 2006,
+      "sha256": "cab8bf9ffab98ff1a7c7d635985f1bb977d58fa43a46c5fe51c5c83c028f65df"
+    },
+    {
+      "path": "plugins/files-editor/components/Workspace.tsx",
+      "bytes": 54075,
+      "sha256": "bf389929fedcbccb8770d4074891f79be30233070fde0aa650d5d027cb42e892"
+    },
+    {
+      "path": "plugins/files-editor/components/WorkspacePicker.tsx",
+      "bytes": 6270,
+      "sha256": "b02838e90bc6d21006c3c714759d0b8d36b22ee37d5c54fbb1a12072405f3c8a"
+    },
+    {
+      "path": "plugins/files-editor/components/ui/button.tsx",
+      "bytes": 2202,
+      "sha256": "c3e716d90e4fd5e5a8c73141182024d297a3113b9fa36ed3f54352a3638f1e70"
+    },
+    {
+      "path": "plugins/files-editor/components/ui/card.tsx",
+      "bytes": 1892,
+      "sha256": "9e68d91a4f4e83b4468e5d9f89038e309dbf675b48f5bb98067260052554b40c"
+    },
+    {
+      "path": "plugins/files-editor/components/ui/checkbox.tsx",
+      "bytes": 1195,
+      "sha256": "5305cbfa863adbaf9ad2a6f99cb93f8db98ec56886f4570ffbee5e84dad9bae0"
+    },
+    {
+      "path": "plugins/files-editor/components/ui/coarse-pointer-sizing.ts",
+      "bytes": 3838,
+      "sha256": "793017aa3f68d95bf0bb19ef581ab0cb3a93845ec35f0e23c73e6b7d341deef5"
+    },
+    {
+      "path": "plugins/files-editor/components/ui/dialog.tsx",
+      "bytes": 13303,
+      "sha256": "ab397a752b68c926b0b198d37ff34a93c50220abbef2568cbb55dd4879f1c1a2"
+    },
+    {
+      "path": "plugins/files-editor/components/ui/hooks/use-compact-viewport.tsx",
+      "bytes": 903,
+      "sha256": "56c7e82a62e3f0f35e6ffbaa1611569479de7f193ad20daef9f9466a44bce9e9"
+    },
+    {
+      "path": "plugins/files-editor/components/ui/hooks/use-media-query.ts",
+      "bytes": 2046,
+      "sha256": "038f5ed8960bcf3d3d67ddda05981bd37e867a26f7ee78045c8bfb127d30bc6f"
+    },
+    {
+      "path": "plugins/files-editor/components/ui/icon-extended.tsx",
+      "bytes": 8736,
+      "sha256": "76a7969f353885119b7885689cce1281ce67d7b5696f7e3dc39243f08fbbc7cc"
+    },
+    {
+      "path": "plugins/files-editor/components/ui/icon-registry.ts",
+      "bytes": 3116,
+      "sha256": "523a8b1a0bab55c3404446204a058f26fb82d0a779166b1a26ed8eacf28d6593"
+    },
+    {
+      "path": "plugins/files-editor/components/ui/icon.tsx",
+      "bytes": 7634,
+      "sha256": "b220dd8e2236af28bdeb9c0e68263494041ab7d0305b1fd013cc82622175d23a"
+    },
+    {
+      "path": "plugins/files-editor/components/ui/input.tsx",
+      "bytes": 1066,
+      "sha256": "91027ceb1c2ae675cc9dcb867088083a522d54fbe5e4031d656a407f18e8f64c"
+    },
+    {
+      "path": "plugins/files-editor/components/ui/motion.ts",
+      "bytes": 1055,
+      "sha256": "6619ec3e64101e27a37e9057e051ae6d1722b927083cf4aa6ccabecb1c6225d2"
+    },
+    {
+      "path": "plugins/files-editor/components/ui/overlay-trigger.ts",
+      "bytes": 4111,
+      "sha256": "bf1022691fafc28ac7e82b5a862b65b8118b50fcd597879e0c4eed766f4a7e2b"
+    },
+    {
+      "path": "plugins/files-editor/components/ui/responsive-overlay.tsx",
+      "bytes": 21640,
+      "sha256": "4ed55a65a5b6841ad69f99a406527709fe534bab3c9852938e4d6034e9affc90"
+    },
+    {
+      "path": "plugins/files-editor/components/use-file-operations.tsx",
+      "bytes": 17936,
+      "sha256": "b0d9e55fbf71ba1db8e9cd2b3c6781eaec6242fd2d6b7789364ae813cbbd082f"
+    },
+    {
+      "path": "plugins/files-editor/components/use-file-tabs.ts",
+      "bytes": 13969,
+      "sha256": "1dc489e9898d9643fe227cde517b4643154b1c3182f45cf8d502d693ab9bbacd"
+    },
+    {
+      "path": "plugins/files-editor/components/use-transfers.tsx",
+      "bytes": 9524,
+      "sha256": "aacaf65880e5253f408841e2ffb0e83dbd2104bb57896aef4a5363105607c5e3"
+    },
+    {
+      "path": "plugins/files-editor/hooks/useBrowserDimmingModal.ts",
+      "bytes": 812,
+      "sha256": "505daff1cfcc8aa86195dbb00db274feee4ed47cc75f50ed90f10b6de049ea9c"
+    },
+    {
+      "path": "plugins/files-editor/lib/cli-output.test.ts",
+      "bytes": 5363,
+      "sha256": "07442827ffb89ce0bac97ac3d5500f3ed1a157605f41077e9e314453b07af4ae"
+    },
+    {
+      "path": "plugins/files-editor/lib/cli-output.ts",
+      "bytes": 1415,
+      "sha256": "8e645548e85bd173d874f44c3a201870669320422482172eafca2d3764e566c0"
+    },
+    {
+      "path": "plugins/files-editor/lib/entry-menu.test.ts",
+      "bytes": 6473,
+      "sha256": "950475cbdce61b3bab926f0c151f4c6603cb2ad7f1c451a580a1029f069e3ee5"
+    },
+    {
+      "path": "plugins/files-editor/lib/entry-menu.ts",
+      "bytes": 3917,
+      "sha256": "541910e7e16baa13fa4a00d7cc3f8990aa64aaa1259cf9a797287dc27e6e5d9e"
+    },
+    {
+      "path": "plugins/files-editor/lib/entry-paths.ts",
+      "bytes": 3754,
+      "sha256": "9e05e4fa53cba3b2a6b2d112c2da5d77505e71369a20fa59f736d962666bbb39"
+    },
+    {
+      "path": "plugins/files-editor/lib/file-kind.ts",
+      "bytes": 4360,
+      "sha256": "f6fd4d4a7403250fc5a8dc0e0dfed3cdb6cb3dec2d230e1c267788c25b167656"
+    },
+    {
+      "path": "plugins/files-editor/lib/find.test.ts",
+      "bytes": 4111,
+      "sha256": "8305abd4e8fa1613e4939eea09aa1fe01b64122cd29d7e673285c85bbb7a7e3e"
+    },
+    {
+      "path": "plugins/files-editor/lib/find.ts",
+      "bytes": 3242,
+      "sha256": "b7ac226e331a106d061fc6d9b86211b63657b64b2ffed040db5ae96761ae5f99"
+    },
+    {
+      "path": "plugins/files-editor/lib/gitignore.test.ts",
+      "bytes": 1465,
+      "sha256": "bd356e4ca918aa539695f415de72276213aaacb8f9502f935ea71e630d6d7953"
+    },
+    {
+      "path": "plugins/files-editor/lib/gitignore.ts",
+      "bytes": 2037,
+      "sha256": "17eadc9b93a9d89f626844584809d5bba9ebcd456cc4740dfcf64779b5f0fd65"
+    },
+    {
+      "path": "plugins/files-editor/lib/home.test.ts",
+      "bytes": 6926,
+      "sha256": "4033f9c284639d51ee57e494c555068a51fe7e9fd3c2f4591ebfaee1706d32ad"
+    },
+    {
+      "path": "plugins/files-editor/lib/home.ts",
+      "bytes": 6416,
+      "sha256": "efb4a50560c39605525f63f4fe5289a7307d93a6402fc362d95a59520ec99f5c"
+    },
+    {
+      "path": "plugins/files-editor/lib/lazy-tree.test.ts",
+      "bytes": 3218,
+      "sha256": "2c3b8cbd84038836ddf015e30932634b8525d24e593c4500f4242a5658c8b2b4"
+    },
+    {
+      "path": "plugins/files-editor/lib/lazy-tree.ts",
+      "bytes": 3203,
+      "sha256": "22a33fc1d73d98ec502d307c870f71cb128c8023977ac6dd5fce368088826d6c"
+    },
+    {
+      "path": "plugins/files-editor/lib/markdown.test.ts",
+      "bytes": 3327,
+      "sha256": "2374daa924460baa6d4e9ec92f444a339b653a4e8697be57588d43e4bd910acb"
+    },
+    {
+      "path": "plugins/files-editor/lib/markdown.ts",
+      "bytes": 2510,
+      "sha256": "b3fd04f3ba159e12557cc71f77ff8c33936258e6d8f091efe74b39fe3ae44b74"
+    },
+    {
+      "path": "plugins/files-editor/lib/mutations.test.ts",
+      "bytes": 15002,
+      "sha256": "2fe11c805d0aca4b226407d94ffc97540fd0a9ee49ed11fe4fbe54ccaf0e48ae"
+    },
+    {
+      "path": "plugins/files-editor/lib/mutations.ts",
+      "bytes": 25344,
+      "sha256": "e0db2162285ddcf714282dc3a9e5f5922fb7307d1a85139c261e04b7e7b899d0"
+    },
+    {
+      "path": "plugins/files-editor/lib/open-with.test.ts",
+      "bytes": 4452,
+      "sha256": "d38fd0689141457631c61a9f3441f0a6ec4dd639fad403bc5b2fdb7f20b2794a"
+    },
+    {
+      "path": "plugins/files-editor/lib/open-with.ts",
+      "bytes": 3362,
+      "sha256": "3e1bf27ef02fc011d5fc291a9adec2a7efafc63c9e9ad210d978b67d3613d7f2"
+    },
+    {
+      "path": "plugins/files-editor/lib/panel-state.test.ts",
+      "bytes": 4656,
+      "sha256": "514643b37db51666c9d68657b12205fd90bd59cba3122f255ba19d90006ac8f1"
+    },
+    {
+      "path": "plugins/files-editor/lib/panel-state.ts",
+      "bytes": 4862,
+      "sha256": "6299f47d0763783effc6741330eac581fc361f43d86cf1f463ba74e438eaea3c"
+    },
+    {
+      "path": "plugins/files-editor/lib/paths.test.ts",
+      "bytes": 5544,
+      "sha256": "e97d7f4c33de8410bd49afbfabff1463e14b72b41d86179dc8312f653da50f28"
+    },
+    {
+      "path": "plugins/files-editor/lib/paths.ts",
+      "bytes": 3130,
+      "sha256": "4295c80060d540ef19730ac01eb760e9a66104bc9056c3f5589d508c0df2292f"
+    },
+    {
+      "path": "plugins/files-editor/lib/portal-scope.ts",
+      "bytes": 1470,
+      "sha256": "c3fad4c74bab5ecfe9588d25e069c875b3a595b26f8c325c757061970c5cb129"
+    },
+    {
+      "path": "plugins/files-editor/lib/regex-worker.ts",
+      "bytes": 4366,
+      "sha256": "a9022792d6af1532c4c6d0c0417f8982a87e163fcc0c63204825a0fc4c221dba"
+    },
+    {
+      "path": "plugins/files-editor/lib/route.test.ts",
+      "bytes": 1134,
+      "sha256": "ddeda05410f9ac8fcd4c696047f0e36bce32a6ff23ba2f2a2ee413154c2fe8c9"
+    },
+    {
+      "path": "plugins/files-editor/lib/route.ts",
+      "bytes": 2689,
+      "sha256": "b6b0c98dc2242e041aa404e2da48b6f42c351376fdea714054b59002fd07ec79"
+    },
+    {
+      "path": "plugins/files-editor/lib/search-run.test.ts",
+      "bytes": 6733,
+      "sha256": "1c8d4ed20fe35f14c8fd4613adcaf49667067da517339a0527e663c59cdd39ba"
+    },
+    {
+      "path": "plugins/files-editor/lib/search-run.ts",
+      "bytes": 4385,
+      "sha256": "813931f9e575b677d3e98a6a9ce8967c707ea415262ab3796b7126d7836f5f43"
+    },
+    {
+      "path": "plugins/files-editor/lib/search-sources.test.ts",
+      "bytes": 4891,
+      "sha256": "a585200958e92914441efc1bb2bde5b1165a8078daae2ca8110bcf50032a5198"
+    },
+    {
+      "path": "plugins/files-editor/lib/search-sources.ts",
+      "bytes": 5933,
+      "sha256": "c30c9bb5c5e2597af92520fd7aecb9fca77ec22951acf6c5e035fafd1a8f8c2a"
+    },
+    {
+      "path": "plugins/files-editor/lib/secrets.test.ts",
+      "bytes": 1298,
+      "sha256": "2acb0d09106532c25aec2e455d6cc72e3f83fd7eb465ec125b40365c1d5a5c4c"
+    },
+    {
+      "path": "plugins/files-editor/lib/secrets.ts",
+      "bytes": 1120,
+      "sha256": "009d22ab8e45adce1af9c6ece713cce809f0363910dd81554abaf3104ee57ed4"
+    },
+    {
+      "path": "plugins/files-editor/lib/text-search.test.ts",
+      "bytes": 6022,
+      "sha256": "d41b8ae5b62a3792c9e200fa4b57799f904388f004e886d7501b1260cd81bdb2"
+    },
+    {
+      "path": "plugins/files-editor/lib/text-search.ts",
+      "bytes": 7262,
+      "sha256": "1ef38d965feb50f499a785d7c42e7d5b36e502593ac1e20b31bbfc09973c679a"
+    },
+    {
+      "path": "plugins/files-editor/lib/transfer.test.ts",
+      "bytes": 4002,
+      "sha256": "ab4fdeeb0b8348912bd47fc05cd40e33295b807dc35aa159db05ff75eab01d3e"
+    },
+    {
+      "path": "plugins/files-editor/lib/transfer.ts",
+      "bytes": 6293,
+      "sha256": "9b9e6d0e457058bcd6e4850826e71d7e3f173f3e69c8d81fc48038989cc77871"
+    },
+    {
+      "path": "plugins/files-editor/lib/tree.test.ts",
+      "bytes": 14585,
+      "sha256": "e8f6791bce8af568d79958cdcbc6b3f15920093658a2af1303b3692dfc2cabd8"
+    },
+    {
+      "path": "plugins/files-editor/lib/tree.ts",
+      "bytes": 14516,
+      "sha256": "89375cf643603c7a0e77d84eedaca00ea8c778a60708976ee37148a41fceb490"
+    },
+    {
+      "path": "plugins/files-editor/lib/upload-manager.test.ts",
+      "bytes": 10654,
+      "sha256": "4958df5e1f23c2b8dfeb01551b99f9af63b970ce4134be130b6e8bc2d4710709"
+    },
+    {
+      "path": "plugins/files-editor/lib/upload-manager.ts",
+      "bytes": 20790,
+      "sha256": "a37c213fd87a452223e622827cbfda38e4fe0b7653b64f26a9c7af58e2530325"
+    },
+    {
+      "path": "plugins/files-editor/lib/uploads.test.ts",
+      "bytes": 9654,
+      "sha256": "7624688c84304158735a3b53457186f842a7510381904a5fd4c6e6b35cee20ca"
+    },
+    {
+      "path": "plugins/files-editor/lib/uploads.ts",
+      "bytes": 18227,
+      "sha256": "1f01d156bc78672be7e0f26aa1b99889fe9d223d08d77a6b41571052e34c4186"
+    },
+    {
+      "path": "plugins/files-editor/lib/utils.ts",
+      "bytes": 909,
+      "sha256": "b301870e836f68abd6670b19e4590a8c0e08d051a4191feee06a6d4e3ef2dda1"
+    },
+    {
+      "path": "plugins/files-editor/lib/vendor-viewers.test.ts",
+      "bytes": 3424,
+      "sha256": "014156274e7b4a96a35dedb38d154c62bb530cea9e615b0a64eec02bae7b48be"
+    },
+    {
+      "path": "plugins/files-editor/lib/walk.test.ts",
+      "bytes": 5153,
+      "sha256": "1ee57ddd2c7760c42827150a1b26cb13f8c350ae1f349d37038e2e47dd785e0e"
+    },
+    {
+      "path": "plugins/files-editor/lib/walk.ts",
+      "bytes": 5708,
+      "sha256": "8b1c00e8cc413d5268121bd9b6656c988135f1b87fe8ec3d93d84894606678fe"
+    },
+    {
+      "path": "plugins/files-editor/lib/workspaces.test.ts",
+      "bytes": 2710,
+      "sha256": "587f3030363f0460e2a9c8e8c619a07f6fe5822b40bb8027da87850847d9eda9"
+    },
+    {
+      "path": "plugins/files-editor/lib/workspaces.ts",
+      "bytes": 2365,
+      "sha256": "7cf8be2d435c962c8e672d6da67d42b4f0d2d9f7f2f90753e652f99567b67d57"
+    },
+    {
+      "path": "plugins/files-editor/package-lock.json",
+      "bytes": 276041,
+      "sha256": "dcc80a7de54b04a9f4db8c4b1bbeffac0ecfc3137340f8e69507440bcccbebcd"
+    },
+    {
+      "path": "plugins/files-editor/package.json",
+      "bytes": 3644,
+      "sha256": "9a39f7d1dfc88fda8594066ed7c5da3bbc7ca521daf2b0cf37f264c2fb404e94"
+    },
+    {
+      "path": "plugins/files-editor/server.ts",
+      "bytes": 68157,
+      "sha256": "6ccff28740f83a95634733c5901faaeec5415424d720a19641c43f0b59a1ecaf"
+    },
+    {
+      "path": "plugins/files-editor/skills/project-files/SKILL.md",
+      "bytes": 1490,
+      "sha256": "bfc758834c63435f034fb472a3558ee2f5acc13a5f4c75918c80aeee9f01e2eb"
+    },
+    {
+      "path": "plugins/files-editor/tsconfig.json",
+      "bytes": 461,
+      "sha256": "a0a0fe0087767dd6d241ec0979295bdf3db48269606d430b5289afe781bddd50"
+    },
+    {
+      "path": "plugins/files-editor/tsconfig.typecheck.json",
+      "bytes": 989,
+      "sha256": "7f1eb848b093d36cbdae9a1688bfe6654a807095b26793702fef750726f4ad8a"
+    },
+    {
+      "path": "plugins/files-editor/vendor/README.md",
+      "bytes": 613,
+      "sha256": "3f6a9a501ef5abc4896dc4feab8f60e3b1183a62680ba119767a9a56497b0ce7"
+    },
+    {
+      "path": "plugins/files-editor/vendor/markdown-view.tgz",
+      "bytes": 25953,
+      "sha256": "0f5fca0e1d105ee2faea00cff80cbd1971583948a8dbbcf9fd73e21ac2122dac"
+    },
+    {
+      "path": "plugins/files-editor/vendor/office-preview.tgz",
+      "bytes": 27908,
+      "sha256": "e3cd268192f87e087f7421d57bc5f5d044476f7ca0e9dd732503b57f4a3d9b29"
+    },
+    {
+      "path": "plugins/files-editor/vitest.config.ts",
+      "bytes": 156,
+      "sha256": "af6da52a433f8a4bbc601effd45877b6c96616513a6b2ead064d861fe4a94934"
+    },
+    {
+      "path": "plugins/floating-terminal/LICENSE",
+      "bytes": 1074,
+      "sha256": "7edb2ed942308a88eda6c927aaf8d075c9d67fc1ed5a62a7c49430ec9c6b08b7"
+    },
+    {
+      "path": "plugins/floating-terminal/README.md",
+      "bytes": 3499,
+      "sha256": "d93e44387f20d57f4905f6ce646d00b60713eb7fc4c011cd27285b7baf8dc1c3"
+    },
+    {
+      "path": "plugins/floating-terminal/app.tsx",
+      "bytes": 2706,
+      "sha256": "009c0241fb9ac17138a9927b92555afd39c4ea39c11b869ca85eac3fca18240b"
+    },
+    {
+      "path": "plugins/floating-terminal/components.json",
+      "bytes": 496,
+      "sha256": "177b2cd1c08b45255548fa95a94719db3fe4fc7cab6a2879265f962d3ac9d3cf"
+    },
+    {
+      "path": "plugins/floating-terminal/components/find-bar.tsx",
+      "bytes": 3176,
+      "sha256": "8b8a6fd114c3ae53209611cbafe18631ba22dd49b42fadf5a35eb926606b84d2"
+    },
+    {
+      "path": "plugins/floating-terminal/components/floating-terminal.tsx",
+      "bytes": 11454,
+      "sha256": "e3c0c5597a771bbcbeba361dbc8a370213478c85d6f2e6f750cb65292a26ad7a"
+    },
+    {
+      "path": "plugins/floating-terminal/components/key-toolbar.tsx",
+      "bytes": 2532,
+      "sha256": "384a74c8744fb974727726b7c942f435791760c94b920c0250184df8814f69a0"
+    },
+    {
+      "path": "plugins/floating-terminal/components/panel-terminal.tsx",
+      "bytes": 3198,
+      "sha256": "87f597985f77ca0f0fbcefdf06fe5c763023106fde35b313fe7e95d8d6b350d2"
+    },
+    {
+      "path": "plugins/floating-terminal/components/shell-picker.tsx",
+      "bytes": 4354,
+      "sha256": "b425f559ba925c36c7efc90a4dd11399b9d25448e1436d6f9703a43a5369a793"
+    },
+    {
+      "path": "plugins/floating-terminal/components/tab-bar.tsx",
+      "bytes": 10541,
+      "sha256": "6e8cb6086455c01647646ac08ce966c6e1cf4da7fff40a0f7aa563b841eddf0c"
+    },
+    {
+      "path": "plugins/floating-terminal/components/terminal-surface.tsx",
+      "bytes": 19742,
+      "sha256": "bd6bb8d9cdfe868527c82e491039e41eeb6a3e2dfa4ed85be3fe38e266da744c"
+    },
+    {
+      "path": "plugins/floating-terminal/components/terminal-view.tsx",
+      "bytes": 4595,
+      "sha256": "c0856c586beebce8dbd414aeac303a0b8526cb71bf183fe0dfada6848d59c6ea"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/badge.tsx",
+      "bytes": 1066,
+      "sha256": "a8e76dd2b5878c7cd8bf1c7d8044b9e9fb84c09d101025323dac9d020105d8df"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/button.tsx",
+      "bytes": 2212,
+      "sha256": "91b7936e822c944b5f5fe206f25b74e57152bae5d74593d76506c4162a2e2f05"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/card.tsx",
+      "bytes": 1892,
+      "sha256": "9e68d91a4f4e83b4468e5d9f89038e309dbf675b48f5bb98067260052554b40c"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/coarse-pointer-sizing.ts",
+      "bytes": 3838,
+      "sha256": "793017aa3f68d95bf0bb19ef581ab0cb3a93845ec35f0e23c73e6b7d341deef5"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/command.tsx",
+      "bytes": 4938,
+      "sha256": "77010900539dccd8e6937da498da6481ee1099b480e8add29d7e557bcb5f2273"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/dialog.tsx",
+      "bytes": 10234,
+      "sha256": "c9f46f67dc93dcdc39d6ffc3cfe86103268fc302c676231cdaf167834543b6af"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/drawer.tsx",
+      "bytes": 3384,
+      "sha256": "98f68262442c2f2c701672a1737d2287ef2dd68c397f144ded9b4d33c52a4d67"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/dropdown-menu.tsx",
+      "bytes": 22589,
+      "sha256": "23016d9f52d7fd68acdd9ba410ac2a784d8b9bd8086ccfdd4df6e654e8d4aa92"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/hooks/use-compact-viewport.tsx",
+      "bytes": 903,
+      "sha256": "56c7e82a62e3f0f35e6ffbaa1611569479de7f193ad20daef9f9466a44bce9e9"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/hooks/use-media-query.ts",
+      "bytes": 1743,
+      "sha256": "b449ce28a929d5c3f1d10b9c20e4b56aa7f30a758e296d723a24889c37754458"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/hooks/use-pointer-coarse.ts",
+      "bytes": 207,
+      "sha256": "29936c113eca630b26af167bb694920a034216cfdcb408daef13512b9e0e9a9e"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/icon.tsx",
+      "bytes": 12461,
+      "sha256": "7909a8c8175f6c388f68512b0538a51678f1feca6f7cc1f3eab3c957ca91fc63"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/input.tsx",
+      "bytes": 1066,
+      "sha256": "91027ceb1c2ae675cc9dcb867088083a522d54fbe5e4031d656a407f18e8f64c"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/menu-item-hover.tsx",
+      "bytes": 3933,
+      "sha256": "9286c07a5a97fd51ea424daf4b03dad2099c6cd9f299b1b017865ab443c37bc8"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/motion.ts",
+      "bytes": 150,
+      "sha256": "c96650e4436a54f2280efef8a953b160beae30044f36f7af4a146296d5859f82"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/overlay-trigger.ts",
+      "bytes": 4592,
+      "sha256": "72f3ef738f2ed91a9204777969af9220ce2e40ae7e162cabb6f48833fc1672c9"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/responsive-overlay.tsx",
+      "bytes": 10278,
+      "sha256": "2c065506bd56dfd5b33cc7b7b9fe3c0a7eb6b09363503efe75c204fb87c37d89"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/scroll-area.tsx",
+      "bytes": 2318,
+      "sha256": "f91d54480b0de618ebb20629513768e4007072eb63a87f881a70b82988f83a38"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/select.tsx",
+      "bytes": 5982,
+      "sha256": "54b872bcb1734ebeb524115c9993b682fe1124ce4bd71c728bc12435d8662224"
+    },
+    {
+      "path": "plugins/floating-terminal/components/ui/tooltip.tsx",
+      "bytes": 1620,
+      "sha256": "0762c69461aa3c5f6335d3c0b581a7e7ed2c9830041312935fe3e9b6d884b44b"
+    },
+    {
+      "path": "plugins/floating-terminal/fonts/LICENSE-nerd-fonts",
+      "bytes": 1082,
+      "sha256": "84a7a98c82140fb12c37fe42b93805baa16024cb3e5acc599b7ffe612c55d847"
+    },
+    {
+      "path": "plugins/floating-terminal/fonts/README.md",
+      "bytes": 1519,
+      "sha256": "441e3fce6e0603fbc1e25cd8ac3f7834a737d4d58f06568ab43f8b795e971ae4"
+    },
+    {
+      "path": "plugins/floating-terminal/fonts/nerd-symbols.css",
+      "bytes": 1523058,
+      "sha256": "df3eeaec39129403991416b37ee7fff6e4d29ca4ad583cf2c3650272f3e03c67"
+    },
+    {
+      "path": "plugins/floating-terminal/hooks/useBrowserDimmingModal.ts",
+      "bytes": 207,
+      "sha256": "8f8c9abe50cd9dd69d6f52eb87ac6e12c205e1da4d87f995e69bdd25fe73d3da"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/controller.ts",
+      "bytes": 1572,
+      "sha256": "c6721d17690b06a3131e8935dd74405d4d19121545396d42d69a81abb06275ca"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/frame.test.ts",
+      "bytes": 4703,
+      "sha256": "fe1ff7627ea7005af3fe29d48d475a7beee26d4ca0a96c91c0c7f059560738f9"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/frame.ts",
+      "bytes": 5462,
+      "sha256": "0e24bb6451be72e7358bf47a4d55d7051c7572851b135b465bc77f08bd506f35"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/keys.test.ts",
+      "bytes": 3989,
+      "sha256": "18df6025a690d94301329f19ff542b881acd43c1b5b3671f96c9109c5685c993"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/keys.ts",
+      "bytes": 4792,
+      "sha256": "f6d4eef4056ad55bf26050d8cf57f74003be84032d23a36bb17676b668d9dbc6"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/portal-scope.ts",
+      "bytes": 439,
+      "sha256": "cbf23e81c4436585a5e55a4893591d0cc22c189f54d004d70cb7e1a8cc72f988"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/pump.ts",
+      "bytes": 29806,
+      "sha256": "93c7332af012bc34d567f6894219a371fb2968378e560d0339a585c003fd6dde"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/rpc.ts",
+      "bytes": 2123,
+      "sha256": "d554816a0f4e496d3e13111bbbc286e476da5276e1118a826253fd9c570a1346"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/scopes.test.ts",
+      "bytes": 2728,
+      "sha256": "17f1cce446c36616d7184fb97ebd3edab7d13d10092e72e5e1c08598e7225e0b"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/scopes.ts",
+      "bytes": 2705,
+      "sha256": "9cd0413e5b3055f7868a0d4c8c5237b572b2d1982b99ba0ad6d172c037589a5c"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/scroll.test.ts",
+      "bytes": 2588,
+      "sha256": "cd66a54d4cce8140b5daf43eaa31495980ca2f96250204c7e5499cb68a71d88a"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/scroll.ts",
+      "bytes": 1587,
+      "sha256": "fed6dc368575ffa12ba37bd1e1f2a45922b07ca5b1c93b26a8e0ca53af3b979c"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/symbol-font.test.ts",
+      "bytes": 3082,
+      "sha256": "cdeecdfbdd787a558ff2d9748e9e29c34fa000ab70fd63fbbbd18f86cf970867"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/symbol-font.ts",
+      "bytes": 1653,
+      "sha256": "9b3ae554a4119bda9e6a47de2d81a61e7d26781e72b722d781bf6c4a627afd9b"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/tabs.test.ts",
+      "bytes": 7719,
+      "sha256": "4cb1f814d6e6fcd9e126f9004ca9ee7df6c57dc11e19982c9a617557e24e5eb4"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/tabs.ts",
+      "bytes": 5245,
+      "sha256": "a51533a10016592140517bfa853e5b85c6458d862e68c2b096d7216c44a48313"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/terminal-io.test.ts",
+      "bytes": 4774,
+      "sha256": "500ea442bfaa565c03255a9a9e6b249dcb24321d8199f72ddd440446213f5ff8"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/terminal-io.ts",
+      "bytes": 3822,
+      "sha256": "99942a9e38838a135973633a2f8b914be6b4a83cf09046a7adf7c2dda1234e25"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/theme.test.ts",
+      "bytes": 2402,
+      "sha256": "4a4113154940ccc34402ae94424cc74101ca92e1d324b44bb1ebdaabe7a21efa"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/theme.ts",
+      "bytes": 6511,
+      "sha256": "3db2bab9720b3d25a3ddd8e722698031ef566138b50d4b0e9748376d904f87fe"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/utils.ts",
+      "bytes": 909,
+      "sha256": "b301870e836f68abd6670b19e4590a8c0e08d051a4191feee06a6d4e3ef2dda1"
+    },
+    {
+      "path": "plugins/floating-terminal/lib/viewport.ts",
+      "bytes": 4296,
+      "sha256": "7b425f1dce42c984ce850a1e4245c462ac4bb602067ebb19b22154b79ac6f434"
+    },
+    {
+      "path": "plugins/floating-terminal/package-lock.json",
+      "bytes": 105287,
+      "sha256": "20a7f4eaa81b6986b204cd7c303b78a08d9c5bb653b03800c8243eb6c4f78aee"
+    },
+    {
+      "path": "plugins/floating-terminal/package.json",
+      "bytes": 1726,
+      "sha256": "6c3929f2f3592face6dcc937cbb4f80406f0fe02d23db7dd447426e87d3788a0"
+    },
+    {
+      "path": "plugins/floating-terminal/server.ts",
+      "bytes": 27449,
+      "sha256": "ef505c2d705fb2cc7ed3864e56046823db6ebcbdaa7f62b98b9bd20ca8483002"
+    },
+    {
+      "path": "plugins/floating-terminal/styles.css",
+      "bytes": 12988,
+      "sha256": "e6265568f02ad2709467976886691468395fed4315b921d596257d9951b81640"
+    },
+    {
+      "path": "plugins/floating-terminal/tests/mobile-e2e.mjs",
+      "bytes": 19260,
+      "sha256": "cef97a1da14b5f524d8e50ef26b682b7b5e250f79fabfd1d6bc8e3243021af8f"
+    },
+    {
+      "path": "plugins/floating-terminal/tests/run-mobile-matrix.mjs",
+      "bytes": 772,
+      "sha256": "bf157e048685c73e149a3facd758e6991a5f38c091346cb1ef2f65f3178410c0"
+    },
+    {
+      "path": "plugins/floating-terminal/tsconfig.json",
+      "bytes": 452,
+      "sha256": "c6dce8d1868927f0ca1e4f02520a4d1963e26e0e16434bf2557008b0c347cb80"
+    },
+    {
+      "path": "plugins/floating-terminal/types/assets.d.ts",
+      "bytes": 143,
+      "sha256": "0dc828aede7537544981c79e5eb93ceb4b6403c32e707cc84e22051ce1951b2e"
+    },
+    {
+      "path": "plugins/folder-links/README.md",
+      "bytes": 1284,
+      "sha256": "f17806ec570327674cd513a8f3ca9b77c9e9db24d173e7c6f26c0bbc429cc4db"
+    },
+    {
+      "path": "plugins/folder-links/app.tsx",
+      "bytes": 1292,
+      "sha256": "72d852c36886e7805de455f525107e7d1671bade87d6669dae45bcb73c81757a"
+    },
+    {
+      "path": "plugins/folder-links/package-lock.json",
+      "bytes": 3934,
+      "sha256": "5d046d8c95f69bce55eeb0bfd55137ef2bb64e26a1d5e18eddfb8388cc2d66f8"
+    },
+    {
+      "path": "plugins/folder-links/package.json",
+      "bytes": 844,
+      "sha256": "8690d906ff161201aa179c2e39eab3e49804a00888fb5d3a28f54ee62de1b505"
+    },
+    {
+      "path": "plugins/folder-links/rpc.ts",
+      "bytes": 1859,
+      "sha256": "82e6096e6a7c5a215ab55a8135fd02cc47d4693822aa132b9e8596a05bda860e"
+    },
+    {
+      "path": "plugins/folder-links/server.ts",
+      "bytes": 1086,
+      "sha256": "a97b2ac1cf96bb0320e6345c35b50c64031cd6c80589fd58a1a27377e0854bbc"
+    },
+    {
+      "path": "plugins/folder-links/src/FolderPanel.tsx",
+      "bytes": 8499,
+      "sha256": "630355d7b570a0d548aef19d820953a421b284755f4114803406e039c2d67251"
+    },
+    {
+      "path": "plugins/folder-links/src/PaneBridge.tsx",
+      "bytes": 1378,
+      "sha256": "4a4849ffd7f6a9ba13ff6f44460504e484c0fa7d345e3175045c6c2946d1da0f"
+    },
+    {
+      "path": "plugins/folder-links/src/chat-links.ts",
+      "bytes": 6218,
+      "sha256": "d9e058c273864063d7102416249e99e03d526cca96acd7593148506dc442cb78"
+    },
+    {
+      "path": "plugins/folder-links/src/folder-tab.ts",
+      "bytes": 972,
+      "sha256": "47795797ef4cfa784f54393923f8b0a45a438e6a201c74a8f9323d412080c41b"
+    },
+    {
+      "path": "plugins/folder-links/src/folders.ts",
+      "bytes": 7695,
+      "sha256": "59bde0312782fcd0396ee406828fce3b4069e21e93dd724c7ff588d51042d01c"
+    },
+    {
+      "path": "plugins/folder-links/src/panes.ts",
+      "bytes": 2997,
+      "sha256": "7f6514feda9b59d3742c30e672f825f7cb55881dc6290f816a8574e2e869c8e1"
+    },
+    {
+      "path": "plugins/folder-links/tests/folders.test.ts",
+      "bytes": 8555,
+      "sha256": "8edd7a011d08496ebffa87f9393a240e9fe37dec98a861200f388761a5db4f59"
+    },
+    {
+      "path": "plugins/folder-links/tsconfig.json",
+      "bytes": 328,
+      "sha256": "a17970387b6b419be540d68aa11bbcc80ee5433e3613e94fcaa7b3d16c036617"
+    },
+    {
+      "path": "plugins/markdown-view/README.md",
+      "bytes": 2817,
+      "sha256": "72dc18c435f97d811e28481529b7be53135888cff6463b32248c178d2ba5e4c5"
+    },
+    {
+      "path": "plugins/markdown-view/app.tsx",
+      "bytes": 803,
+      "sha256": "df2d3cbd0721c1eee474966846f1da18b12e306d14565d619d95440a5e058f41"
+    },
+    {
+      "path": "plugins/markdown-view/package-lock.json",
+      "bytes": 7922,
+      "sha256": "a81190c6e4baad984750e68c2131d0d233281aa7aebe06b46b71de5dc26f8d63"
+    },
+    {
+      "path": "plugins/markdown-view/package.json",
+      "bytes": 1003,
+      "sha256": "f8340028c98a77f3ff2ba6ef96af93678c4a55293e83817a2aa374173cd11c1d"
+    },
+    {
+      "path": "plugins/markdown-view/server.ts",
+      "bytes": 3087,
+      "sha256": "7a927c63ecf989da0f11387ce7c8cdf78963bbbf1cdb76abf72560d7561a9b07"
+    },
+    {
+      "path": "plugins/markdown-view/src/Editor.tsx",
+      "bytes": 29709,
+      "sha256": "eade5f099d946c4f0c70f0940dc692a214af7e6f49a904de68c692baea451701"
+    },
+    {
+      "path": "plugins/markdown-view/src/LICENSE",
+      "bytes": 1070,
+      "sha256": "b89c1394c40952ae54f2333fcef1d45dda360fbf8ea27b4d20361ba2794e3373"
+    },
+    {
+      "path": "plugins/markdown-view/src/MarkdownOpener.tsx",
+      "bytes": 3012,
+      "sha256": "5b8fbbb63e40f4d86e0b1e27a3950185d3b603cf61de91892413e264263fa303"
+    },
+    {
+      "path": "plugins/markdown-view/src/README.md",
+      "bytes": 1283,
+      "sha256": "de1efd12df5f84709a81d54e0e4cf172bbc3d854211a07c112ca5d73c5811ffa"
+    },
+    {
+      "path": "plugins/markdown-view/src/display.tsx",
+      "bytes": 7463,
+      "sha256": "d01d8e9c86147ebfafa7b2cdfc07507688d4e41ce66cece60522eb7a961d17e2"
+    },
+    {
+      "path": "plugins/markdown-view/src/file-access.ts",
+      "bytes": 4644,
+      "sha256": "654302fca10cd96a1b8ab3233f24336ef7307c660c3557c0fe52c52e567a1cac"
+    },
+    {
+      "path": "plugins/markdown-view/src/links.ts",
+      "bytes": 3314,
+      "sha256": "c203ed261582ac9db37571a37a1fb196511d6b3038658ef2c8df1fa7f7080b02"
+    },
+    {
+      "path": "plugins/markdown-view/src/look.ts",
+      "bytes": 5719,
+      "sha256": "2afb134bdbc93da3bbc07ae288a1cbbffc87ba3cabfcdd6579d9e91522b2321a"
+    },
+    {
+      "path": "plugins/markdown-view/src/package.json",
+      "bytes": 972,
+      "sha256": "2440f5319b6d7b138c203f17ffbfae273231aa1fdcf4bf08b5d07d7d2975b118"
+    },
+    {
+      "path": "plugins/markdown-view/src/preserve.ts",
+      "bytes": 9051,
+      "sha256": "2266a1ac22b8bb5777bbf947d89c92a57e4d70d524d4baac188b8cafa997ce72"
+    },
+    {
+      "path": "plugins/markdown-view/src/touch-toolbar.ts",
+      "bytes": 3137,
+      "sha256": "5847d6c66e35cd5702e89c9b4a0729b4b26b0a582350338e33e2956fb2d2c575"
+    },
+    {
+      "path": "plugins/markdown-view/src/ui.tsx",
+      "bytes": 6713,
+      "sha256": "136165cca86fe3505c0c3ed030aa88c7b1d286f24def46b8121e67ac8c1f9870"
+    },
+    {
+      "path": "plugins/markdown-view/src/vditor.ts",
+      "bytes": 4176,
+      "sha256": "ab7053f82fc862e30e9f06b399e204f538cfd87d65e32f1a25cacda5abade099"
+    },
+    {
+      "path": "plugins/markdown-view/tests/file-access.test.ts",
+      "bytes": 4188,
+      "sha256": "0299d68db58b59ec93eefec3357257f00532a3d68b04ce14b0910e268d978509"
+    },
+    {
+      "path": "plugins/markdown-view/tests/links.test.ts",
+      "bytes": 3458,
+      "sha256": "03b0a839ed0f3e867e9a623725634d9e3b8564f61465e0515d2e8a3d456cfa3c"
+    },
+    {
+      "path": "plugins/markdown-view/tests/lute.test.ts",
+      "bytes": 1775,
+      "sha256": "0e2674de701c8380e610e8cbc214fbb3f4bde3726562d12f4ae9fa26de3bcc73"
+    },
+    {
+      "path": "plugins/markdown-view/tests/package.test.ts",
+      "bytes": 2348,
+      "sha256": "1f6bc45c1f80a6411d834820638e8c60f36475c98ebab67bd05935bdc1a63b74"
+    },
+    {
+      "path": "plugins/markdown-view/tests/preserve.test.ts",
+      "bytes": 3698,
+      "sha256": "5e7e442c6452aa54e2f56156250fa3804fbdb51814cafeaa97ac6f56da4e4fad"
+    },
+    {
+      "path": "plugins/markdown-view/tests/touch-toolbar.test.ts",
+      "bytes": 1200,
+      "sha256": "6b8609de1d40f8d2a68115233b50ee7bceb16628144875ce68c334923b1fa968"
+    },
+    {
+      "path": "plugins/markdown-view/tsconfig.json",
+      "bytes": 318,
+      "sha256": "c2920773e1df296d5f4bc818f0fe3975d05e90ce9ee42bece318454fdc72f32e"
+    },
+    {
+      "path": "plugins/office-preview/README.md",
+      "bytes": 1914,
+      "sha256": "bba6dbcb2ee107078000f43a32b026b71d370b57a695361fcf3aafccfe135020"
+    },
+    {
+      "path": "plugins/office-preview/app.tsx",
+      "bytes": 1612,
+      "sha256": "76371b8309460cbe8c2fdc7065b917ac9557ed8db51c64a30ecda4fdc71e42ce"
+    },
+    {
+      "path": "plugins/office-preview/package-lock.json",
+      "bytes": 49549,
+      "sha256": "c555e286dc398ec9c7140137d9ca917a9db1ff33dac741918638471e93837610"
+    },
+    {
+      "path": "plugins/office-preview/package.json",
+      "bytes": 1038,
+      "sha256": "28dddd52850d6f9b6315a8b080b14e9bb921199e28cb3ef7958cda284f619a7d"
+    },
+    {
+      "path": "plugins/office-preview/server.ts",
+      "bytes": 2025,
+      "sha256": "29c2155aa2263025a66c7894fed342d2015ee5163932315d321cadf4fff75e4c"
+    },
+    {
+      "path": "plugins/office-preview/src/DocxView.tsx",
+      "bytes": 5012,
+      "sha256": "54d5053ebe4920199d95c7078181af92d3cea4c9d1e5c2889d2362a107d2fc12"
+    },
+    {
+      "path": "plugins/office-preview/src/LICENSE",
+      "bytes": 1070,
+      "sha256": "b89c1394c40952ae54f2333fcef1d45dda360fbf8ea27b4d20361ba2794e3373"
+    },
+    {
+      "path": "plugins/office-preview/src/LegacyDocView.tsx",
+      "bytes": 2664,
+      "sha256": "a85dad17cf6c38a46378e13be55bfeccf345b268a5fbd7b8fce39bc5176327d3"
+    },
+    {
+      "path": "plugins/office-preview/src/PptxView.tsx",
+      "bytes": 5017,
+      "sha256": "7b3f5e42d5674ed0468e5813c4a6a83c2974892a954245096282dc5e15c3c3d5"
+    },
+    {
+      "path": "plugins/office-preview/src/README.md",
+      "bytes": 1281,
+      "sha256": "b31edd3f06d8321ecd96c5aac8afc5a1bbad761735475bea7e95ee3e88624287"
+    },
+    {
+      "path": "plugins/office-preview/src/SandboxFrame.tsx",
+      "bytes": 2713,
+      "sha256": "b908d210a17cdeb381c9455def9815d224d3af011a27b3266773541ec92bfd7f"
+    },
+    {
+      "path": "plugins/office-preview/src/SheetGrid.tsx",
+      "bytes": 16823,
+      "sha256": "3d582ad732b7898633787c7719e49dadaacc4efdbd0caedf5769f981a5dcc717"
+    },
+    {
+      "path": "plugins/office-preview/src/WorkbookView.tsx",
+      "bytes": 3900,
+      "sha256": "8a06816c1baad8302a6c3e30e89494515fafc41816da8941d08665495aa96dda"
+    },
+    {
+      "path": "plugins/office-preview/src/colors.ts",
+      "bytes": 3629,
+      "sha256": "1efcc424594bbe6ed3502d5b41b63403c2ee299f7fc23eeddcea4f6e12f99f85"
+    },
+    {
+      "path": "plugins/office-preview/src/external.ts",
+      "bytes": 2120,
+      "sha256": "2a880644146b76b27e3e80c5577589e894e8a1415478122ee942d3b91c04ece3"
+    },
+    {
+      "path": "plugins/office-preview/src/fetch-file.ts",
+      "bytes": 3688,
+      "sha256": "e3cbdb7a43d321a18af44e35eafb7f68b8eed9fa8ef694f2b1ae3d4bdd50f604"
+    },
+    {
+      "path": "plugins/office-preview/src/format.ts",
+      "bytes": 2980,
+      "sha256": "5a7268c60913a3aa8428dbb4d1a80edb7a71d07088839e69fd39284810a83e9b"
+    },
+    {
+      "path": "plugins/office-preview/src/formats.ts",
+      "bytes": 455,
+      "sha256": "5b3c73f3f48b2aad745640f863f0e218c234d446bc8cc31c08636cd17ee87839"
+    },
+    {
+      "path": "plugins/office-preview/src/model.ts",
+      "bytes": 2407,
+      "sha256": "bf4f996ca2436a938994fbc6e6676b927c016aebb403ebe9c08e9ad80a7ca611"
+    },
+    {
+      "path": "plugins/office-preview/src/opener-ui.tsx",
+      "bytes": 6638,
+      "sha256": "a476b4cf1f068fc353b3427250d842059fae69f290bb05bb6ea4185d9500dbef"
+    },
+    {
+      "path": "plugins/office-preview/src/openers.tsx",
+      "bytes": 3160,
+      "sha256": "178a5e40d43e70a42ad7dd806955c22026109880cac739dd7eac2d6df2b2d74b"
+    },
+    {
+      "path": "plugins/office-preview/src/package.json",
+      "bytes": 1098,
+      "sha256": "94826400ef82f09e09d2f51ca5bff6fd9928bcb583a64e0777bd32d6684eb47d"
+    },
+    {
+      "path": "plugins/office-preview/src/parse-sheetjs.ts",
+      "bytes": 4449,
+      "sha256": "174e4afd303e9b94ca8addeac8a3c19f6f70ae494b6aa2acf8e02d852fae3490"
+    },
+    {
+      "path": "plugins/office-preview/src/parse-xlsx.ts",
+      "bytes": 10316,
+      "sha256": "d6e7a1a7fb985257fe7b78d3c578b47794867d5cccf52006f5426596d91a46d4"
+    },
+    {
+      "path": "plugins/office-preview/src/parse.ts",
+      "bytes": 1607,
+      "sha256": "7c24f407c23ae06437ee99cab22c36c5eba4688bc286841981b3294dbaae8343"
+    },
+    {
+      "path": "plugins/office-preview/src/pptx-notes.ts",
+      "bytes": 2931,
+      "sha256": "618e3c8dec2ff6a56e6dd13201013dd8bb7fcae5927d86d77e80557337c862fd"
+    },
+    {
+      "path": "plugins/office-preview/src/rpc.ts",
+      "bytes": 898,
+      "sha256": "d34f943e9c021f62662f089edff206fb0c8330440b1d56ed0db549cf8d3c6f37"
+    },
+    {
+      "path": "plugins/office-preview/tests/fetch-file.test.ts",
+      "bytes": 4071,
+      "sha256": "058b5883e259a7885a44c96a5873827fd66c75014b6bf78586e633ad3a7886c8"
+    },
+    {
+      "path": "plugins/office-preview/tests/package.test.ts",
+      "bytes": 2348,
+      "sha256": "1f6bc45c1f80a6411d834820638e8c60f36475c98ebab67bd05935bdc1a63b74"
+    },
+    {
+      "path": "plugins/office-preview/tsconfig.json",
+      "bytes": 318,
+      "sha256": "c2920773e1df296d5f4bc818f0fe3975d05e90ce9ee42bece318454fdc72f32e"
+    },
+    {
+      "path": "theme/README.md",
+      "bytes": 932,
+      "sha256": "92cd60641887f9c484c76d91396857e162a7bb2c98e4d7fd6ad8f7b542824c1d"
+    },
+    {
+      "path": "theme/atom-one_vibecom/LICENSE-One-Dark.txt",
+      "bytes": 1079,
+      "sha256": "3ef9ebb4bf1676792b5c98efaaf27335a3f6c5861c68d952e565df2fa7524d5e"
+    },
+    {
+      "path": "theme/atom-one_vibecom/one-dark.json",
+      "bytes": 50527,
+      "sha256": "d57b65718dd5aa5779fe4a5f2d48f9b214aa1304362e04eaff30dc94f87baa36"
+    },
+    {
+      "path": "theme/atom-one_vibecom/theme.css",
+      "bytes": 3687,
+      "sha256": "d0bc5000629d8285d6ae8935feb2d0811af939372d98505a67799d1d15b7e723"
+    },
+    {
+      "path": "theme/atom-one_vibecom/theme.json",
+      "bytes": 78,
+      "sha256": "675e67b4f89d236813104ff92c4b7406f3592d1aaa4db5b796f655afffccf093"
+    }
+  ]
+}

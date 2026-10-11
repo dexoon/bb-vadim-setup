@@ -1,0 +1,141 @@
+/*
+ * atom-one — Atom One Dark (dark) + Atom One Light (light) for bb.
+ * Dark values come from the VS Code "Atom One Dark" theme
+ * (akamud.vscode-theme-onedark 2.3.0); light values from Atom One Light.
+ * Terminal colors: One Half Dark / One Half Light (terminal port of Atom One).
+ */
+
+:root,
+.light {
+  /* Anchors — One Light: syntax-bg / mono-1 */
+  --canvas: #fafafa;
+  --ink: #383a42;
+
+  /* Accent — hue-2 blue */
+  --primary: #4078f2;
+  --primary-foreground: #ffffff;
+  --file-accent: #4078f2;
+
+  /* Text tiers — derived from whichever anchors are active (both modes) */
+  --muted-foreground: color-mix(in oklch, var(--ink) 70%, var(--canvas));
+  --subtle-foreground: color-mix(in oklch, var(--ink) 58%, var(--canvas));
+  --readback-foreground: color-mix(in oklch, var(--ink) 64%, var(--canvas));
+
+  /* Semantic */
+  --destructive: #e45649;
+  --destructive-foreground: #ffffff;
+  --destructive-text: #ca1243;
+  --warning: #c18401;
+  --warning-text: #986801;
+  --attention: #c18401;
+  --success: #50a14f;
+  --diff-added: #50a14f;
+  --diff-removed: #e45649;
+  --pr-merged: #a626a4;
+
+  /* Terminal — One Half Light */
+  --ansi-0: #383a42;
+  --ansi-1: #e45649;
+  --ansi-2: #50a14f;
+  --ansi-3: #c18301;
+  --ansi-4: #0184bc;
+  --ansi-5: #a626a4;
+  --ansi-6: #0997b3;
+  --ansi-7: #fafafa;
+  --ansi-8: #4f525e;
+  --ansi-9: #e06c75;
+  --ansi-10: #98c379;
+  --ansi-11: #e5c07b;
+  --ansi-12: #61afef;
+  --ansi-13: #c678dd;
+  --ansi-14: #56b6c2;
+  --ansi-15: #ffffff;
+
+  --ansi-bg-fg-0: #ffffff;
+  --ansi-bg-fg-1: #ffffff;
+  --ansi-bg-fg-2: #383a42;
+  --ansi-bg-fg-3: #383a42;
+  --ansi-bg-fg-4: #ffffff;
+  --ansi-bg-fg-5: #ffffff;
+  --ansi-bg-fg-6: #ffffff;
+  --ansi-bg-fg-7: #383a42;
+  --ansi-bg-fg-8: #ffffff;
+  --ansi-bg-fg-9: #383a42;
+  --ansi-bg-fg-10: #383a42;
+  --ansi-bg-fg-11: #383a42;
+  --ansi-bg-fg-12: #383a42;
+  --ansi-bg-fg-13: #383a42;
+  --ansi-bg-fg-14: #383a42;
+  --ansi-bg-fg-15: #383a42;
+}
+
+.dark {
+  /* Anchors — darker than VS Code's editor.background (#282c34) for contrast;
+     text stays VS Code editor.foreground */
+  --canvas: #1a1c21;
+  --ink: #abb2bf;
+
+  /* Left rail — one step darker than canvas, like VS Code's sideBar */
+  --sidebar: #141619;
+
+  /* Accent — One Dark blue */
+  --primary: #61afef;
+  --primary-foreground: #282c34;
+  --file-accent: #61afef;
+
+  /* Semantic */
+  --destructive: #e06c75;
+  --destructive-foreground: #282c34;
+  --destructive-text: #e06c75;
+  --warning: #e5c07b;
+  --warning-text: #e5c07b;
+  --attention: #d19a66;
+  --success: #98c379;
+  --diff-added: #98c379;
+  --diff-removed: #e06c75;
+  --pr-merged: #c678dd;
+
+  /* Terminal — One Half Dark */
+  --ansi-0: #282c34;
+  --ansi-1: #e06c75;
+  --ansi-2: #98c379;
+  --ansi-3: #e5c07b;
+  --ansi-4: #61afef;
+  --ansi-5: #c678dd;
+  --ansi-6: #56b6c2;
+  --ansi-7: #dcdfe4;
+  --ansi-8: #5a6374;
+  --ansi-9: #e06c75;
+  --ansi-10: #98c379;
+  --ansi-11: #e5c07b;
+  --ansi-12: #61afef;
+  --ansi-13: #c678dd;
+  --ansi-14: #56b6c2;
+  --ansi-15: #dcdfe4;
+
+  --ansi-bg-fg-0: #fafafa;
+  --ansi-bg-fg-1: #282c34;
+  --ansi-bg-fg-2: #282c34;
+  --ansi-bg-fg-3: #282c34;
+  --ansi-bg-fg-4: #282c34;
+  --ansi-bg-fg-5: #282c34;
+  --ansi-bg-fg-6: #282c34;
+  --ansi-bg-fg-7: #282c34;
+  --ansi-bg-fg-8: #fafafa;
+  --ansi-bg-fg-9: #282c34;
+  --ansi-bg-fg-10: #282c34;
+  --ansi-bg-fg-11: #282c34;
+  --ansi-bg-fg-12: #282c34;
+  --ansi-bg-fg-13: #282c34;
+  --ansi-bg-fg-14: #282c34;
+  --ansi-bg-fg-15: #282c34;
+}
+
+/* BB 0.44: keep permission controls usable when a compact composer expands. */
+[data-follow-up-composer][data-follow-up-composer-expanded] [data-follow-up-composer-footer] {
+  opacity: 1;
+  pointer-events: auto;
+  min-height: 1.5rem;
+  max-height: 1.5rem;
+  margin-top: 0.25rem;
+}

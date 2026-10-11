@@ -1,0 +1,35 @@
+{
+  "name": "bb-plugin-markdown-view",
+  "version": "0.2.0",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"tests/*.test.ts\""
+  },
+  "engines": {
+    "bb": ">=0.43",
+    "bbPluginSdk": ">=0.5.9"
+  },
+  "bb": {
+    "name": "Markdown_vibecom",
+    "description": "Opens Markdown files read-only in the look of Typora: links, tables, heading marks, an outline, relative images, refreshed live when the file changes on disk. The Edit button turns on editing in place with Vditor, the engine of the VS Code Office Viewer extension, and saves only the lines you changed.",
+    "branding": {
+      "icon": "FileText"
+    },
+    "server": "./server.ts",
+    "app": "./app.tsx",
+    "skills": []
+  },
+  "dependencies": {
+    "diff": "9.0.0",
+    "vditor": "4.0.0"
+  },
+  "devDependencies": {
+    "@get-bb/plugin-sdk": "0.6.15",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.7.0"
+  }
+}
