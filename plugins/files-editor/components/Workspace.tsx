@@ -15,6 +15,7 @@ import { createIgnoreMatcher } from "@/lib/gitignore";
 import type { ScopeRef } from "@/lib/route";
 import { sameScope } from "@/lib/route";
 import { isMarkdownPath } from "@/lib/markdown";
+import { focusIfFree } from "@/lib/focus";
 import {
   OPEN_DOCUMENTS_SETTING,
   documentOpenWith,
@@ -210,8 +211,10 @@ export function Workspace({
   // to ignore until the route catches up.
   const staleRouteFile = useRef<string | null>(null);
 
+  // Not over a field typed into elsewhere: the surface also mounts by itself
+  // (⌘J, a file link from the chat, a reload), and the caret must stay put.
   useEffect(() => {
-    rootRef.current?.focus({ preventScroll: true });
+    focusIfFree(rootRef.current, { preventScroll: true });
   }, []);
 
   // Width of the surface, not of the window: a right panel can be narrow on a
@@ -231,7 +234,7 @@ export function Workspace({
     const root = rootRef.current;
     if (root === null) return;
     if (root.contains(document.activeElement)) return;
-    root.focus({ preventScroll: true });
+    focusIfFree(root, { preventScroll: true });
   }, []);
 
   const loadTree = useCallback(
@@ -883,8 +886,10 @@ export function Workspace({
       ref={rootRef}
       onKeyDown={onKeyDown}
       // Focusable and focused on mount so ⌘P and ⌘S work before anything inside
-      // has been clicked, and again after a child that had focus unmounts.
+      // has been clicked, and again after a child that had focus unmounts —
+      // unless a field outside is being typed into (lib/focus.ts).
       tabIndex={-1}
+      data-explorer-root=""
       // `h-full` as well as `flex-1`: flex-1 only sizes this when the host
       // hands the surface a flex column. A thread panel tab is a definite-height
       // box, where flex-1 does nothing, the root takes its content's height, and

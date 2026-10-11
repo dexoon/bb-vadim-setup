@@ -1,0 +1,4 @@
+{
+  "yandex": { "type": "api_key", "key": "YOUR_YANDEX_API_KEY" },
+  "cloudru": { "type": "api_key", "key": "YOUR_CLOUD_RU_KEY_SECRET" }
+}

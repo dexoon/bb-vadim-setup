@@ -1,8 +1,8 @@
 {
-  "format": 1,
+  "format": 3,
   "created": "2026-10-11",
-  "name": "bb-vadim-setup",
-  "version": "0.2.0",
+  "name": "bb-vadim-kit",
+  "version": "0.3.0",
   "license": "MIT",
   "checked_environment": [
     {
@@ -10,7 +10,7 @@
       "bb_sdk": "0.6.37",
       "node": "25.2.1",
       "os": "macOS",
-      "scope": "release 0.2.0: tagged clone, BB-style npm install (--omit=dev) and bb plugin build for five plugins; developer npm ci, tests, typecheck; author's working copies of the same plugin code running",
+      "scope": "release 0.3.0: plugins built from scratch (npm ci, empty cache) and tested; tagged clone, BB-style npm install (--omit=dev) and bb plugin build for five plugins; kit ZIP and agent file checked by scripts/check-kit.py",
       "bb_npm": "11.16.0"
     },
     {
@@ -32,7 +32,7 @@
     {
       "id": "markdown-view",
       "name": "Markdown_vibecom",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "path": "plugins/markdown-view",
       "pinned_sdk": "0.6.15",
       "tests": 28
@@ -40,7 +40,7 @@
     {
       "id": "office-preview",
       "name": "Office_vibecom",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "path": "plugins/office-preview",
       "pinned_sdk": "0.6.15",
       "tests": 10
@@ -48,10 +48,14 @@
     {
       "id": "folder-links",
       "name": "Folder links_vibecom",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "path": "plugins/folder-links",
       "pinned_sdk": "0.5.9",
-      "tests": 10
+      "tests": 10,
+      "os": [
+        "macOS",
+        "Linux"
+      ]
     },
     {
       "id": "files-editor",
@@ -59,7 +63,7 @@
       "version": "0.1.6",
       "path": "plugins/files-editor",
       "pinned_sdk": "0.6.15",
-      "tests": 366,
+      "tests": 373,
       "upstream": {
         "source": "https://github.com/abdoutelb/bb-plugin-files-editor",
         "tag": "v0.1.6",
@@ -77,7 +81,8 @@
         "@vibecommerce/markdown-view@0.1.0",
         "@vibecommerce/office-preview@0.1.0"
       ],
-      "git_install": true
+      "git_install": true,
+      "os_notes": "Open documents in = Mac app works only when bb runs on macOS"
     },
     {
       "id": "floating-terminal",
@@ -101,274 +106,46 @@
     "syntax_license": "MIT",
     "path": "theme/atom-one_vibecom"
   },
-  "previous_release": {
-    "version": "0.1.0",
-    "changed": [
-      ".gitignore",
-      "CHANGELOG.md",
-      "GUIDE.md",
-      "README.md",
-      "THIRD_PARTY_NOTICES.md",
-      "VALIDATION.md",
-      "VERSION",
-      "examples/README.md",
-      "examples/demo.md",
-      "plugins/README.md",
-      "plugins/folder-links/README.md",
-      "plugins/folder-links/package-lock.json",
-      "plugins/folder-links/package.json",
-      "plugins/markdown-view/README.md",
-      "plugins/markdown-view/app.tsx",
-      "plugins/markdown-view/package-lock.json",
-      "plugins/markdown-view/package.json",
-      "plugins/markdown-view/server.ts",
-      "plugins/markdown-view/src/Editor.tsx",
-      "plugins/markdown-view/src/MarkdownOpener.tsx",
-      "plugins/markdown-view/src/file-access.ts",
-      "plugins/markdown-view/src/ui.tsx",
-      "plugins/markdown-view/src/vditor.ts",
-      "plugins/office-preview/README.md",
-      "plugins/office-preview/app.tsx",
-      "plugins/office-preview/package-lock.json",
-      "plugins/office-preview/package.json",
-      "plugins/office-preview/server.ts",
-      "plugins/office-preview/src/LegacyDocView.tsx",
-      "plugins/office-preview/src/fetch-file.ts",
-      "plugins/office-preview/src/opener-ui.tsx",
-      "plugins/office-preview/tsconfig.json",
-      "theme/README.md"
-    ],
-    "added": [
-      "plugins/files-editor/LICENSE",
-      "plugins/files-editor/README.md",
-      "plugins/files-editor/app.tsx",
-      "plugins/files-editor/assets/icon.svg",
-      "plugins/files-editor/components.json",
-      "plugins/files-editor/components/DocumentView.tsx",
-      "plugins/files-editor/components/EditorTabs.tsx",
-      "plugins/files-editor/components/EntryMenu.tsx",
-      "plugins/files-editor/components/Explorer.tsx",
-      "plugins/files-editor/components/FileDialogs.tsx",
-      "plugins/files-editor/components/FileGlyph.tsx",
-      "plugins/files-editor/components/FileView.tsx",
-      "plugins/files-editor/components/FindBar.tsx",
-      "plugins/files-editor/components/NameResults.tsx",
-      "plugins/files-editor/components/PdfPages.tsx",
-      "plugins/files-editor/components/QuickOpen.tsx",
-      "plugins/files-editor/components/RecentMenu.tsx",
-      "plugins/files-editor/components/RootSwitcher.tsx",
-      "plugins/files-editor/components/SearchResults.tsx",
-      "plugins/files-editor/components/SortMenu.tsx",
-      "plugins/files-editor/components/TabContextMenu.tsx",
-      "plugins/files-editor/components/Workspace.tsx",
-      "plugins/files-editor/components/WorkspacePicker.tsx",
-      "plugins/files-editor/components/ui/button.tsx",
-      "plugins/files-editor/components/ui/card.tsx",
-      "plugins/files-editor/components/ui/checkbox.tsx",
-      "plugins/files-editor/components/ui/coarse-pointer-sizing.ts",
-      "plugins/files-editor/components/ui/dialog.tsx",
-      "plugins/files-editor/components/ui/hooks/use-compact-viewport.tsx",
-      "plugins/files-editor/components/ui/hooks/use-media-query.ts",
-      "plugins/files-editor/components/ui/icon-extended.tsx",
-      "plugins/files-editor/components/ui/icon-registry.ts",
-      "plugins/files-editor/components/ui/icon.tsx",
-      "plugins/files-editor/components/ui/input.tsx",
-      "plugins/files-editor/components/ui/motion.ts",
-      "plugins/files-editor/components/ui/overlay-trigger.ts",
-      "plugins/files-editor/components/ui/responsive-overlay.tsx",
-      "plugins/files-editor/components/use-file-operations.tsx",
-      "plugins/files-editor/components/use-file-tabs.ts",
-      "plugins/files-editor/components/use-transfers.tsx",
-      "plugins/files-editor/hooks/useBrowserDimmingModal.ts",
-      "plugins/files-editor/lib/cli-output.test.ts",
-      "plugins/files-editor/lib/cli-output.ts",
-      "plugins/files-editor/lib/entry-menu.test.ts",
-      "plugins/files-editor/lib/entry-menu.ts",
-      "plugins/files-editor/lib/entry-paths.ts",
-      "plugins/files-editor/lib/file-kind.ts",
-      "plugins/files-editor/lib/find.test.ts",
-      "plugins/files-editor/lib/find.ts",
-      "plugins/files-editor/lib/gitignore.test.ts",
-      "plugins/files-editor/lib/gitignore.ts",
-      "plugins/files-editor/lib/home.test.ts",
-      "plugins/files-editor/lib/home.ts",
-      "plugins/files-editor/lib/lazy-tree.test.ts",
-      "plugins/files-editor/lib/lazy-tree.ts",
-      "plugins/files-editor/lib/markdown.test.ts",
-      "plugins/files-editor/lib/markdown.ts",
-      "plugins/files-editor/lib/mutations.test.ts",
-      "plugins/files-editor/lib/mutations.ts",
-      "plugins/files-editor/lib/open-with.test.ts",
-      "plugins/files-editor/lib/open-with.ts",
-      "plugins/files-editor/lib/panel-state.test.ts",
-      "plugins/files-editor/lib/panel-state.ts",
-      "plugins/files-editor/lib/paths.test.ts",
-      "plugins/files-editor/lib/paths.ts",
-      "plugins/files-editor/lib/portal-scope.ts",
-      "plugins/files-editor/lib/regex-worker.ts",
-      "plugins/files-editor/lib/route.test.ts",
-      "plugins/files-editor/lib/route.ts",
-      "plugins/files-editor/lib/search-run.test.ts",
-      "plugins/files-editor/lib/search-run.ts",
-      "plugins/files-editor/lib/search-sources.test.ts",
-      "plugins/files-editor/lib/search-sources.ts",
-      "plugins/files-editor/lib/secrets.test.ts",
-      "plugins/files-editor/lib/secrets.ts",
-      "plugins/files-editor/lib/text-search.test.ts",
-      "plugins/files-editor/lib/text-search.ts",
-      "plugins/files-editor/lib/transfer.test.ts",
-      "plugins/files-editor/lib/transfer.ts",
-      "plugins/files-editor/lib/tree.test.ts",
-      "plugins/files-editor/lib/tree.ts",
-      "plugins/files-editor/lib/upload-manager.test.ts",
-      "plugins/files-editor/lib/upload-manager.ts",
-      "plugins/files-editor/lib/uploads.test.ts",
-      "plugins/files-editor/lib/uploads.ts",
-      "plugins/files-editor/lib/utils.ts",
-      "plugins/files-editor/lib/vendor-viewers.test.ts",
-      "plugins/files-editor/lib/walk.test.ts",
-      "plugins/files-editor/lib/walk.ts",
-      "plugins/files-editor/lib/workspaces.test.ts",
-      "plugins/files-editor/lib/workspaces.ts",
-      "plugins/files-editor/package-lock.json",
-      "plugins/files-editor/package.json",
-      "plugins/files-editor/server.ts",
-      "plugins/files-editor/skills/project-files/SKILL.md",
-      "plugins/files-editor/tsconfig.json",
-      "plugins/files-editor/tsconfig.typecheck.json",
-      "plugins/files-editor/vendor/README.md",
-      "plugins/files-editor/vendor/markdown-view.tgz",
-      "plugins/files-editor/vendor/office-preview.tgz",
-      "plugins/files-editor/vitest.config.ts",
-      "plugins/floating-terminal/LICENSE",
-      "plugins/floating-terminal/README.md",
-      "plugins/floating-terminal/app.tsx",
-      "plugins/floating-terminal/components.json",
-      "plugins/floating-terminal/components/find-bar.tsx",
-      "plugins/floating-terminal/components/floating-terminal.tsx",
-      "plugins/floating-terminal/components/key-toolbar.tsx",
-      "plugins/floating-terminal/components/panel-terminal.tsx",
-      "plugins/floating-terminal/components/shell-picker.tsx",
-      "plugins/floating-terminal/components/tab-bar.tsx",
-      "plugins/floating-terminal/components/terminal-surface.tsx",
-      "plugins/floating-terminal/components/terminal-view.tsx",
-      "plugins/floating-terminal/components/ui/badge.tsx",
-      "plugins/floating-terminal/components/ui/button.tsx",
-      "plugins/floating-terminal/components/ui/card.tsx",
-      "plugins/floating-terminal/components/ui/coarse-pointer-sizing.ts",
-      "plugins/floating-terminal/components/ui/command.tsx",
-      "plugins/floating-terminal/components/ui/dialog.tsx",
-      "plugins/floating-terminal/components/ui/drawer.tsx",
-      "plugins/floating-terminal/components/ui/dropdown-menu.tsx",
-      "plugins/floating-terminal/components/ui/hooks/use-compact-viewport.tsx",
-      "plugins/floating-terminal/components/ui/hooks/use-media-query.ts",
-      "plugins/floating-terminal/components/ui/hooks/use-pointer-coarse.ts",
-      "plugins/floating-terminal/components/ui/icon.tsx",
-      "plugins/floating-terminal/components/ui/input.tsx",
-      "plugins/floating-terminal/components/ui/menu-item-hover.tsx",
-      "plugins/floating-terminal/components/ui/motion.ts",
-      "plugins/floating-terminal/components/ui/overlay-trigger.ts",
-      "plugins/floating-terminal/components/ui/responsive-overlay.tsx",
-      "plugins/floating-terminal/components/ui/scroll-area.tsx",
-      "plugins/floating-terminal/components/ui/select.tsx",
-      "plugins/floating-terminal/components/ui/tooltip.tsx",
-      "plugins/floating-terminal/fonts/LICENSE-nerd-fonts",
-      "plugins/floating-terminal/fonts/README.md",
-      "plugins/floating-terminal/fonts/nerd-symbols.css",
-      "plugins/floating-terminal/hooks/useBrowserDimmingModal.ts",
-      "plugins/floating-terminal/lib/controller.ts",
-      "plugins/floating-terminal/lib/frame.test.ts",
-      "plugins/floating-terminal/lib/frame.ts",
-      "plugins/floating-terminal/lib/keys.test.ts",
-      "plugins/floating-terminal/lib/keys.ts",
-      "plugins/floating-terminal/lib/portal-scope.ts",
-      "plugins/floating-terminal/lib/pump.ts",
-      "plugins/floating-terminal/lib/rpc.ts",
-      "plugins/floating-terminal/lib/scopes.test.ts",
-      "plugins/floating-terminal/lib/scopes.ts",
-      "plugins/floating-terminal/lib/scroll.test.ts",
-      "plugins/floating-terminal/lib/scroll.ts",
-      "plugins/floating-terminal/lib/symbol-font.test.ts",
-      "plugins/floating-terminal/lib/symbol-font.ts",
-      "plugins/floating-terminal/lib/tabs.test.ts",
-      "plugins/floating-terminal/lib/tabs.ts",
-      "plugins/floating-terminal/lib/terminal-io.test.ts",
-      "plugins/floating-terminal/lib/terminal-io.ts",
-      "plugins/floating-terminal/lib/theme.test.ts",
-      "plugins/floating-terminal/lib/theme.ts",
-      "plugins/floating-terminal/lib/utils.ts",
-      "plugins/floating-terminal/lib/viewport.ts",
-      "plugins/floating-terminal/package-lock.json",
-      "plugins/floating-terminal/package.json",
-      "plugins/floating-terminal/server.ts",
-      "plugins/floating-terminal/styles.css",
-      "plugins/floating-terminal/tests/mobile-e2e.mjs",
-      "plugins/floating-terminal/tests/run-mobile-matrix.mjs",
-      "plugins/floating-terminal/tsconfig.json",
-      "plugins/floating-terminal/types/assets.d.ts",
-      "plugins/markdown-view/src/LICENSE",
-      "plugins/markdown-view/src/README.md",
-      "plugins/markdown-view/src/links.ts",
-      "plugins/markdown-view/src/look.ts",
-      "plugins/markdown-view/src/package.json",
-      "plugins/markdown-view/src/touch-toolbar.ts",
-      "plugins/markdown-view/tests/file-access.test.ts",
-      "plugins/markdown-view/tests/links.test.ts",
-      "plugins/markdown-view/tests/lute.test.ts",
-      "plugins/markdown-view/tests/package.test.ts",
-      "plugins/markdown-view/tests/touch-toolbar.test.ts",
-      "plugins/office-preview/src/LICENSE",
-      "plugins/office-preview/src/README.md",
-      "plugins/office-preview/src/openers.tsx",
-      "plugins/office-preview/src/package.json",
-      "plugins/office-preview/src/rpc.ts",
-      "plugins/office-preview/tests/fetch-file.test.ts",
-      "plugins/office-preview/tests/package.test.ts"
-    ],
-    "removed": [
-      "plugins/markdown-view/src/Viewer.tsx",
-      "plugins/office-preview/rpc.ts"
-    ],
-    "renamed": [
-      {
-        "from": "theme/atom-one/LICENSE-One-Dark.txt",
-        "to": "theme/atom-one_vibecom/LICENSE-One-Dark.txt"
-      },
-      {
-        "from": "theme/atom-one/one-dark.json",
-        "to": "theme/atom-one_vibecom/one-dark.json"
-      },
-      {
-        "from": "theme/atom-one/theme.css",
-        "to": "theme/atom-one_vibecom/theme.css"
-      },
-      {
-        "from": "theme/atom-one/theme.json",
-        "to": "theme/atom-one_vibecom/theme.json"
-      }
-    ]
-  },
+  "external_plugins": [
+    {
+      "id": "file-manager",
+      "version": "0.9.2",
+      "source": "https://github.com/xMinor-1/bb-plugins",
+      "tag": "file-manager/v0.9.2",
+      "subdirectory": "plugins/file-manager",
+      "commit": "dfd8e07786b0fff90307c3e77c2f9c163a90e7b6"
+    }
+  ],
+  "models_templates": [
+    "models/pi/models.json",
+    "models/pi/auth.example.json"
+  ],
   "distribution": {
     "repository": "https://github.com/vibe-commerce-org/bb-vadim-setup",
-    "release_asset": "bb-vadim-setup-v0.2.0.zip",
+    "release_assets": [
+      "08-BB-VADIM-KIT.zip",
+      "08-BB-VADIM-SETUP.md",
+      "08-BB-AGENT-SETUP.md"
+    ],
+    "zip_folder": "bb-vadim-kit",
     "windows_executed": false
   },
-  "manifest_note": "Hashes cover every other tracked file; this manifest excludes itself.",
+  "manifest_note": "Hashes cover every kit file; this manifest excludes itself. Repository service files (.gitignore, scripts/) are not part of the kit.",
   "files": [
     {
-      "path": ".gitignore",
-      "bytes": 211,
-      "sha256": "c62ba8a58e14132ba64528670a338fc24761a469ab78823733aed08d3d33c6ce"
+      "path": "AGENT-TASK.md",
+      "bytes": 13111,
+      "sha256": "cc7b34242e07d2b55503b2fe830816bae80bbd8e8faf3eb95ef5ab79cc3bcf08"
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 5127,
-      "sha256": "ff565726c900576bf22c20189149b328ed60265ab983581fb4a833eb7c6315d2"
+      "bytes": 8340,
+      "sha256": "df7972b56b3cbef6181be43faa9238276bb433b4a4c137e62b73e737e5492004"
     },
     {
       "path": "GUIDE.md",
-      "bytes": 57503,
-      "sha256": "c8e3fa8cd2fb520d91b4724271d3d0a9b325e15a904aa1a7c0a37c40d661250f"
+      "bytes": 94936,
+      "sha256": "40df635790030a7c65d02fd2048fbe5f83c6ccbe6ab6d93214cb0ffba22e0736"
     },
     {
       "path": "LICENSE",
@@ -377,8 +154,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 8868,
-      "sha256": "cd0dfe6c2f247934904c7e6763f0b2a5dc8c1c28d4e58f217ab735abce8bb71a"
+      "bytes": 8355,
+      "sha256": "1d726c0d6ca5b3952c0624785a0071dbd10001fd6cc44b4f6da65ba9a605c0bf"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -387,13 +164,13 @@
     },
     {
       "path": "VALIDATION.md",
-      "bytes": 6503,
-      "sha256": "a4c7e17d075c75493b23da5ddc3f5cd397340d002465e78d27c7d00d66ac8fc7"
+      "bytes": 6306,
+      "sha256": "3ef64d0fdb165824bf79cdf7c936a36e24b6e27a47c7b6a411efce8d0c51930e"
     },
     {
       "path": "VERSION",
       "bytes": 6,
-      "sha256": "1f930dd1f133c1f97a94fe3acb8db34372cf4c01ffdb2b3ff4ca72f9494121e9"
+      "sha256": "d915cc95d6ca8f47ae297713ed46d4e5c5d99ddd29fc3c61e263bdf305f2b5b0"
     },
     {
       "path": "examples/README.md",
@@ -402,23 +179,38 @@
     },
     {
       "path": "examples/demo.md",
-      "bytes": 740,
-      "sha256": "f0a4f47149c1524612b54b80b3ba67c24b44e804865429e14e0423371119f30c"
+      "bytes": 1053,
+      "sha256": "b3275ea2a52c1509c1ee0a338c98639248857af0f2e7620617d267333f162fec"
     },
     {
       "path": "instructions/AGENTS.md",
-      "bytes": 5339,
-      "sha256": "0262fe955580a37b28f43fd0af64c042d0162027ec67b158a6caa292eaf8ff82"
+      "bytes": 8290,
+      "sha256": "30bb909526d92b1a05553d45c98818216ca9aaa99eb8691001bebe9aabf0c09e"
     },
     {
       "path": "instructions/README.md",
       "bytes": 635,
-      "sha256": "5288fc15b5453b21d6e6af76c92d169b238bb18c53389061f150f10d8d54ac04"
+      "sha256": "bed0b6759ec2f9540568ba86743ba73f6a0487e727cb393a27dccad29e1ff171"
+    },
+    {
+      "path": "models/pi/README.md",
+      "bytes": 915,
+      "sha256": "2401d2a14d912b832e199afe60a84ebe94fc910d4ef078efd157d16e7ffc093e"
+    },
+    {
+      "path": "models/pi/auth.example.json",
+      "bytes": 139,
+      "sha256": "cbdbf3d9ca2d2cc896d70cb69089f4e5800996e93fd4b8cbba182211880e47a9"
+    },
+    {
+      "path": "models/pi/models.json",
+      "bytes": 1476,
+      "sha256": "f3758e0b3cab867a5a28f4bbdbe44a703f0ab7205969d8b49a260b4711a4f38e"
     },
     {
       "path": "plugins/README.md",
-      "bytes": 2699,
-      "sha256": "2f6941ffb5d875e266058d98d0068cf59acab3c8e6e3de4926d2274388dcad36"
+      "bytes": 2759,
+      "sha256": "bb127b401fc3c007322d4bc1e198a798e388a5d3f9a7af58a3caa9178debc4d3"
     },
     {
       "path": "plugins/files-editor/LICENSE",
@@ -477,8 +269,8 @@
     },
     {
       "path": "plugins/files-editor/components/FileView.tsx",
-      "bytes": 24157,
-      "sha256": "42fcb8577bf49f7d1ecfe1f139dd940d7579c6b11529369928a06645e051d3fe"
+      "bytes": 24359,
+      "sha256": "4aebcbda551b319a0d71122709475677e1c30c736b87b2bd94b3d89ce1bb1063"
     },
     {
       "path": "plugins/files-editor/components/FindBar.tsx",
@@ -527,8 +319,8 @@
     },
     {
       "path": "plugins/files-editor/components/Workspace.tsx",
-      "bytes": 54075,
-      "sha256": "bf389929fedcbccb8770d4074891f79be30233070fde0aa650d5d027cb42e892"
+      "bytes": 54387,
+      "sha256": "65c685d01186d2651f73c526ccc8150ede07fea58b552e47f217ad2a9e7b37f4"
     },
     {
       "path": "plugins/files-editor/components/WorkspacePicker.tsx",
@@ -664,6 +456,16 @@
       "path": "plugins/files-editor/lib/find.ts",
       "bytes": 3242,
       "sha256": "b7ac226e331a106d061fc6d9b86211b63657b64b2ffed040db5ae96761ae5f99"
+    },
+    {
+      "path": "plugins/files-editor/lib/focus.test.ts",
+      "bytes": 2021,
+      "sha256": "701b4f93801998bc7edb16f601047f956f9f6544e7467f09359b7f3aab241449"
+    },
+    {
+      "path": "plugins/files-editor/lib/focus.ts",
+      "bytes": 2437,
+      "sha256": "31f56b8cd87ff02c2221b907d502b31c1bee2782e3d1f4ed6115e9b4b335057d"
     },
     {
       "path": "plugins/files-editor/lib/gitignore.test.ts",
@@ -1268,12 +1070,12 @@
     {
       "path": "plugins/folder-links/package-lock.json",
       "bytes": 3934,
-      "sha256": "5d046d8c95f69bce55eeb0bfd55137ef2bb64e26a1d5e18eddfb8388cc2d66f8"
+      "sha256": "140e23a65c91fd22dc04456063f288292559d056ea5d7fcb192d12f77061f8d6"
     },
     {
       "path": "plugins/folder-links/package.json",
       "bytes": 844,
-      "sha256": "8690d906ff161201aa179c2e39eab3e49804a00888fb5d3a28f54ee62de1b505"
+      "sha256": "b72235ecb75fa5961189c95a7d6e58622304a506367fa6bb6d09b1d2677bfd17"
     },
     {
       "path": "plugins/folder-links/rpc.ts",
@@ -1338,12 +1140,12 @@
     {
       "path": "plugins/markdown-view/package-lock.json",
       "bytes": 7922,
-      "sha256": "a81190c6e4baad984750e68c2131d0d233281aa7aebe06b46b71de5dc26f8d63"
+      "sha256": "ac73d01e2617ca68d8c330d433726d171d9590e5171f76feae0dc4853ee443d4"
     },
     {
       "path": "plugins/markdown-view/package.json",
       "bytes": 1003,
-      "sha256": "f8340028c98a77f3ff2ba6ef96af93678c4a55293e83817a2aa374173cd11c1d"
+      "sha256": "d89b4031305b470057eb6d20b83459aa54c89b9c5007faafaf41b58c14c6ff94"
     },
     {
       "path": "plugins/markdown-view/server.ts",
@@ -1463,12 +1265,12 @@
     {
       "path": "plugins/office-preview/package-lock.json",
       "bytes": 49549,
-      "sha256": "c555e286dc398ec9c7140137d9ca917a9db1ff33dac741918638471e93837610"
+      "sha256": "01dc70ea8c57b642536228d3f09624f7640a6a4a11c8640fa59c7a164a248a98"
     },
     {
       "path": "plugins/office-preview/package.json",
       "bytes": 1038,
-      "sha256": "28dddd52850d6f9b6315a8b080b14e9bb921199e28cb3ef7958cda284f619a7d"
+      "sha256": "d01f19f817dfc821f0cc3681651d3aae481be408fa1aba188291b168c679fb42"
     },
     {
       "path": "plugins/office-preview/server.ts",

@@ -7,6 +7,7 @@ import { Icon } from "@/components/ui/icon";
 import { cn } from "@/lib/utils";
 import { formatBytes, languageLabel } from "@/lib/file-kind";
 import { findMatches, matchIndexAt, stepMatch } from "@/lib/find";
+import { focusIfFree } from "@/lib/focus";
 import type { OpenWith } from "@/lib/open-with";
 import { FindBar } from "./FindBar";
 import type { FileTab } from "./use-file-tabs";
@@ -461,8 +462,10 @@ function CodeEditor({
     [lineCount],
   );
 
+  // The caret into the opened file, unless a field outside the explorer is
+  // being typed into: a tab restored on mount must not take it from the chat.
   useEffect(() => {
-    textareaRef.current?.focus();
+    focusIfFree(textareaRef.current);
   }, [path]);
 
   // Reveal a find hit: select it, then scroll the caret's line to the middle.

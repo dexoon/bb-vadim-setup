@@ -1,153 +1,710 @@
-# Как настроить BB как у Вадима
+# Как установить и настроить bb как у Вадима
 
-Last Updated: 2026-10-11
-Проверенная среда: **BB 0.44.0, macOS, Node.js 25.2.1** — для снимка настроек.
-Плагины выпуска 0.2.0 собраны и проверены тестами на BB 0.46.0 — см. [VALIDATION.md](VALIDATION.md).
-Назначение: универсальная настройка BB для любых репозиториев.
+Last Updated: 2026-10-11 · Комплект **0.3.0** (история версий — `CHANGELOG.md` в комплекте)
+Проверенная среда: **bb 0.46.0, macOS на Apple Silicon** (11.10 плагины комплекта собраны с нуля и прошли
+тесты; до 11.10 комплект проверялся на 0.45.0). **Windows проверена Вадимом 08.10.2026** на 0.45.0;
+маршрут установки (нативная Windows или WSL) не уточнён. Linux-сервер описан по официальной
+документации; на настоящем сервере эти шаги не проверялись.
 
-У меня BB — место, где рядом с разговором с агентом можно читать и править
-документы, смотреть таблицы, открывать папки и вести несколько связанных тредов.
-Ниже — настройки моей среды и способ их повторить. Они подходят для кода,
-исследований, документов и других задач.
+bb — приложение, в котором вы даёте задания ИИ-агентам и рядом читаете и правите их результаты:
+документы, таблицы, папки, терминал. Инструкция ведёт от чистого компьютера до среды как у Вадима.
+Она подходит для любых задач: кода, исследований, документов, работы селлера.
 
-Основной файл — эта инструкция. Тема, мои плагины, шаблон правил и пример
-лежат рядом в этом репозитории; краткий старт — в [README](README.md).
-Плагины ставятся прямо из Git, весь комплект можно взять клоном или ZIP релиза.
-Доступ к другим репозиториям не нужен.
+Инструкция состоит из двух файлов. Пересылайте **оба**:
 
-Чтобы настройку выполнил кодинговый агент, дайте ему адрес репозитория
-https://github.com/vibe-commerce-org/bb-vadim-setup и попросите пройти разделы 2–7, 9 и 13
-этой инструкции. Потребуйте, чтобы перед заменой темы или `AGENTS.md` агент
-сохранил копию и показал изменения.
+- **этот файл** — `08-BB-VADIM-SETUP.md`;
+- **комплект** `08-BB-VADIM-KIT.zip` — тема, пять плагинов, шаблоны
+  для подключения российских моделей и правила для агентов. Внутри нет ключей, паролей и личных данных.
+
+Внутри ZIP лежит `GUIDE.md` — этот же текст. Команды удобнее копировать оттуда, а не из PDF.
+Оба файла собираются из репозитория комплекта `bb-vadim-setup`: в нём та же инструкция (`GUIDE.md`),
+история версий и установка плагинов прямо из Git ([раздел 12](#12-мои-плагины-из-комплекта)).
+
+Хотите, чтобы часть 3 сделал агент? После частей 1–2 (bb и агент уже работают) распакуйте ZIP и дайте
+агенту файл `AGENT-TASK.md` из корня комплекта — там готовое задание. Если передать ZIP нельзя, есть самодостаточный файл
+`08-BB-AGENT-SETUP.md` с комплектом внутри — необязательный вариант, его присылают отдельно.
+
+## Как читать
+
+| Шаг | Что сделать | Раздел |
+|---|---|---|
+| 1 | Поставить bb на свой компьютер или сервер | Часть 1: [macOS](#2-macos), [Windows](#3-windows), [Linux-сервер](#4-linux-сервер-vps) |
+| 2 | Подключить модель: подписка, российское облако или локальная | [Часть 2](#часть-2-подключить-модель) |
+| 3 | Настроить как у Вадима: тема, терминал, файлы, редактор Markdown, правила агентам | [Часть 3](#часть-3-настройка-как-у-вадима) |
+| 4 | Пользоваться с телефона и проверить, что всё работает | [Часть 4](#часть-4-телефон-проверка-и-ошибки) |
+
+Для первой задачи хватит шагов 1 и 2. Шаг 3 делает работу удобной, его можно пройти позже.
+
+Пометки в тексте: ✅ — проверено на Mac Вадима 04–11.10.2026; ⚠️ — не проверено на чистом
+компьютере или на этой системе.
+
+**Где выполнять команды `bb …`.** Команда `bb` есть только **во встроенном терминале bb** — его
+открывает Cmd+Shift+Enter на Mac или кнопка терминала в правой панели треда. В обычном Terminal
+или PowerShell её нет: там будет «command not found». На Linux-сервере по SSH пишите
+`npx --package bb-app bb …` вместо `bb …` или тоже работайте в терминале bb, открытом в браузере.
+Остальные команды — `git`, `npm`, `curl`, `pi`, `claude`, `codex` — работают в любом терминале.
 
 ## 1. Что получится
 
-| Возможность | Что использую | Откуда берётся |
+| Возможность | Что используется | Откуда |
 |---|---|---|
-| Цвета BB и подсветка кода | `atom-one_vibecom`: One Dark / One Light | Моя тема из комплекта |
-| Дерево проекта и домашней папки, поиск, операции с файлами, загрузка и скачивание, документы внутри панели | Explorer_vibecom 0.1.6 | Мой плагин из комплекта, переделка Files editor |
-| Терминал вкладкой в панели треда и плавающим окном | Terminal_vibecom 0.6.2 | Мой плагин из комплекта, переделка Floating Terminal |
-| Markdown в виде Typora, оглавление, живое обновление, правка в Vditor | Markdown_vibecom 0.2.0 | Мой плагин из комплекта |
-| Excel, Word, PowerPoint рядом с чатом | Office_vibecom 0.2.0 | Мой плагин из комплекта |
-| Клик по папке в ответе → дерево справа | Folder links_vibecom 0.2.0 | Мой плагин из комплекта, для сервера на macOS |
-| PDF и редактор кода Monaco | PDF preview / File Editor | Встроенные плагины BB |
-| Группировка тредов, очередь сообщений, повторы после лимита | Настройки BB и Provider retry | Встроенные возможности |
-| Основной чекаут, дочерние треды, планы и правила агентам | Шаблон `AGENTS.md` | Моя методика, обобщённая для любого проекта |
+| Агенты Claude Code и Codex по подписке | провайдеры bb | официальные установщики |
+| Российские модели Яндекса и Cloud.ru без VPN, локальные модели | агент Pi | установщик Pi + шаблоны из ZIP |
+| Цвета интерфейса и подсветка кода | тема `atom-one_vibecom` (One Dark / One Light) | ZIP |
+| Терминал рядом с чатом, в том числе с телефона | встроенный терминал + Terminal_vibecom 0.6.2: вкладка в правой панели, исправленная вставка | ZIP |
+| Папки, загрузка и скачивание файлов | File Manager 0.9.2 | внешний плагин |
+| Дерево проекта или домашней папки, поиск, редактор, операции с файлами; PDF, офис и Markdown открываются рядом с деревом | Explorer_vibecom (копия Files editor 0.1.6) | ZIP |
+| Markdown как в Typora, правка, ссылки между файлами и репозиториями | Markdown_vibecom | ZIP |
+| Excel, Word, PowerPoint рядом с чатом | Office_vibecom | ZIP |
+| Клик по папке в ответе агента открывает её дерево | Folder links_vibecom | ZIP, только macOS и Linux |
+| PDF, редактор кода, повторы после лимита, задачи, документы | встроенные плагины bb | уже в bb |
+| Основной чекаут, дочерние треды, планы, правила агентам | шаблон `AGENTS.md` | ZIP |
+| Работа с телефона | bb Connect через getbb.app | ваш аккаунт bb |
 
-**Установлено / настроено / активно — разные признаки.** Версии и статус
-`running` проверены через CLI. Для моих плагинов описание сверено с исходниками.
-Подтверждение загрузки не означает проверки каждого сценария на каждой ОС.
+## Часть 1. Установка bb
 
-На Windows команды настройки BB можно повторить; установки на Windows в рамках
-этой проверки не было. Различия и ограничения перечислены в разделе 12.
+Выберите свой блок. Если у вас и ноутбук, и сервер, начните с ноутбука.
 
-## 2. Подготовка
+| Ваш компьютер | Блок |
+|---|---|
+| Mac на Apple Silicon (M1 и новее) | [2. macOS](#2-macos) |
+| Mac на Intel | [2. macOS](#2-macos), шаг 2.2 — отдельная ссылка |
+| Windows 11 на Intel или AMD (x64) | [3. Windows](#3-windows), нативная установка (alpha) |
+| Windows 10 или Windows на ARM | [3. Windows](#3-windows), маршрут через WSL2 |
+| Сервер Linux (VPS) — чтобы агенты работали, пока ноутбук выключен | [4. Linux-сервер](#4-linux-сервер-vps) |
 
-BB должен быть установлен и запущен, а выбранный провайдер — настроен под вашим
-аккаунтом. Базовую установку смотрите в [официальном репозитории BB](https://github.com/get-bb/bb#use-bb).
+### 2. macOS
 
-В Terminal на macOS или PowerShell на Windows проверьте:
+**2.1. Откройте Terminal.** `Cmd + Пробел` → наберите `Terminal` → Enter. Команды из блоков
+копируйте целиком, вставляйте `Cmd + V` и нажимайте Enter.
 
-```text
-bb --version
-bb status
+**2.2. Поставьте bb.** ✅
+
+1. Откройте [getbb.app](https://getbb.app) и нажмите **Download for macOS**. Скачается
+   `bb-<версия>-arm64.dmg` — для Apple Silicon и macOS 13 или новее.
+   **Mac на Intel:** приложения для них нет. Пройдите шаги 2.3–2.4 (Git и Node.js), затем запустите
+   bb командой `npx bb-app@latest` и откройте в браузере `http://localhost:38886`. На getbb.app этот путь —
+   ссылка **Windows, Intel Macs & remote machines**. ⚠️ Не проверено.
+2. Откройте файл и перетащите bb в **Applications**. Запустите bb из Launchpad или Spotlight. ⚠️ Окно
+   первого запуска на чистом Маке не проверялось.
+3. Войдите в аккаунт bb, если приложение попросит: он нужен для доступа с телефона.
+
+**2.3. Проверьте Git.** bb работает с папками-репозиториями через Git.
+
+```bash
+git --version
+```
+
+Если macOS предложит поставить **Command Line Tools** — согласитесь и дождитесь окончания,
+затем повторите команду. Предложение можно вызвать и вручную: `xcode-select --install`.
+
+**2.4. Поставьте Node.js 22.19 или новее.** Он нужен для плагинов из комплекта. Скачайте
+установщик **LTS** с [nodejs.org](https://nodejs.org/en/download) и пройдите его. Если у вас уже есть
+Homebrew, можно так: `brew install node`. Проверка:
+
+```bash
+node --version
+npm --version
+```
+
+**2.5. Создайте общую папку для репозиториев.** Как в инструкции курса 8.5:
+
+```bash
+mkdir -p ~/Developer/_CODE
+```
+
+Не кладите её в iCloud Drive и другие синхронизируемые папки.
+
+**2.6. Кириллица в терминале bb.** Откройте терминал внутри bb (раздел 10) и выполните
+`echo $LANG`. Если строка пустая, а русские буквы показываются квадратами, добавьте:
+
+```bash
+echo 'export LANG=en_US.UTF-8' >> ~/.zshenv
+```
+
+и откройте терминал заново. У Вадима эта строка стоит с 26.09. ✅
+
+Дальше — [распакуйте комплект](#распакуйте-комплект) и [подключите модель](#часть-2-подключить-модель).
+
+### 3. Windows
+
+Нативная Windows-версия bb появилась в 0.45.0 и пока имеет статус **alpha**: возможны ошибки.
+Она рассчитана на **Windows 11 x64**. Для Windows 10 (версия 2004 и новее) и компьютеров на ARM —
+[маршрут через WSL2](https://github.com/get-bb/bb/blob/desktop-v0.45.0/packages/bb-app/README.md#supported-host-environments),
+Linux внутри Windows: в PowerShell **от администратора** выполните `wsl --install`, перезагрузите компьютер,
+откройте **Ubuntu** из меню Start и пройдите шаги L1–L5 [блока Linux](#4-linux-сервер-vps) прямо в окне
+Ubuntu: `ssh` и `scp` не нужны, комплект скопируйте из папки загрузок Windows —
+`cp /mnt/c/Users/ИМЯ_В_WINDOWS/Downloads/08-BB-VADIM-KIT.zip ~/ && unzip -o ~/08-BB-VADIM-KIT.zip -d ~/Developer`.
+bb откроется в браузере Windows по адресу `http://localhost:38886`; службу systemd и шаг L7 для домашнего
+компьютера можно пропустить. В WSL действует профиль Linux, ограничения Windows из шага W5 к нему
+не относятся. Репозитории держите внутри Ubuntu (`~/Developer/_CODE`): папки `/mnt/c/…`
+работают медленнее. [Установка WSL — Microsoft](https://learn.microsoft.com/windows/wsl/install).
+⚠️ Шаги ниже сверены с официальными источниками 04.10, на настоящем компьютере с Windows не выполнялись.
+
+**W1. Откройте PowerShell без прав администратора.** **Start** → наберите `PowerShell` →
+**Windows PowerShell**. Не выбирайте **Run as administrator**: в заголовке окна не должно быть
+`Administrator`. Codex отказывается запускаться из окна администратора, а установщики сами
+попросят права, когда нужно. Проверьте компьютер:
+
+```powershell
+Get-CimInstance Win32_OperatingSystem | Select-Object Caption
+Get-CimInstance Win32_ComputerSystem | Select-Object SystemType
+winget --version
+```
+
+Ожидается Windows 11, `x64-based PC` и номер версии `winget`. Если `winget` не найден, поставьте
+**App Installer** из Microsoft Store:
+
+```powershell
+Start-Process 'ms-windows-store://pdp/?ProductId=9NBLGGH4NNS1'
+```
+
+После установки закройте все окна PowerShell и откройте новое.
+
+**W2. Поставьте Git и Node.js, создайте рабочую папку.**
+
+```powershell
+winget install --id Git.Git --exact --source winget --accept-source-agreements --accept-package-agreements
+winget install --id OpenJS.NodeJS.LTS --exact --source winget --accept-source-agreements --accept-package-agreements
+```
+
+Закройте все окна PowerShell, откройте новое и проверьте:
+
+```powershell
 git --version
 node --version
 npm --version
 ```
 
-Для установки плагинов из Git нужен `git`. Node.js и npm нужны для локальной
-установки из папки и для тестов. Для встроенных
-TypeScript-тестов используйте Node.js 22.18 или новее:
-[официальное объяснение Node.js](https://nodejs.org/en/learn/typescript/run-natively).
+Рабочая папка курса — `C:\Developer\_CODE\vibecommerce_code`: короткий путь без кириллицы,
+вне «Документов» и OneDrive.
 
-Положите комплект в постоянную папку — клоном репозитория:
-
-```text
-git clone https://github.com/vibe-commerce-org/bb-vadim-setup.git ~/Developer/bb-vadim-setup
+```powershell
+$bbProjectPath = 'C:\Developer\_CODE\vibecommerce_code'
+New-Item -ItemType Directory -Path $bbProjectPath -Force | Out-Null
+Set-Location -LiteralPath $bbProjectPath
+Get-Location
 ```
 
-На Windows — `%USERPROFILE%\Developer\bb-vadim-setup`. Без Git скачайте
-`bb-vadim-setup-v0.2.0.zip` и `SHA256SUMS.txt` со страницы Releases, сверьте сумму и распакуйте
-архив в `~/Developer` (на Windows — `%USERPROFILE%\Developer`): появится папка
-`bb-vadim-setup`. Проверка суммы: в папке с файлами `shasum -a 256 -c SHA256SUMS.txt` на macOS,
-`Get-FileHash .\bb-vadim-setup-v0.2.0.zip -Algorithm SHA256` в PowerShell.
-В корне должны быть `theme`, `plugins`, `instructions`, `examples`
-и `MANIFEST.json`. Если плагины ставите из Git (раздел 6), папка нужна
-для темы, шаблона правил и примера.
+Существующие файлы эти команды не трогают.
 
-Не удаляйте папку установленного локального плагина: BB использует её при работе.
-Репозитории можно хранить где удобно. Folder links_vibecom и раздел Home
-в Explorer_vibecom ограничены домашней папкой пользователя. Если рабочая копия
-на Windows находится в `C:\Developer`, она обычно вне `%USERPROFILE%`; для неё
-используйте проводник проекта в Explorer_vibecom или штатное открытие файлов BB.
+**W3. Поставьте bb.** Блок скачивает установщик 0.45.0 с официального GitHub, проверяет
+контрольную сумму и ставит bb для текущего пользователя.
 
-## 3. Общие настройки BB
+```powershell
+$ErrorActionPreference = 'Stop'
+$ProgressPreference = 'SilentlyContinue'
+$bbInstallerPath = Join-Path $env:TEMP 'bb-0.45.0-x64.exe'
+$bbDownloadUrl = 'https://github.com/get-bb/bb/releases/download/desktop-v0.45.0/bb-0.45.0-x64.exe'
+$bbExpectedHash = '9e480f38f4e832ce2c0186fd55f7b796169636da74f6b173b393579f90233da1'
 
-Откройте **Settings → General**. Мои действующие значения:
+Invoke-WebRequest -Uri $bbDownloadUrl -OutFile $bbInstallerPath -UseBasicParsing
+$bbActualHash = (Get-FileHash -Path $bbInstallerPath -Algorithm SHA256).Hash
+if ($bbActualHash -ne $bbExpectedHash) {
+    throw 'SHA-256 mismatch. Download the installer again before continuing.'
+}
 
-| Настройка / ключ | Значение | Зачем |
+$bbInstallProcess = Start-Process -FilePath $bbInstallerPath -ArgumentList '/S' -Wait -PassThru
+if ($bbInstallProcess.ExitCode -ne 0) {
+    throw "bb installer failed: exit code $($bbInstallProcess.ExitCode)"
+}
+Write-Host 'bb installation finished.'
+```
+
+Скачивание занимает несколько минут и идёт без индикатора. `/S` — установка без мастера, права администратора не нужны: bb ставится в
+`%LOCALAPPDATA%\Programs\bb`. Версия зафиксирована, чтобы ссылка и контрольная сумма совпадали;
+дальше приложение обновляется само. Установщик не подписан: если скачиваете его браузером и запускаете
+двойным щелчком, Windows SmartScreen предупредит — нажмите **More info → Run anyway**.
+Источник: [релиз 0.45.0](https://github.com/get-bb/bb/releases/tag/desktop-v0.45.0).
+
+**W4. Агенты по подписке (путь 1, нужен VPN).** Ставить нужно хотя бы одного агента — этого
+или Pi из части 2.
+
+Claude Code:
+
+```powershell
+winget install --id Anthropic.ClaudeCode --exact --source winget --accept-source-agreements --accept-package-agreements
+```
+
+Codex — официальный установщик в отдельном процессе PowerShell (`Bypass` действует только на него):
+
+```powershell
+powershell -ExecutionPolicy Bypass -Command "irm https://chatgpt.com/codex/install.ps1 | iex"
+```
+
+Закройте все окна PowerShell, откройте новое, обновите в нём пути к программам и войдите:
+
+```powershell
+Set-Location -LiteralPath 'C:\Developer\_CODE\vibecommerce_code'
+$env:Path = [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [Environment]::GetEnvironmentVariable('Path', 'User')
+claude --version
+codex --version
+```
+
+- Claude Code: наберите `claude`, войдите в аккаунт Pro, Max, Team или Enterprise в браузере,
+  затем `/exit`.
+- Codex: `codex login`, вход в ChatGPT-аккаунт. `Successfully logged in` — вход завершён.
+  Хотите войти через другой браузер, например Brave, — скопируйте полную ссылку из PowerShell
+  в его адресную строку, окно PowerShell не закрывайте.
+
+Если PowerShell пишет, что команда не распознана, — [раздел 20](#20-если-что-то-не-получилось).
+
+**W5. Запустите bb.** После установки агентов полностью закройте bb и откройте снова:
+так он увидит новые программы.
+
+```powershell
+Start-Process -FilePath "$env:LOCALAPPDATA\Programs\bb\bb.exe"
+```
+
+Не нашлось — откройте **bb** через **Start**. Создавать репозиторий в папке и добавлять проект —
+в [разделе 14](#14-репозитории-папки-и-дочерние-треды).
+
+Особенности Windows в части 3: Folder links_vibecom не ставьте; в Explorer_vibecom не выбирайте `Open documents in = Mac app`; File Manager видит только папки внутри
+`%USERPROFILE%`, поэтому `C:\Developer\_CODE` открывайте через проект bb. В Markdown_vibecom ссылки
+между файлами и картинки по относительным путям на Windows могут не работать: в коде пути
+склеиваются через `/`. ⚠️
+
+Дальше — [распакуйте комплект](#распакуйте-комплект) и [подключите модель](#часть-2-подключить-модель).
+
+### 4. Linux-сервер (VPS)
+
+Сервер нужен, чтобы агенты работали круглосуточно: ноутбук можно закрыть, а задания давать с телефона
+или из браузера. bb на сервере — тот же bb: проекты, треды, терминал и плагины работают там, а вы
+подключаетесь к нему через getbb.app.
+⚠️ Блок собран по официальной документации bb 0.45.0; на настоящем VPS эти шаги не выполнялись.
+
+**L0. Какой сервер взять.**
+
+| Что | Рекомендация | Почему |
 |---|---|---|
-| `steerActiveThreadOnEnter` | `false` | Enter ставит сообщение работающему треду в очередь; Command+Enter немедленно направляет его в текущий ход |
-| `showKeyboardHints` | `true` | Подсказки сочетаний клавиш |
-| `showDiagnosticEvents` | `false` | Служебные события не занимают ленту |
-| `defaultProviderId` | `claude-code` | Мой провайдер по умолчанию; Codex выбираю под конкретную задачу |
-| `streamerMode` | `false` | Обычное отображение моделей |
-| `managedBranchPrefix` | `bb/` | Префикс веток, если создаётся worktree |
+| Система | Ubuntu 22.04 или 24.04 LTS, x64 или ARM64 | bb проверяют в CI на Ubuntu; Claude Code поддерживает Ubuntu 20.04+, Debian 10+ |
+| Память | от 4 ГБ RAM | минимум Claude Code |
+| Где | для пути 1 (Claude, Codex) — **за пределами РФ**; для пути 2 (Яндекс, Cloud.ru) — любой, в том числе в РФ | с российского IP Anthropic и OpenAI отвечают отказом; российские облака работают отовсюду |
+| Доступ | вход по SSH-ключу, обычный пользователь с `sudo` | не работайте от `root` |
 
-Команды для первых трёх настроек одинаковы в Terminal и PowerShell:
+Источники: [поддержка платформ bb](https://github.com/get-bb/bb/blob/desktop-v0.45.0/docs/platform-support.md),
+[требования Claude Code](https://code.claude.com/docs/en/setup).
+
+**L1. Зайдите на сервер и поставьте базовые программы.** На ноутбуке в Terminal (macOS) или
+PowerShell (Windows):
+
+```bash
+ssh ИМЯ@IP_СЕРВЕРА
+```
+
+На сервере:
+
+```bash
+sudo apt update
+sudo apt install -y git curl unzip build-essential python3
+git --version
+```
+
+Здесь и дальше: если после установки программа «не найдена» (`command not found`), перезайдите по SSH
+или выполните `exec bash -l` — новые папки попадают в PATH только при следующем входе.
+
+`build-essential` и `python3` нужны на случай, если для встроенных модулей bb (`better-sqlite3`,
+`node-pty`, `@parcel/watcher`) нет готовой сборки под ваш сервер.
+
+**L2. Поставьте Node.js 22.19 или новее.** bb поддерживает Node.js 22.19, 24 и 26. Один из способов —
+пакеты [NodeSource](https://github.com/nodesource/distributions), на которые ссылается nodejs.org:
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_24.x | sudo -E bash -
+sudo apt install -y nodejs
+node --version
+npm --version
+```
+
+**L3. Запустите bb.** Официальный способ — пакет `bb-app` из npm:
+
+```bash
+npx bb-app@latest start --in-app-updates
+```
+
+Команда скачает bb, запустит сервер и сама перезапустит его при сбое. Данные лежат в `~/.bb/`, логи —
+`~/.bb/logs/server-stdio.log` и `~/.bb/logs/host-daemon-stdio.log`. Флаг `--in-app-updates` включает
+обновление из интерфейса: **Settings → Updates**. Остановить: `npx bb-app stop`.
+
+Если при запуске видите `Could not locate the bindings file` — у вас npm 12 или новее, он блокирует
+сборку встроенных модулей. Разрешите её и запустите заново:
+
+```bash
+npm config set allow-scripts=better-sqlite3,node-pty,@parcel/watcher --location=user
+```
+
+Источник: [bb-app README](https://github.com/get-bb/bb/blob/desktop-v0.45.0/packages/bb-app/README.md).
+
+**Чтобы bb работал после выхода из SSH и перезагрузки**, оформите его службой systemd. Готовой службы
+для сервера bb в документации нет, ниже — стандартная конструкция systemd. ⚠️ Не проверена.
+Сначала остановите bb, запущенный вручную (`Ctrl+C`), затем:
+
+```bash
+mkdir -p ~/.config/systemd/user
+cat > ~/.config/systemd/user/bb-app.service <<'EOF'
+[Unit]
+Description=bb server
+After=network-online.target
+
+[Service]
+Environment=PATH=%h/.local/bin:%h/.pi/agent/bin:/usr/local/bin:/usr/bin:/bin
+Environment=LANG=C.UTF-8
+ExecStart=/usr/bin/npx bb-app start --in-app-updates
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
+EOF
+sudo loginctl enable-linger "$USER"
+systemctl --user daemon-reload
+systemctl --user enable --now bb-app.service
+systemctl --user status bb-app.service
+```
+
+`enable-linger` нужен, чтобы служба пользователя работала без открытой SSH-сессии.
+`PATH` в службе нужен, чтобы bb видел агентов: установщики Claude Code и Pi кладут их в `~/.local/bin` или `~/.pi/agent/bin`.
+Если bb не видит агента, посмотрите `which claude` (или `which pi`) и добавьте эту папку в строку `Environment=PATH=`.
+Журнал службы: `journalctl --user -u bb-app -f`.
+
+**L4. Кириллица в терминале.** В службе из L3 кодировка уже задана (`LANG=C.UTF-8`). Для SSH-сессий
+выполните `echo $LANG`; если пусто, добавьте и перезайдите по SSH:
+
+```bash
+echo 'export LANG=C.UTF-8' >> ~/.profile
+```
+
+⚠️ На сервере не проверено; на Mac аналогичная строка решила проблему.
+
+**L5. Поставьте агентов и войдите без браузера.** На сервере нет браузера: ссылку для входа открываете
+на ноутбуке, а код вставляете обратно в SSH-сессию.
+
+- **Claude Code:** `curl -fsSL https://claude.ai/install.sh | bash`, затем `claude`. Клавиша `c`
+  копирует ссылку входа; откройте её на ноутбуке, войдите и вставьте код в строку
+  `Paste code here if prompted`. [Документация](https://code.claude.com/docs/en/authentication)
+- **Codex:** `curl -fsSL https://chatgpt.com/codex/install.sh | sh`, затем `codex login --device-auth`.
+  Вход по коду устройства — бета: сначала включите его в настройках безопасности ChatGPT.
+  Запасной путь — скопировать файл входа с компьютера, где вход уже выполнен:
+  `ssh ИМЯ@IP_СЕРВЕРА 'mkdir -p ~/.codex && cat > ~/.codex/auth.json && chmod 600 ~/.codex/auth.json' < ~/.codex/auth.json`.
+  Это фактически пароль — не пересылайте его по почте и в чатах. На Mac вход может храниться в Связке
+  ключей, тогда файла `~/.codex/auth.json` нет. [Документация](https://learn.chatgpt.com/docs/auth)
+- **Pi:** `curl -fsSL https://pi.dev/install.sh | sh`. Модели облаков подключите по шагу 3 пути 2
+  ([часть 2](#6-путь-2-российское-облако-через-агента-pi)): ключи нужны те же, браузер не нужен.
+
+Комплект на сервер передайте с ноутбука и распакуйте:
+
+```bash
+scp ~/Downloads/08-BB-VADIM-KIT.zip ИМЯ@IP_СЕРВЕРА:~/
+ssh ИМЯ@IP_СЕРВЕРА 'mkdir -p ~/Developer && unzip -o ~/08-BB-VADIM-KIT.zip -d ~/Developer'
+```
+
+С Windows первая строка — `scp "$env:USERPROFILE\Downloads\08-BB-VADIM-KIT.zip" ИМЯ@IP_СЕРВЕРА:~/`.
+
+После установки агентов перезапустите bb: `systemctl --user restart bb-app` (или `Ctrl+C` и запуск из L3).
+
+**L6. Подключитесь к серверу с ноутбука и телефона.** Привяжите сервер к своему аккаунту bb:
+
+```bash
+npx --package bb-app bb account login
+```
+
+Команда покажет ссылку и код — подтвердите их в браузере на ноутбуке. Другой способ — одноразовый код
+из кабинета [getbb.app](https://getbb.app): `npx --package bb-app bb connect --code КОД`.
+После этого bb сервера открывается по адресу `https://ВАШЕ_ИМЯ.getbb.app` — в браузере ноутбука
+и телефона, под вашим аккаунтом. Адрес покажет `npx --package bb-app bb connect status`. Приложение bb на Mac подключается к серверу через меню **Server**;
+тогда свой локальный сервер Mac не запускает.
+[Документация о нескольких устройствах](https://github.com/get-bb/bb/blob/desktop-v0.45.0/docs/multiple-devices.md).
+
+Проекты на сервере: **New project** → папка на сервере, например `~/Developer/_CODE/vibecommerce_code`
+(клонируйте шаблон по [разделу 14](#14-репозитории-папки-и-дочерние-треды)). Плагины из части 3 ставятся
+**на сервер**. Удобнее всего — во встроенном терминале bb, открытом в браузере: он работает на сервере,
+и команды `bb …` там есть. В SSH-сессии вместо `bb …` пишите `npx --package bb-app bb …`.
+
+Есть и обратная схема: bb остаётся на ноутбуке, а VPS подключается к нему как машина —
+**Settings → Machines → Add a machine**. Тогда при спящем ноутбуке недоступно всё, поэтому для
+круглосуточной работы держите сервер bb на самом VPS.
+
+**L7. Безопасность.**
+
+- bb слушает только `127.0.0.1:38886`, и так должно остаться. Его API без пароля **выполняет команды
+  и читает файлы**: не запускайте bb с `--server-bind-host 0.0.0.0`, не открывайте порт 38886 в
+  интернет, не публикуйте его через Tailscale Funnel или туннели. Доступ снаружи — только через
+  getbb.app.
+- Оставьте открытым только SSH. Если SSH у вас не на порту 22, сначала разрешите свой порт
+  (`sudo ufw allow ПОРТ/tcp`), иначе потеряете доступ к серверу:
+
+```bash
+sudo ufw allow OpenSSH
+sudo ufw enable
+```
+
+- Ключи облаков — в `~/.pi/agent/auth.json` с правами 600; в репозиторий не кладите.
+- Потерянный телефон или компьютер отключите в кабинете getbb.app.
+
+**L8. Обновление.** В интерфейсе: **Settings → Updates → Update** или `npx --package bb-app bb updates app apply`
+(работает, если bb запущен с `--in-app-updates`). Отката нет. Без этого флага — остановите bb и запустите
+`npx bb-app@latest start --in-app-updates` заново.
+
+Дальше — [часть 2](#часть-2-подключить-модель): на сервере проще всего путь 2.
+
+### Распакуйте комплект
+
+Распакуйте `08-BB-VADIM-KIT.zip` в постоянную папку — bb будет брать плагины из неё. Внутри архива
+уже есть папка `bb-vadim-kit`.
+
+macOS и Linux (архив скачан в «Загрузки»):
+
+```bash
+mkdir -p ~/Developer
+unzip -o ~/Downloads/08-BB-VADIM-KIT.zip -d ~/Developer
+ls ~/Developer/bb-vadim-kit
+```
+
+Windows (PowerShell):
+
+```powershell
+Expand-Archive -LiteralPath "$env:USERPROFILE\Downloads\08-BB-VADIM-KIT.zip" -DestinationPath "$env:USERPROFILE\Developer" -Force
+Get-ChildItem "$env:USERPROFILE\Developer\bb-vadim-kit"
+```
+
+В папке должны быть `GUIDE.md`, `AGENT-TASK.md`, `theme`, `plugins`, `models`, `instructions`,
+`examples` и `MANIFEST.json`. Для сервера — шаг L5 блока Linux.
+
+## Часть 2. Подключить модель
+
+bb — среда для работы с агентами. Сама языковая модель — «мозги» агента — работает
+в облаке или на вашем компьютере. Есть три пути, их можно совмещать.
+
+| | **Путь 1. Claude или ChatGPT по подписке** | **Путь 2. Российское облако: Яндекс или Cloud.ru** | **Путь 3. Локальная модель** |
+|---|---|---|---|
+| VPN | Нужен: из РФ поставщик доступ закрыл | Не нужен | Не нужен, работает без интернета |
+| Оплата | Около $20 в месяц, зарубежной картой или через посредника | Рублями, российской картой; компании — по счёту | Бесплатно |
+| Чтобы попробовать | Сразу платно | Грант новым пользователям: 4 000 ₽ на 60 дней в каждом облаке | Нужен мощный компьютер |
+| Агент в bb | Claude Code или Codex | Pi | Pi |
+| Модели | Claude Opus, GPT | DeepSeek V4.1 Flash (Яндекс), GLM-5.2 и Kimi K2.6 (Cloud.ru) | Qwen3.8 27B, Qwen3.6 35B |
+| Где проверено | ✅ Mac · ⚠️ Windows, Linux — не проверены | ✅ Mac · ⚠️ Windows, Linux — не проверены | ✅ Mac · ⚠️ Windows — не проверена · ✗ VPS без видеокарты не подходит |
+
+Не знаете, что выбрать, — начните с пути 2: на старте он бесплатный и работает без VPN.
+
+### 5. Путь 1. Claude Code или Codex по подписке
+
+Нужны VPN и подписка: Claude Pro или Max — для Claude Code, ChatGPT Plus или выше — для Codex.
+
+| ОС | Claude Code | Codex |
+|---|---|---|
+| macOS, Linux | `curl -fsSL https://claude.ai/install.sh \| bash` | `curl -fsSL https://chatgpt.com/codex/install.sh \| sh` |
+| Windows | см. блок Windows, шаг W4 | см. блок Windows, шаг W4 |
+
+Вход: в терминале наберите `claude` и войдите в аккаунт с подпиской; для Codex — `codex login`
+→ «Sign in with ChatGPT». На сервере без браузера см. блок Linux, шаг L5.
+После входа полностью перезапустите bb: агент появится в списке провайдеров.
+
+Если упрётесь в лимит подписки, bb подождёт обновления лимита и продолжит работу сам
+(плагин Provider retry, раздел 16).
+
+### 6. Путь 2. Российское облако через агента Pi
+
+**1. Поставьте Pi.**
+
+| ОС | Команда |
+|---|---|
+| macOS, Linux | `curl -fsSL https://pi.dev/install.sh \| sh` |
+| Windows | нужен Node.js 22.19+ и Git for Windows: `npm install -g --ignore-scripts @earendil-works/pi-coding-agent` |
+
+Проверка: `pi --version` показывает номер версии (у Вадима 1.1.0).
+
+**2. Получите ключ облака.** Ключ показывают **один раз**: сразу сохраните в менеджер паролей.
+Подойдёт любое облако, можно оба.
+
+*Яндекс AI Studio — DeepSeek V4.1 Flash*
+
+1. Зарегистрируйтесь в [Yandex AI Studio][yandex-ai-studio] с Яндекс ID и создайте платёжный аккаунт.
+   **Карту привяжите сразу при создании**: если привязать позже, грант 4 000 ₽ не начислят.
+2. В AI Studio нажмите «Создать API-ключ» справа вверху → выберите срок → «Создать». Сохраните секретный ключ.
+3. Запишите **ID каталога**: он нужен в шаге 3.
+
+*Cloud.ru — GLM-5.2 и Kimi K2.6*
+
+1. Зарегистрируйтесь в [Cloud.ru][cloud-ru] по телефону и почте или через Сбер ID.
+2. Привяжите карту в разделе «Контроль затрат»: придут **4 000 бонусов на 60 дней**.
+   Компании и ИП подключаются по договору и платят по счёту.
+3. В личном кабинете: **Evolution → Foundation Models**.
+4. Создайте сервисный аккаунт: меню (девять точек) → «Пользователи» → «Сервисные аккаунты» →
+   «Создать аккаунт», уровень — **«Проект»**.
+5. Откройте аккаунт → «Учетные данные доступа» → «Создать API-ключ». Сервис — Foundation Models, срок — 90 дней.
+6. Скопируйте **Key Secret**: после закрытия окна его больше не покажут.
+
+Нужен ключ **сервисного аккаунта уровня «Проект»**. С другим ключом список моделей виден,
+а запрос к модели падает с ошибкой 401.
+
+**3. Подключите модели к Pi.** У Pi два файла в папке `.pi/agent` в домашней папке:
+`models.json` — какие модели подключены, без ключей; `auth.json` — ваши ключи.
+Готовые шаблоны лежат в комплекте: `models/pi/models.json` и `models/pi/auth.example.json`.
+
+Если файла `~/.pi/agent/models.json` у вас ещё нет — скопируйте шаблон. Если есть, не перезаписывайте:
+добавьте нужные блоки из шаблона внутрь `"providers"` своего файла.
+
+macOS и Linux, из папки распакованного комплекта ([как распаковать](#распакуйте-комплект)):
+
+```bash
+cd ~/Developer/bb-vadim-kit
+```
+
+
+```bash
+mkdir -p ~/.pi/agent
+cp -n models/pi/models.json ~/.pi/agent/models.json
+cp -n models/pi/auth.example.json ~/.pi/agent/auth.json
+chmod 600 ~/.pi/agent/auth.json
+```
+
+Windows (PowerShell):
+
+```powershell
+cd "$env:USERPROFILE\Developer\bb-vadim-kit"
+```
+
+
+```powershell
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.pi\agent" | Out-Null
+if (-not (Test-Path "$env:USERPROFILE\.pi\agent\models.json")) { Copy-Item models\pi\models.json "$env:USERPROFILE\.pi\agent\models.json" }
+if (-not (Test-Path "$env:USERPROFILE\.pi\agent\auth.json")) { Copy-Item models\pi\auth.example.json "$env:USERPROFILE\.pi\agent\auth.json" }
+```
+
+Папка `.pi` скрыта в Finder и Проводнике, поэтому откройте файлы командой:
+macOS — `open -e ~/.pi/agent/models.json ~/.pi/agent/auth.json`;
+Linux — `nano ~/.pi/agent/models.json`, затем `nano ~/.pi/agent/auth.json`;
+Windows — `notepad "$env:USERPROFILE\.pi\agent\models.json"` и `notepad "$env:USERPROFILE\.pi\agent\auth.json"`.
+
+Замените:
+
+- в `models.json` — `YOUR_FOLDER_ID` на ID каталога Яндекса (встречается два раза). ID каталога —
+  строка вида `b1g…`, её видно на странице каталога в [консоли Yandex Cloud](https://console.yandex.cloud).
+  ⚠️ Где он показан в самом AI Studio, не проверялось;
+- в `auth.json` — `YOUR_YANDEX_API_KEY` и `YOUR_CLOUD_RU_KEY_SECRET` на свои ключи.
+  Подключили одно облако — удалите строку второго и запятую перед закрывающей скобкой.
+
+Удалите из `models.json` блоки провайдеров, которыми не пользуетесь (`yandex`, `cloudru` или `lmstudio`):
+иначе их модели будут в списке и падать с ошибкой. Если `auth.json` у вас уже был, команда выше его
+не тронула — допишите в него нужные строки из `models/pi/auth.example.json`.
+
+У Яндекса модель указывается только полным ID с `/latest` на конце: короткое имя даёт ошибку.
+Файл `auth.json` никому не пересылайте и не кладите в репозиторий.
+
+**4. Проверьте в bb.** Перезапустите bb, создайте тред, выберите агента **Pi** и модель,
+например **DeepSeek V4.1 Flash · Yandex** или **GLM-5.2 · Cloud.ru**. Список моделей виден и командой
+`bb provider models pi`.
+
+### 7. Путь 3. Локальная модель
+
+Подходит для мощного компьютера и данных, которые не должны покидать компьютер.
+Проверено на Mac M4 Pro с 48 ГБ памяти. На Windows не проверялось, на VPS без видеокарты не подходит.
+
+1. Поставьте [LM Studio](https://lmstudio.ai) и скачайте модель: `qwen/qwen3.8-27b` (лучше качество)
+   или `qwen/qwen3.6-35b-a3b` (в 3–4 раза быстрее).
+2. В настройках LM Studio поставьте контекст по умолчанию **от 64 тыс. токенов**: при стандартных 8 192 агент
+   не помещается.
+3. Включите сервер: вкладка **Developer** → **Status** → **Running**.
+4. Блок `lmstudio` уже есть в шаблоне `models/pi/models.json`. Если у вас свой файл — добавьте этот блок
+   внутрь `"providers"`. Ключ `lm-studio` — заглушка, LM Studio его не проверяет.
+
+**Честно о качестве.** Локальная модель медленнее и слабее облака. На одной задаче Qwen3.8-27B работала
+16 минут против 33 секунд у облачной DeepSeek V4.1 Flash, провалила 14 скрытых проверок из 49 и при этом
+написала в отчёте, что всё сделала. Результат проверяйте особенно внимательно.
+
+### Сколько стоит
+
+- **Яндекс, DeepSeek V4.1 Flash:** 300 ₽ за миллион токенов на входе, 500 ₽ — на выходе, 75 ₽ — за кэш.
+- **Cloud.ru:** GLM-5.2 — 173 ₽ и 606 ₽; Kimi K2.6 — 176 ₽ и 726 ₽.
+- **Claude Pro, ChatGPT Plus:** около $20 в месяц.
+- **Локальная модель:** бесплатно.
+
+Для ориентира: учебная задача по коду в тесте 06.10 обошлась в 21 ₽ на Яндексе и 34 ₽ на Cloud.ru,
+карточка товара — в 2–11 ₽. Расход видно в личном кабинете облака. Цены — на 06–07.10.2026,
+перед оплатой сверяйте в кабинете.
+
+### Безопасность данных
+
+- Ключ — как пароль: не публикуйте и не вставляйте в чаты. Засветили — удалите в кабинете и выпустите новый.
+- **Персональные данные покупателей** (ФИО, телефоны, адреса) — только в модели, про которые провайдер
+  письменно подтверждает работу в России: **DeepSeek V4.1 Flash у Яндекса** и **Kimi K2.6 у Cloud.ru**.
+  GLM-5.2 у Cloud.ru — партнёрская модель без такого подтверждения: ей — задачи без персональных данных.
+  В Claude и ChatGPT такие данные не отправляйте. С локальной моделью данные остаются на компьютере.
+  С провайдером нужен договор поручения обработки данных — покажите его юристу.
+- Россия не входит в список стран, где официально работают Anthropic и OpenAI. По пути 1 вы работаете
+  через VPN, и компании вправе ограничить такой аккаунт.
+
+Справочно: у MWS GPT (МТС) модель GLM-5.3, ЦОДы в РФ подтверждены письменно. Подключение к bb
+не проверялось, поэтому шагов нет.
+
+## Часть 3. Настройка как у Вадима
+
+Всё ниже необязательно, но делает работу заметно удобнее. Нужен распакованный комплект
+([как распаковать](#распакуйте-комплект)): `~/Developer/bb-vadim-kit` на macOS и Linux,
+`%USERPROFILE%\Developer\bb-vadim-kit` на Windows. Не удаляйте папку после установки: bb берёт
+плагины из неё. Команды `bb …` выполняйте во встроенном терминале bb, перейдя в папку комплекта:
+`cd ~/Developer/bb-vadim-kit` (Windows: `cd "$env:USERPROFILE\Developer\bb-vadim-kit"`).
+
+### 8. Общие настройки bb
+
+**Settings → General.** Значения Вадима:
+
+| Настройка | Значение | Зачем |
+|---|---|---|
+| `steerActiveThreadOnEnter` | `false` | Enter ставит сообщение работающему агенту в очередь; Cmd+Enter вмешивается в текущий ход |
+| `showKeyboardHints` | `true` | подсказки сочетаний клавиш |
+| `showDiagnosticEvents` | `false` | служебные события не засоряют ленту |
+| `defaultProviderId` | `claude-code` | агент по умолчанию; другой выбирается под задачу |
+| `managedBranchPrefix` | `bb/` | префикс веток, если создаётся worktree |
+| `confirmThreadArchive` | `true` | перед архивацией треда bb переспрашивает |
+
+Команды одинаковы на macOS, Windows и сервере (во встроенном терминале bb):
 
 ```text
 bb settings general steerActiveThreadOnEnter false
 bb settings general showKeyboardHints true
 bb settings general showDiagnosticEvents false
-```
-
-Если хотите тот же основной провайдер:
-
-```text
+bb settings general confirmThreadArchive true
 bb settings general defaultProviderId claude-code
 ```
 
-Выбор провайдера не устанавливает его CLI и не выполняет вход в аккаунт.
+Последняя строка только выбирает агента по умолчанию — ставить его и входить в аккаунт всё равно нужно.
+Подключили только российские облака (путь 2) — выберите Pi: `bb settings general defaultProviderId pi`.
 
-В боковой панели использую группировку **By project** и группировку окружений:
-
-```text
-bb settings ui set sidebar.organizationMode project
-bb settings ui set sidebar.threadGrouping.environment true
-```
-
-Сортировка по времени обновления — `sidebar.chronologicalSort = updated`.
-Поставщики навигации и списка тредов оставлены в режиме `__automatic__`.
-В видимых кнопках моей панели: Tasks, New thread, Docs и Search threads.
-Покажите удобные вам кнопки через настройки боковой панели; порядок личных
-проектов и свёрнутые треды воспроизводить не нужно.
-
-Проверка:
+Список тредов — группировка **By project** и сворачивание тредов одного окружения:
 
 ```text
-bb settings show
-bb settings ui list
+bb thread-list prefs set organizationMode project
+bb thread-list prefs set environmentGrouping true
 ```
 
-У меня нет пользовательских переопределений горячих клавиш.
-Полезные штатные сочетания: Command+P — файл, Command+Shift+P — палитра действий,
-Command+K — поиск тредов, Command+J — правая панель. На Windows `Mod` в
-Settings → Keyboard означает Control; конкретные сочетания проверьте там.
+Проверка: `bb thread-list prefs list`. Видимые кнопки боковой панели: Tasks, New thread, Docs,
+Search threads.
 
-## 4. Тема atom-one_vibecom
+**Горячие клавиши.** Штатные: Cmd+P — файл, Cmd+Shift+P — палитра действий, Cmd+K — поиск тредов,
+Cmd+J — правая панель. Вадим переназначил переход между панелями на **Cmd+Shift+стрелки**
+(по умолчанию Cmd+Ctrl+Shift+стрелки): **Settings → Keyboard** → `pane.focus.left/right/up/down`.
+На Windows `Mod` означает Ctrl. Проверка: `bb settings keyboard list`.
 
-В папке темы — **три файла**:
-`theme/atom-one_vibecom/theme.css`, `theme.json` и `one-dark.json`.
-До выпуска 0.2.0 тема называлась `atom-one`; файлы те же.
-CSS задаёт цвета интерфейса и терминала; JSON связывает тему с подсветкой кода.
-Копирования одного CSS недостаточно для полного повторения.
+**Голосовой ввод** включён (`voiceTranscriptionEnabled = true`): удобно диктовать задания.
+Расшифровку, а также заголовки тредов и сообщения коммитов делает облачный сервис bb (встроенный плагин
+`bb-ai`, режим **Automatic**); проверка — `bb settings ai-services show`.
 
-1. Выполните `bb theme dir`: команда покажет действительную папку тем BB.
-2. Скопируйте туда всю папку `theme/atom-one_vibecom` из комплекта. Если одноимённая тема уже есть,
-   предварительно сохраните её копию. Старую папку `atom-one` из выпуска 0.1.0
-   удалите после проверки новой темы.
+### 9. Тема atom-one_vibecom
+
+В ZIP три файла темы: `theme/atom-one_vibecom/theme.css`, `theme.json` и `one-dark.json`. CSS задаёт цвета
+интерфейса и терминала, JSON — подсветку кода. Нужны все три.
+
+1. `bb theme dir` покажет папку тем bb. Если там уже есть тема `atom-one_vibecom`, сначала сохраните её копию.
+   До комплекта 0.2.0 тема называлась `atom-one`, файлы те же: старую папку удалите после проверки новой.
+2. Скопируйте папку темы из комплекта (во встроенном терминале bb, в папке комплекта):
+
+```bash
+mkdir -p "$(bb theme dir)" && cp -R theme/atom-one_vibecom "$(bb theme dir)/"
+```
+
+Windows: `Copy-Item -Recurse -Force theme\atom-one_vibecom (bb theme dir)`.
+
 3. Выполните:
 
 ```text
@@ -155,598 +712,492 @@ bb theme set atom-one_vibecom
 bb theme show
 ```
 
-Тема поддерживает светлый и тёмный режимы. Выберите нужный режим в интерфейсе BB.
-У моего тёмного варианта фон `#1a1c21`, текст `#abb2bf`,
-акцент `#61afef`; в светлом — `#fafafa`, `#383a42`, `#4078f2`.
+Тёмный вариант: фон `#1a1c21`, текст `#abb2bf`, акцент `#61afef`; светлый — `#fafafa`, `#383a42`,
+`#4078f2`. Режим выбирается в интерфейсе bb. В конце CSS есть поправка для bb 0.44: после раскрытия поля
+сообщения остаются видны кнопки режимов разрешений. ⚠️ На 0.45 и 0.46 её работу отдельно не перепроверяли —
+если кнопки пропали, удалите последний блок CSS. Вернуть штатную тему: `bb theme reset`.
+Основа подсветки — [Atom One Dark](https://github.com/akamud/vscode-theme-onedark), лицензия в комплекте.
 
-В конце CSS есть моя поправка для BB 0.44: после раскрытия компактного поля
-сообщения кнопки режимов разрешений остаются доступны. Она использует внутренние
-`data-follow-up-composer`-атрибуты. После обновления BB проверьте эти кнопки:
-разметка интерфейса может измениться.
+### 10. Терминал
 
-Проверка: палитра изменилась, код подсвечивается, раскрытое поле сообщения
-показывает выбор прав. Вернуть штатную тему можно командой `bb theme reset`.
+В bb два терминала, и оба продолжают работу, пока вы переключаетесь на агентов.
 
-Основа подсветки — [Atom One Dark](https://github.com/akamud/vscode-theme-onedark);
-его лицензия включена в комплект.
+| | Встроенный терминал | Terminal_vibecom (плагин из комплекта) |
+|---|---|---|
+| Где | правая панель треда, **Cmd+Shift+Enter** | вкладка **Terminal_vibecom** в правой панели треда: меню **«+»** или **Ctrl+&#96;**; вне треда то же сочетание показывает плавающее окно, ещё оно открывается кнопкой **Floating terminal** внизу боковой панели |
+| Несколько оболочек | вкладками панели | вкладками внутри терминала, выбор оболочки; вкладка и окно показывают одни и те же оболочки |
+| С телефона | без Ctrl, Esc и вставки | строка клавиш: `esc`, `tab`, `ctrl`, стрелки, `^C`, `^D`, `^Z`, `^R`, `find`, `paste`; на телефоне вкладка подстраивается над клавиатурой |
+| Как закрыть | закрыть вкладку | вкладку или окно можно спрятать — команда работает дальше; **× у названия оболочки** закрывает её вместе с командой |
 
-## 5. Explorer_vibecom — проводник и редактор
+**Terminal_vibecom** — копия [vburojevic/bb-plugin-floating-terminal](https://github.com/vburojevic/bb-plugin-floating-terminal)
+0.5.3 (MIT), версия 0.6.2: терминал вкладкой в правой панели, два исправления кнопки `paste` и одно —
+отрисовки:
 
-Раньше здесь были два сторонних плагина: File Manager (папки, загрузка и
-скачивание) и Files editor (дерево проекта, поиск, редактор). Теперь у меня
-вместо них Explorer_vibecom из комплекта — переделка
-[Files editor 0.1.6](https://github.com/abdoutelb/bb-plugin-files-editor/tree/v0.1.6),
-в которую перенесены загрузка и скачивание из
-[File Manager](https://github.com/xMinor-1/bb-plugins/tree/file-manager/v0.9.2/plugins/file-manager).
-Ставится как остальные мои плагины (раздел 6), id — `files-editor`. Стоит
-Files editor от автора — удалите его перед установкой: id тот же.
+1. вставка срабатывает при отпускании пальца — так iPhone разрешает читать буфер обмена. В версии
+   из каталога вставка на iPhone всегда падает с «Clipboard is not available here»;
+2. текст вставляется как вставка, а не как набор: многострочная команда встаёт в строку ввода и ждёт
+   Enter, а не выполняется по строке;
+3. новый терминал больше не превращает текст в уже открытых терминалах в мешанину букв: шрифт
+   значков грузится один раз на страницу, и общую текстуру символов перерисовывают все терминалы сразу.
 
-Открывается вкладкой **Explorer_vibecom** в правой панели треда («+» →
-Explorer_vibecom) или страницей Files в сайдбаре. Что умеет:
+Первое исправление отправлено автору ([issue #3](https://github.com/vburojevic/bb-plugin-floating-terminal/issues/3)).
+Вкладки в правой панели у автора нет (на 11.10), поэтому на каталожную версию возвращаться не стоит.
 
-- дерево проекта или домашней папки (переключатель Project / Home), сортировка
-  по имени, дате изменения и типу, поиск по именам файлов и папок, поиск по
-  тексту (Command+Shift+F), Command+P;
-- меню по правому клику (на телефоне — долгим нажатием): создать, переименовать,
-  дублировать, переместить, в корзину с отменой, Copy path, Add to chat,
-  Download, открыть в новой вкладке; загрузка файлов кнопкой или перетаскиванием;
-- PDF, Word, Excel, PowerPoint и Markdown открываются прямо в панели — кодом
-  Office_vibecom и Markdown_vibecom. Для Markdown должен быть установлен
-  Markdown_vibecom: Vditor отдаёт его сервер;
-- секретные файлы (`.ssh`, `.env`, `.aws` и т. п.) видны, но содержимое и
-  передача — после подтверждения;
-- текстовые файлы — просмотр с подсветкой и правка с сохранением.
+Сочетание — команда BB **«Terminal_vibecom: open in side panel»**, по умолчанию Ctrl+&#96;; переназначается в
+**Settings → Keyboard**. До версии 0.6.1 вкладка и команда назывались просто «Terminal»; переназначенное
+сочетание после обновления сохраняется. ⚠️ Если две панели в split показывают терминал одновременно, переносы строк
+подстраиваются под ту, что менялась последней (не проверено). Установка и настройка Вадима (шрифт 13) —
+в [разделе 12](#12-мои-плагины-из-комплекта).
 
-Мои настройки — штатные: **Excluded directories** — `.git`, `node_modules`,
-`vendor`, по одному имени на строку; **Open documents in** — `This panel`.
-Корзина, Home, загрузка и «Open in Mac app» работают для рабочей копии на Mac
-с сервером BB; файлы подключённой машины идут через BB, корзины там нет.
+**Команду за вас наберёт агент.** Напишите в треде: «отправь в терминал: <команда>». Агент положит
+её в терминал без Enter — запуск подтверждаете вы. Пароли и ключи так не передавайте: они останутся
+в истории чата.
 
-## 6. Мои плагины из комплекта
+Ограничения: с телефона терминал работает, пока есть связь с getbb.app, и пока компьютер
+не спит; о завершении команды плагин не сообщает; на Mac вставка — Cmd+V, а не Ctrl+V. ✅ На iPhone
+вставка подтверждена Вадимом; ⚠️ многострочная вставка на iPhone, Android, Windows и Linux не проверены.
 
-В `plugins/` — исходники пяти плагинов, зависимости закреплены
-в `package-lock.json`. Плагины не привязаны к конкретному проекту.
-В интерфейсе BB они называются Markdown_vibecom, Office_vibecom,
-Folder links_vibecom, Explorer_vibecom и Terminal_vibecom; их id и папки —
-`markdown-view`, `office-preview`, `folder-links`, `files-editor`,
-`floating-terminal`. Первые три — версии 0.2.0, у двух переделок версии
-продолжают версии их авторов: 0.1.6 и 0.6.2.
-`node_modules` и сборки в репозиторий не входят: зависимости получает npm,
-сборку делает установленный у вас BB.
+### 11. Файлы: File Manager и Explorer_vibecom
 
-**Путь 1 — из Git.** BB сам скачает выбранный выпуск, установит зависимости
-и соберёт плагин. Ставьте только нужные:
+File Manager — внешний плагин для папок и файловых операций. Explorer_vibecom — дерево проекта или
+домашней папки, поиск, редактор и те же операции с файлами, включая загрузку и скачивание. У Вадима пока
+стоят оба; File Manager можно не ставить, если хватает Explorer_vibecom.
+File Manager ставится так:
 
 ```text
-bb plugin install "git:https://github.com/vibe-commerce-org/bb-vadim-setup.git@semver:~0.2.0" --subdirectory plugins/markdown-view
-bb plugin install "git:https://github.com/vibe-commerce-org/bb-vadim-setup.git@semver:~0.2.0" --subdirectory plugins/office-preview
-bb plugin install "git:https://github.com/vibe-commerce-org/bb-vadim-setup.git@semver:~0.2.0" --subdirectory plugins/folder-links
-bb plugin install "git:https://github.com/vibe-commerce-org/bb-vadim-setup.git@semver:~0.2.0" --subdirectory plugins/files-editor
-bb plugin install "git:https://github.com/vibe-commerce-org/bb-vadim-setup.git@semver:~0.2.0" --subdirectory plugins/floating-terminal
+bb plugin install git:https://github.com/xMinor-1/bb-plugins.git@file-manager/v0.9.2 --subdirectory plugins/file-manager
 ```
 
-BB покажет источник и попросит подтвердить установку. Диапазон `~0.2.0`
-принимает выпуски 0.2.x. Новую совместимую версию покажет `bb plugin outdated`,
-поставит её `bb plugin update ИМЯ-ПЛАГИНА`. Для точного повторения укажите
-тег `@v0.2.0` вместо диапазона: такой источник закреплён, `update` его не меняет.
-Плагины, поставленные из выпуска 0.1.0 с диапазоном `~0.1.0`, на 0.2.0 сами
-не обновятся: выполните `bb plugin remove ИМЯ-ПЛАГИНА` и установите заново.
+bb покажет источник стороннего плагина: прочитайте и подтвердите. Команда закрепляет ту же версию, что
+у Вадима; ⚠️ в такой форме не запускалась — у Вадима плагин поставлен диапазоном версий
+(`…bb-plugins.git@semver:file-manager/:^0.9.1`). Explorer_vibecom ставится из комплекта —
+[раздел 12](#12-мои-плагины-из-комплекта).
 
-**Путь 2 — из локальной папки** (клон или ZIP). Для каждого плагина откройте
-Terminal или PowerShell **в его папке** и выполните (у Explorer_vibecom и
-Terminal_vibecom — `npm ci --ignore-scripts`):
+**File Manager** — **New tab → Actions → File Manager**; кнопка **Thread folder** ведёт в папку
+текущего треда. Значения Вадима:
 
 ```text
+bb plugin config file-manager set restoreLastFolder true
+bb plugin config file-manager set openThreadWorkspace false
+bb plugin config file-manager set showHiddenFiles true
+bb plugin config file-manager set confirmOnDelete true
+bb plugin config file-manager set sortField name
+bb plugin config file-manager set sortDirection asc
+bb plugin config file-manager set viewMode list
+bb plugin config file-manager set uploadChunkMiB 16
+```
+
+Стартовую папку (**Start folder**) выберите в настройках плагина или командой с **полным** путём:
+`bb plugin config file-manager set startFolder "$HOME/Developer/_CODE"`. File Manager видит только
+домашнюю папку пользователя.
+
+**Explorer_vibecom** — вкладка правой панели (меню **«+»** → **Explorer_vibecom** или в палитре действий
+**Files: browse this thread's project**) и страница **Files** в боковой панели. Что умеет:
+
+- дерево проекта или домашней папки (переключатель Project / Home), сортировка по имени, дате изменения
+  и типу, поиск по именам, поиск по тексту всего проекта (Cmd+Shift+F), переход к файлу по имени (Cmd+P),
+  поиск в файле, вкладки;
+- меню по правому клику (на телефоне — долгим нажатием): создать, переименовать, дублировать, переместить,
+  в корзину с отменой, Copy path, Add to chat, Download, открыть в новой вкладке; загрузка файлов кнопкой
+  или перетаскиванием;
+- PDF, Word, Excel, PowerPoint и Markdown открываются прямо в панели кодом Office_vibecom и
+  Markdown_vibecom. Для Markdown должен быть установлен Markdown_vibecom: редактор Vditor отдаёт его сервер;
+- секретные файлы (`.ssh`, `.env`, `.aws` и т. п.) видны в дереве, но содержимое и передача в чат — только
+  после подтверждения;
+- текстовые файлы — просмотр с подсветкой, Read / Edit с сохранением по Cmd+S. Если агент изменил файл,
+  пока вы его правите, сохранение остановится и предложит **Reload** или **Overwrite**.
+
+Исключены `.git`, `node_modules`, `vendor` — это значения по умолчанию (**Excluded directories**, по одному
+имени на строку). Корзина, Home, загрузка и «Open in Mac app» работают, когда рабочая копия на том же Mac,
+что и сервер bb; файлы подключённой машины идут через bb, корзины там нет.
+
+Куда открываются PDF и офисные документы по клику — настройка **Open documents in**:
+
+| Значение | Что происходит |
+|---|---|
+| `This panel` (по умолчанию) | рядом с деревом, в той же вкладке |
+| `BB viewer` | отдельной вкладкой в просмотрщике bb: PDF — встроенный, офис — Office_vibecom |
+| `Mac app` | приложение macOS по умолчанию (Preview, Word, Excel, Keynote). Только когда bb работает на Mac: на Windows и Linux-сервере выберите другое значение |
+
+```text
+bb plugin config files-editor set openDocumentsIn "This panel"
+```
+
+CSV и TSV остаются текстом.
+
+### 12. Мои плагины из комплекта
+
+В `plugins/` — исходники пяти плагинов с `package-lock.json`. Зависимости скачивает npm, собирает
+bb. Они не привязаны к конкретному репозиторию. В bb они видны с суффиксом `_vibecom`, ID прежние.
+
+| Папка (ID) | Имя в bb | Версия | macOS | Linux-сервер | Windows |
+|---|---|---|---|---|---|
+| `markdown-view` | Markdown_vibecom | 0.3.0, bb 0.45+ | ✅ | ⚠️ должен работать | ⚠️ ссылки между файлами могут не работать |
+| `office-preview` | Office_vibecom | 0.3.0, bb 0.45+ | ✅ | ⚠️ без `.doc/.rtf/.odt` | ⚠️ без `.doc/.rtf/.odt` |
+| `folder-links` | Folder links_vibecom | 0.3.0 | ✅ | ⚠️ должен работать | ✗ не ставить |
+| `floating-terminal` | Terminal_vibecom | 0.6.2 | ✅ | ⚠️ | ⚠️ |
+| `files-editor` | Explorer_vibecom | 0.1.6 с правками | ✅ | ⚠️ без `Mac app` | ⚠️ без `Mac app` |
+
+Свои три плагина нумеруются версией комплекта; у копий чужих плагинов версии продолжают версии их авторов.
+Explorer_vibecom показывает Markdown через сервер Markdown_vibecom — ставьте их вместе.
+
+**Первая установка из папки комплекта.** Откройте терминал **в папке плагина** и выполните:
+
+macOS и Linux:
+
+```bash
 npm ci
 bb plugin build .
-bb plugin install .
+bb plugin install "$PWD" --yes
 ```
 
-Папки: `plugins/markdown-view`, `plugins/office-preview`,
-`plugins/folder-links`, `plugins/files-editor`, `plugins/floating-terminal`.
-Folder links_vibecom устанавливайте для сервера BB на macOS;
-ограничения Windows описаны ниже. Новую версию локального плагина:
-получите файлы, выполните `npm ci`, `bb plugin build .` и
-`bb plugin reload ИМЯ-ПЛАГИНА`.
+Windows (PowerShell):
 
-ИМЯ-ПЛАГИНА — id из `bb plugin list`: `markdown-view`, `office-preview`,
-`folder-links`, `files-editor`, `floating-terminal` (не имя пакета из `package.json`).
+```powershell
+npm ci
+bb plugin build .
+bb plugin install (Get-Location).Path --yes
+```
 
-Один плагин ставится одним путём. Чтобы перейти с локальной папки на Git
-(или обратно), сначала выполните `bb plugin remove ИМЯ-ПЛАГИНА`: команда удаляет
-настройки, секреты и расписания плагина (настройки есть у Explorer_vibecom
-и Terminal_vibecom) и копию, скачанную из Git; локальная папка остаётся на диске. Проверка загрузки — `bb plugin list`.
+На bb 0.46 все пять плагинов при сборке предупреждают о закреплённой версии SDK — это не ошибка, сборка
+проходит. Команду `bb plugin types` из предупреждения не выполняйте: она меняет версию SDK в плагине. Для `files-editor` и `floating-terminal` вместо `npm ci` выполните `npm ci --ignore-scripts`: так npm не
+собирает нативные инструменты разработки, плагинам они не нужны. ⚠️ На Windows и Linux не проверено.
 
-### Markdown_vibecom
+Если плагин с тем же ID уже стоит из другого источника (Floating Terminal из каталога, Files editor из git),
+удалите его до установки: `bb plugin remove floating-terminal` или `bb plugin remove files-editor`.
+Настройки удалённого плагина пропадут. ⚠️ Установка поверх без удаления не проверялась. После установки обновите окно bb
+(Cmd+R / Ctrl+R).
 
-Открывает `.md`, `.mdx` и `.markdown` только для чтения в виде Typora: Vditor
-показывает ссылки, таблицы, метки заголовков, оглавление и картинки по
-относительным путям. Цвета документа берутся из темы BB. Изменение на диске
-подхватывается примерно за 1,5 секунды, у файлов больше 256 КБ — за 5 секунд.
+Настройки после установки. У Вадима шрифт терминала 13, документы открываются рядом с деревом
+(`This panel`, значение по умолчанию):
 
-**«Редактировать»** включает правку в том же окне. Режимы: «Как в Typora»,
-«Как в Word», «Исходник». На телефоне панель инструментов — одна строка
-с прокруткой пальцем.
-**«Вид»** управляет размером текста, межстрочным интервалом, шириной страницы
-и шрифтом; **«Оглавление»** — его видимостью. Сохранение автоматическое;
-Command+S на macOS (Control+S на Windows) сохраняет сразу, «Готово» возвращает к просмотру.
+```text
+bb plugin config floating-terminal set fontSize 13
+bb plugin config files-editor set openDocumentsIn "This panel"
+```
 
-Цель моей доработки — сохранять правленые строки, сохраняя остальной исходник.
-При несовпадении контрольного результата возможен полный формат документа:
-редактор показывает соответствующую отметку. Проверьте diff после правки.
-Если агент изменил файл одновременно с вами, появляется выбор версии;
-молчаливого перезаписывания чужой версии быть не должно.
+**Обновление** из нового ZIP (в том числе с прошлой версии комплекта): замените файлы в той же папке, затем `npm ci`
+(для `files-editor` и `floating-terminal` — `npm ci --ignore-scripts`), `bb plugin build .`,
+`bb plugin reload <ID>` — ID это имя папки, например `bb plugin reload floating-terminal`, а не имя с `_vibecom`. Если папка переехала — заново `bb plugin install <новый путь>`.
+`node_modules` не удаляйте: Markdown_vibecom берёт оттуда редактор. Для `office-preview` npm
+скачивает библиотеку `xlsx` с `cdn.sheetjs.com` — сайт должен открываться.
+Проверка: `bb plugin list` — нужные плагины в статусе `running`.
 
-При локальной установке `node_modules` сохраняйте и после сборки: сервер
-плагина отдаёт оттуда Vditor. В комплекте есть тесты сохранения, путей чтения
-и ссылок; после `npm ci` их запускает `npm test`.
+**Установка из Git** — когда репозиторий комплекта опубликован на GitHub. bb сам скачает выпуск, поставит
+зависимости, соберёт плагин и сможет обновлять его командой. Ставьте только нужные:
 
-Настройки вида хранятся в браузере, отдельно от файлов. Базовые значения:
-масштаб 100%, ширина «вся», обычный шрифт, интервал «авто», оглавление включено.
-Это **значения реализации**, а не подтверждённый снимок моего текущего клиента.
-Вставка изображений из буфера не настроена. Относительные картинки
-показываются в пределах проекта или папки файла; относительные ссылки лучше
-проверять при открытии документа из треда.
+```text
+bb plugin install "git:https://github.com/vibe-commerce-org/bb-vadim-setup.git@semver:~0.3.0" --subdirectory plugins/markdown-view
+bb plugin install "git:https://github.com/vibe-commerce-org/bb-vadim-setup.git@semver:~0.3.0" --subdirectory plugins/office-preview
+bb plugin install "git:https://github.com/vibe-commerce-org/bb-vadim-setup.git@semver:~0.3.0" --subdirectory plugins/folder-links
+bb plugin install "git:https://github.com/vibe-commerce-org/bb-vadim-setup.git@semver:~0.3.0" --subdirectory plugins/files-editor
+bb plugin install "git:https://github.com/vibe-commerce-org/bb-vadim-setup.git@semver:~0.3.0" --subdirectory plugins/floating-terminal
+```
 
-### Office_vibecom
+bb покажет источник и попросит подтвердить. Диапазон `~0.3.0` принимает выпуски 0.3.x: новую совместимую
+версию покажет `bb plugin outdated`, поставит `bb plugin update <ID>`. Для точного повторения укажите тег
+`@v0.3.0` вместо диапазона — такой источник `update` не меняет. Плагины из выпусков с диапазоном `~0.2.0`
+на 0.3.0 сами не перейдут: удалите и поставьте заново.
 
-Показывает Excel/CSV/ODS, Word DOCX и PowerPoint PPTX с заметками докладчика.
-Формулы Excel не пересчитываются: выводится сохранённый результат.
-Редактирование офисных документов этим плагином не предусмотрено.
+Один плагин ставится одним путём. Чтобы перейти с папки на Git или обратно, сначала `bb plugin remove <ID>`:
+команда удаляет и настройки плагина (они есть у Explorer_vibecom и Terminal_vibecom) — задайте их заново
+командами выше. ⚠️ Из России GitHub бывает медленным; тогда ставьте из папки ZIP.
 
-`.doc`, `.rtf`, `.odt` конвертируются через `textutil` на сервере macOS.
-На Windows для этих форматов используйте внешнее приложение.
-Старые `.ppt` и `.pps` также открывайте внешним приложением.
+#### Markdown_vibecom — Markdown как в Typora
 
-Есть кнопки «Обновить» и «Во внешнем приложении». Для точной вёрстки остаётся
-Word/Excel/PowerPoint: HTML-просмотр может отличаться от исходного приложения.
-PDF обслуживает встроенный `pdf-preview`.
+Открывает `.md`, `.mdx`, `.markdown` на всю ширину, с оглавлением. Изменения на диске подхватывает
+примерно за 1,5 секунды, у файлов больше 256 КБ — за 5 секунд.
 
-### Folder links_vibecom
+- **Вид как в Typora:** синие ссылки, код в «чипах», таблицы с рамками, метки H1/H2. Цвета берутся
+  из темы bb и переключаются вместе с ней.
+- **Ссылки работают:** `http` — в браузере; `mailto:` и `tel:` — в системе; `#раздел` — переход
+  к заголовку; относительный путь — от папки файла, во вкладке bb; абсолютный путь и `file://` —
+  файл на компьютере, в том числе из **другого репозитория**.
+- **Картинки по относительным путям** показываются, если лежат внутри чекаута.
+- **Правка:** кнопка **«Редактировать»** включает редактор Vditor, на её месте появляется **«Готово»**.
+  Пока вы в документе, вокруг него синяя рамка; перешли в чат — серая. Режимы: «Как в Typora»,
+  «Как в Word», «Исходник». **«Вид»** — размер текста, интервал, ширина, шрифт; **«Оглавление»** —
+  показать или скрыть.
+- **Сохранение** — само через секунду, по Cmd+S (Ctrl+S) и по «Готово».
+- **Правленые строки сохраняются точечно**, остальной исходник не переформатируется. Если агент изменил
+  файл одновременно с вами, появится выбор версии — молча чужая версия не перезаписывается.
+  После правки посмотрите diff.
+- Файлы хранилища треда теперь можно не только смотреть, но и править.
+- Голые адреса без `[текст](…)` ссылками не становятся.
+- **На телефоне** шапка и лента инструментов правки занимают одну строку, ленту листают пальцем.
+  Свайп по ленте больше не нажимает кнопки редактора: раньше на iPhone он мог испортить файл.
 
-Клик по абсолютной ссылке на папку в сообщении открывает её дерево справа.
-Несуществующая папка внутри домашней папки заменяется ближайшей существующей
-папкой-предком с пояснением. Ссылки на файлы остаются у штатных открывателей.
+Настройки вида хранятся в браузере, отдельно от файлов. Тесты: `npm test` (28 проверок ✅).
 
-Плагин читает диск сервера BB и привязан к разметке чата. Папки другого хоста
-не обслуживает. В исходниках используются правила POSIX-путей; локальный сервер
-Windows этим комплектом не покрыт.
+#### Office_vibecom — Excel, Word, PowerPoint
 
-### Terminal_vibecom
+Показывает Excel / CSV / ODS, Word DOCX и PowerPoint PPTX с заметками докладчика. Формулы Excel не
+пересчитываются — выводится сохранённый результат. Редактирования нет. Есть кнопки «Обновить» и
+«Во внешнем приложении». `.doc`, `.rtf`, `.odt` конвертируются через `textutil` — только когда bb
+работает на Mac; на Windows и Linux их открывайте внешним приложением. Старые `.ppt`/`.pps` — тоже
+внешним приложением. PDF показывает встроенный `pdf-preview`. Тесты: `npm test` (10 проверок ✅).
 
-Настоящий терминал с вкладками шеллов: вкладка в правой панели треда
-(«+» → Terminal_vibecom или Control+\`) и плавающее окно из футера сайдбара.
-Шеллы общие для окна и вкладки и переживают перезапуск BB. На телефоне —
-строка клавиш, высота над клавиатурой и вставка многострочного текста без
-выполнения до Enter. Это переделка
-[Floating Terminal 0.5.3](https://github.com/vburojevic/bb-plugin-floating-terminal);
-стоит он от автора — удалите перед установкой: id тот же (`floating-terminal`).
-Сочетание клавиш меняется в Settings → Keyboard, размер шрифта — в настройках плагина.
+#### Folder links_vibecom — папка из ответа агента в дерево справа
 
-## 7. Настройка открытия файлов
+Клик по абсолютной ссылке на папку в сообщении открывает её дерево справа, а не встроенный браузер. Если папки уже нет,
+открывается ближайшая существующая папка-предок с пояснением. Ссылки на файлы остаются у штатных
+открывателей. Работает с путями macOS и Linux внутри домашней папки; Windows не поддерживает.
+Тесты: `npm test` (10 проверок ✅).
 
-Откройте **Settings → File openers** и закрепите удобные варианты:
+### 13. Открытие файлов
 
-| Формат | Рекомендуемый открыватель |
+**Settings → File openers** — закрепите:
+
+| Формат | Открыватель |
 |---|---|
 | `.md`, `.mdx`, `.markdown` | «Markdown (как в Typora, правка)» |
 | `.xlsx`, `.xlsm`, `.xls`, `.xlsb`, `.ods`, `.numbers`, `.csv`, `.tsv` | «Таблица (Excel)» |
 | `.docx`, `.docm`, `.dotx` | «Документ (Word)» |
 | `.pptx` | «Презентация (PowerPoint)» |
-| `.pdf` | Встроенный PDF preview |
-| Исходники и конфигурации | Встроенный File Editor / Monaco либо BB preview |
+| `.pdf` | встроенный PDF preview |
+| код и конфигурации | встроенный редактор Monaco или BB preview |
 
-Это рекомендуемая схема для повторения возможностей. Сохранённые назначения
-моего конкретного клиента не прочитаны. Настройки открывателей могут конкурировать:
-например, File Manager добавляет Preview + location для многих расширений.
+**Важно:** File Manager тоже регистрируется открывателем для многих форматов. Пока Markdown_vibecom
+не закреплён для `.md`, клик по файлу в чате может открыть его в File Manager. Для отдельного файла —
+правый клик → **Open with**.
 
-Для отдельного файла используйте правый клик → **Open with**.
-Русские названия в таблице принадлежат моим плагинам и остаются русскими.
+### 14. Репозитории, папки и дочерние треды
 
-## 8. Старт: репозитории, папки и дочерние треды
+bb работает с **папкой проекта на компьютере**. Репозиторий — эта папка вместе с историей Git;
+GitHub хранит её копию.
 
-BB работает с **папкой проекта на вашем компьютере**. Репозиторий — эта папка
-с файлами и историей Git; GitHub хранит её удалённую копию.
-Сначала выберите шаблон и склонируйте его, затем добавьте папку как проект в BB.
+**Бесплатные шаблоны Вадима** — достаточно одного:
 
-### Два бесплатных репозитория Вадима
-
-| Для чего | Публичный репозиторий |
+| Для чего | Репозиторий |
 |---|---|
 | Разработка и общая работа с ИИ-агентами | [vadim-bakanov-ai-dev](https://github.com/vibe-commerce/vadim-bakanov-ai-dev) |
 | ВАЙБ-КОММЕРС: работа селлера и задачи маркетплейсов | [vibecommerce_test_code](https://github.com/vibe-commerce/vibecommerce_test_code) |
 
-Для начала достаточно **одного**: выбирайте под свои задачи.
-Оба источника публичные; выбранный шаблон можно клонировать в свою локальную
-папку `vibecommerce_code`. Название источника на GitHub менять не требуется.
-Настройка самого BB — в этом репозитории: шаблоны дают проектные методики,
-skills и правила, а тема и файловые плагины берутся отсюда.
+Платный VIP-репозиторий — [состав и доступ](https://vibecommerce.ru/repo/),
+[сравнение с бесплатной версией](https://vibecommerce.ru/repo-base/). После оплаты в течение рабочего
+дня приходит приглашение в GitHub. Для настройки bb VIP не нужен.
 
-### Стандартные пути и имена
+**Пути, как в инструкции курса 8.5:**
 
-В моём курсе рабочая папка задана так; для своих задач имя папки выберите сами:
+| Система | Рабочая папка |
+|---|---|
+| macOS | `~/Developer/_CODE/vibecommerce_code` |
+| Windows | `C:\Developer\_CODE\vibecommerce_code` |
+| Linux-сервер | `~/Developer/_CODE/vibecommerce_code` |
 
-- **macOS:** `~/Developer/_CODE/vibecommerce_code`.
-- **Windows:** `C:\Developer\_CODE\vibecommerce_code`.
+Имена папок репозиториев заканчивайте на `_code`: `vibecommerce_code`, `client_acme_code`. Это
+договорённость, а не требование bb. Отдельные репозитории клиентов — соседние папки в `_CODE`,
+приватные, каждый своим проектом bb.
 
-Общий корень — `~/Developer/_CODE` или `C:\Developer\_CODE`.
-Храните его вне OneDrive, iCloud Drive и других синхронизируемых папок.
-На Windows короткий путь без кириллицы уменьшает проблемы инструментов.
+**Готовое задание агенту** — отправьте в первый тред:
 
-Имена **локальных папок репозиториев** заканчивайте на `_code`:
-`vibecommerce_code`, `ai_agents_code`, `client_acme_code`.
-Это наша договорённость об именах, а не требование BB или Git.
-Для отдельных репозиториев клиентов используйте соседние папки в том же корне:
-
-```text
-_CODE/
-├── vibecommerce_code/       # ваш рабочий репозиторий
-├── ai_agents_code/         # второй шаблон, если он нужен отдельно
-├── client_acme_code/       # самостоятельный репозиторий клиента
-└── client_brand_code/      # другой клиент
-```
-
-У каждого самостоятельного репозитория — своя история Git и свой проект BB.
-Клиентские репозитории держите приватными. Если данные клиента лежат в
-`my-project/` внутри шаблона, это рабочие данные этого проекта;
-отдельный Git-репозиторий клиента храните отдельной папкой в `_CODE`.
-
-Готовое задание агенту в BB:
-
-> Подготовь мой рабочий репозиторий. На macOS используй
-> ~/Developer/_CODE/vibecommerce_code, на Windows —
-> C:\Developer\_CODE\vibecommerce_code. Склонируй выбранный мной шаблон:
+> Подготовь мой рабочий репозиторий. На macOS и Linux используй ~/Developer/_CODE/vibecommerce_code,
+> на Windows — C:\Developer\_CODE\vibecommerce_code. Склонируй выбранный мной шаблон:
 > для общей работы с ИИ — https://github.com/vibe-commerce/vadim-bakanov-ai-dev,
 > для ВАЙБ-КОММЕРС — https://github.com/vibe-commerce/vibecommerce_test_code.
-> Если выбор не указан, уточни его. Клонируй в корень целевой папки,
-> без дополнительной вложенной папки. Если папка уже существует и не пуста,
-> сначала покажи её состояние и уточни дальнейшее действие; не удаляй файлы.
-> Проверь, что AGENTS.md и CLAUDE.md находятся в корне, покажи дерево
-> и добавь эту папку как проект BB в основном чекауте.
+> Если выбор не указан, уточни его. Клонируй в корень папки, без лишней вложенной папки. Если папка
+> не пуста, покажи её состояние и спроси, что делать; файлы не удаляй. Проверь, что AGENTS.md и
+> CLAUDE.md лежат в корне, покажи дерево и добавь папку как проект bb в основном чекауте.
 > Не создавай remote, commit и push без отдельного задания.
 
-В CLI существующую папку добавляет команда:
+Или вручную: склонируйте шаблон и добавьте папку как проект (команда `bb` — во встроенном терминале bb):
 
-```text
-bb project create --name vibecommerce_code --root "/absolute/path/to/vibecommerce_code"
+```bash
+git clone https://github.com/vibe-commerce/vibecommerce_test_code.git ~/Developer/_CODE/vibecommerce_code
+bb project create --name vibecommerce_code --root "$HOME/Developer/_CODE/vibecommerce_code"
 ```
 
-Укажите полный реальный путь. Например, на Windows:
-`--root "C:\Developer\_CODE\vibecommerce_code"`.
-Если проект уже зарегистрирован, используйте существующий.
+На Windows: `git clone https://github.com/vibe-commerce/vibecommerce_test_code.git C:\Developer\_CODE\vibecommerce_code`,
+затем `bb project create --name vibecommerce_code --root "C:\Developer\_CODE\vibecommerce_code"`.
+Папка для клонирования должна быть пустой или ещё не существовать.
+
 Проверка: `bb status` и `bb environment list`.
 
-### Платный VIP-репозиторий
+**Основная рабочая копия.** По умолчанию — **Project checkout**: все треды проекта видят живые
+незакоммиченные файлы. Worktree — отдельная копия из последнего коммита: только когда нужна изоляция.
 
-[Посмотреть состав и оформить доступ](https://vibecommerce.ru/repo/).
-[Бесплатная версия и сравнение с VIP](https://vibecommerce.ru/repo-base/).
+**Дочерний тред** — отдельный разговор под самостоятельную задачу, привязанный к исходному. Например,
+в основном треде обсуждаете проект, а дочерний готовит план и возвращает ссылку. Формулировка:
 
-VIP — приватный репозиторий. По действующей странице после оплаты присылается
-приглашение в GitHub в течение одного рабочего дня, на указанный email или
-GitHub-ник. Примите приглашение; затем клонируйте доступный репозиторий либо
-используйте **Code → Download ZIP**. Это порядок получения, а не открытая
-ссылка на приватный архив. Сохраняйте VIP отдельно, например
-`vibecommerce_vip_code`, и соблюдайте его лицензию.
-Для настройки BB VIP покупать не требуется. Цены и условия проверяйте
-на странице оформления в день покупки.
+> Создай дочерний тред в основном чекауте этого проекта. Модель — последний Opus, effort xhigh.
+> В нём подготовь план задачи в Markdown, без исполнения. Уточнения веди там, мне верни ссылку на план.
 
-### Основная рабочая копия и дочерние треды
-
-По умолчанию выбираю **Project checkout** — основную папку репозитория.
-Все треды проекта видят живые незакоммиченные изменения и локальные файлы.
-Они могут править одни документы: агент обязан перечитывать общий файл
-перед правкой и сохранять изменения других тредов.
-
-Worktree — отдельная рабочая копия из состояния Git. Выбирайте его,
-когда задаче нужна изоляция; окружение и локальные файлы готовятся отдельно.
-
-**Дочерний BB-тред** — отдельный разговор для самостоятельной задачи,
-связанный с исходным. Например, в основном треде обсуждаете проект,
-а в дочернем агент проверяет документацию и возвращает ссылку на результат.
-У него свой контекст; он может работать в том же или другом проекте.
-Связь включает `--parent-self`.
-
-Готовая формулировка для агента:
-
-> Создай дочерний BB-тред в основном чекауте этого проекта. Используй Codex Sol,
-> effort xhigh. В нём подготовь план моей задачи в Markdown, без исполнения.
-> Все уточнения веди там. Родителю верни ссылку на план и оставшиеся решения.
-
-Если запускать через CLI из действующего BB-треда:
+Через CLI из работающего треда:
 
 ```text
-bb provider models codex
-bb thread spawn --project YOUR_PROJECT_ID --environment YOUR_ENVIRONMENT_ID --parent-self --provider codex --model gpt-6.1-sol --reasoning-level xhigh --prompt-file task.md
+bb provider models claude-code
+bb thread spawn --project ID_ПРОЕКТА --environment ID_ОКРУЖЕНИЯ --parent-self --provider claude-code --model 'claude-opus-5-5[1m]' --reasoning-level xhigh --prompt-file task.md
 ```
 
-Подставьте ID из `bb status` / `bb environment list`;
-`task.md` создайте заранее с заданием. Перед запуском сверяйте каталог моделей.
-В моих общих правилах предпочитаемый вариант — актуальный Opus с xhigh;
-явный выбор Codex или другого провайдера важнее.
+ID — из `bb status` и `bb environment list`, модель — сверьте с каталогом. Режимы прав bb:
+**Accept Edits**, **Approve for me**, **Full Access**; effort задаёт глубину работы модели и разрешений
+не добавляет. `--lifecycle-owner-thread` не ставьте, если дочерний тред не должен архивироваться
+вместе с родителем.
 
-Режимы прав BB: **Accept Edits**, **Approve for me**, **Full Access**.
-Effort задаёт глубину работы модели и не добавляет разрешений.
-Не добавляйте `--lifecycle-owner-thread`, если дочерний тред не должен
-архивироваться вместе с родителем.
+### 15. Правила агентам
 
-## 9. Универсальные инструкции агентам
+`instructions/AGENTS.md` в ZIP — обобщённые правила Вадима: план перед реализацией, основной чекаут,
+сохранение чужих правок, абсолютные ссылки на файлы, дочерние треды и продолжения тредов, варианты
+А/Б/В с рекомендацией, терминал, проверяемый результат. С 11.10 добавлены ещё два: слова и решения
+пользователя агент записывает в файл-бриф рядом с планом, а при заполнении контекста треда на 75 %
+предлагает сохранить статус в план, чтобы при сжатии контекста ничего не потерялось.
 
-В комплекте есть `instructions/AGENTS.md`: универсальная версия моих правил.
-В ней — планы перед реализацией, основной чекаут, сохранение чужих правок,
-абсолютные ссылки, дочерние треды, варианты А/Б/В и проверяемый результат.
+- **Для всех проектов** — положите как `<папка данных bb>/AGENTS.md`. Папку показывает `bb status`,
+  обычно `~/.bb`. Если файл уже есть — объедините правила, свои не удаляйте.
+- **Для одного репозитория** — `<репозиторий>/.bb/AGENTS.md`.
 
-Для всех проектов разместите файл как **`<BB-data-dir>/AGENTS.md`**.
-Путь data directory показывает `bb status`; типичный вариант — `~/.bb`.
-Если файл уже существует, объедините правила точечно, сохранив свои.
+Это отдельный механизм от корневого `AGENTS.md` у Codex и `CLAUDE.md` у Claude Code. bb подключает
+общий файл, затем проектный, при старте сессии. Проверьте в новом треде.
+[Описание в документации bb](https://github.com/get-bb/bb/blob/main/docs/configuration.md#agent-instructions).
 
-Для одного репозитория BB читает **`<repo>/.bb/AGENTS.md`**.
-Это отдельный механизм от корневого `AGENTS.md` Codex и `CLAUDE.md`
-Claude Code. BB добавляет общий файл, затем проектный, при старте сессии
-провайдера. После изменения проверьте применение правил в новом треде.
-[Официальное описание инструкций BB](https://github.com/get-bb/bb/blob/main/docs/configuration.md#agent-instructions).
+### 16. Skills и встроенные плагины
 
-Личные Telegram-боты, пути моего Mac, клиентские ограничения и специфические
-правила веток в шаблон не включены. Правила разработки берутся из вашего проекта.
-
-## 10. Skills и штатные плагины
-
-У меня включён `bb-guide`: introduction, skills, bbCli, pluginAuthoring,
-skillCreator и submitPlugin — все `true`. Агент получает справку по BB,
-CLI и созданию расширений. Проверка: `bb plugin config bb-guide`.
-
-Skills можно посмотреть через `bb skill list`. Полезный принцип:
-повторяется методика — skill; самостоятельная задача с отдельной перепиской —
-дочерний BB-тред; внутренний субагент — инструмент конкретного провайдера.
-
-Для агентов, запускаемых **вне BB**, есть штатная установка CLI-skills:
-
-```text
-bb skill cli-skills-status
-bb skill install-cli-skills
-```
-
-Вторую команду выполняйте, если хотите добавить эти инструкции в глобальные
-каталоги агентов. Она меняет файлы; на нескольких машинах задавайте нужную
-через `--machine`. При сборе этой инструкции на моём Mac обнаружен статус
-`outdated`; обновление не выполнялось.
-
-**Provider retry** у меня настроен на максимальное ожидание `24 hours`:
+- **bb-guide** — справка по bb для агента (introduction, skills, bbCli, pluginAuthoring, skillCreator,
+  submitPlugin — все включены). Проверка: `bb plugin config bb-guide`.
+- **Provider retry** — после лимита подписки bb ждёт и продолжает сам, до 24 часов:
 
 ```text
 bb plugin config provider-retry set maximumWait "24 hours"
 bb provider-retry status
 ```
 
-Это помогает продолжить работу после временного ограничения провайдера.
-Число 24 часа задаёт допустимое ожидание, а не фиксированную задержку каждого повтора.
+- **Concurrency limit** — автоматический, зависит от процессоров машины: `bb concurrency-limit status`.
+- **Keep awake** (macOS и Windows) — не даёт компьютеру уснуть, пока работает bb: `bb keep-awake enable`. ⚠️ На Windows не проверено.
+- **Push notifications** — уведомления на компьютер и телефон. На macOS разрешите:
+  **System Settings → Notifications → bb → Allow notifications**.
+- Skills смотрите через `bb skill list`. Принцип: повторяется методика — skill; самостоятельная задача
+  со своей перепиской — дочерний тред; внутренний субагент — инструмент конкретного агента.
+- Агентам **вне** bb можно поставить те же skills: `bb skill cli-skills-status`, затем
+  `bb skill install-cli-skills` (меняет глобальные папки агентов).
 
-**Concurrency limit** оставлен автоматическим: глобальный лимит не задан,
-локальных переопределений нет. Мой Mac сейчас получает предел 14 по доступным
-процессорам. Это характеристика машины, а не значение для копирования.
-Проверка: `bb concurrency-limit status`.
+### 17. Полный снимок настроек Вадима на 11.10
 
-Дополнительно загружены Keep awake, Provider usage, Push notifications,
-Tasks, Docs, Automations и другие встроенные плагины. У Keep awake плагин
-работает, но предотвращение сна на моём Mac сейчас **выключено** (`enabled=false`). Эксперимент
-`mobileApp = true`; уведомления для mobile/web/desktop включены.
-Для macOS разрешение приложения проверяется отдельно:
-**System Settings → Notifications → bb → Allow notifications**.
-
-Плагин Connect загружен; это само по себе не подтверждает подключённый туннель.
-Для доступа с телефона настройте собственное подключение по разделу 14.
-Установка этого комплекта сама по себе ничего наружу не открывает.
-
-## 11. Полный безопасный снимок настроек BB
-
-Основные изменённые и полезные значения описаны выше. Остальные проверенные
-параметры приведены здесь, чтобы стандартные значения не выдавать за доработки.
-
-| Группа | Остальные значения на 2026-10-04 |
+| Группа | Значения |
 |---|---|
-| General | `providerOrder=[]`, `providerCompletedTurnDisplay={}`, `telemetryEnabled=true`, `showUnhandledProviderEvents=false` |
-| Машины | `machineServerUrl=null`, `defaultMachineAccess=null`, `machineGitCredentialsEnabled=true`; личные подключения не переносятся |
-| Experiments | `changelogPreview=false`, `legacyJitiPluginLoader=false`, `serverMove=false`, `sidebarProgressiveDisclosure=false` |
-| Appearance | `themeId=atom-one` (с выпуска 0.2.0 — `atom-one_vibecom`), `faviconColor=default`; пользовательская палитра и codeTheme в комплекте |
-| Custom instructions plugin | `instructions=""`; мои общие правила лежат в файле AGENTS.md |
-| Files editor | `excludedDirectories`: `.git`, `node_modules`, `vendor` |
-| Свои плагины | Отдельных серверных настроек Markdown_vibecom, Office_vibecom и Folder links_vibecom нет |
-| Keyboard | Пользовательских переопределений нет |
+| Плагины | 44 всего: 35 running, 9 disabled (bb 0.46.0) |
+| Свои (в bb — `_vibecom`) | `markdown-view`, `office-preview`, `folder-links` (в комплекте — 0.3.0); `floating-terminal` 0.6.2 и `files-editor` 0.1.6 — копии чужих плагинов с правками |
+| Внешние | `file-manager` 0.9.2 из git |
+| Настройки плагинов | `floating-terminal`: `fontSize=13`; `files-editor`: `excludedDirectories` по умолчанию, `openDocumentsIn=This panel`; `file-manager` — раздел 11 |
+| Новые встроенные | в 0.45 — `bb-account`, `bb-ai` (облачный ИИ для заголовков, коммитов, голосового ввода); в 0.46 — `bb--prompt-library`, `bb--storage-retention` (у Вадима отключены), встроенного `navigation` больше нет |
+| Встроенные активные | automations, bb--provider-usage, bb-guide, concurrency-limit, connect, custom-instructions, drafts, environment-git-worktree, environment-personal-workspace, environment-project-checkout, inline-vis, keep-awake, monaco-editor, pdf-preview, provider-acp, provider-claude-code, provider-codex, provider-pi, provider-retry, push-notifications, scheduled-send, secrets, side-chat, simple-notes (Docs), tasks, thread-list |
+| Отключены | account-pool, agent-annotations, ask-user-question, bb--prompt-library, bb--storage-retention, file-tree, plugin-api-docs, plugin-api-tester, workflows — включать ради совпадения не нужно |
+| Агенты | Claude Code, Codex, Pi; Pi — Яндекс, Cloud.ru, LM Studio |
+| Клавиши | 4 переназначения: переход между панелями — Cmd+Shift+стрелки (mac) |
+| Прочее | `confirmThreadArchive=true`, `allowFastServiceTier=true`, `voiceTranscriptionEnabled=true`, AI-сервисы bb — Automatic, тема `atom-one_vibecom`, эксперименты `changelogPreview=false`, `serverMove=false`, `performanceDiagnostics=false` |
 
-По `bb plugin list`: **40 плагинов, 33 running, 7 disabled**.
+Личный диагностический плагин `focus-probe` в комплект не входит. Explorer_vibecom в комплекте — вторая
+версия (документы в проводнике, меню операций с файлами, защита секретных файлов); на iPhone Вадим её
+проверил 11.10.
 
-Активные внешние/локальные: `file-manager@0.9.2`,
-`files-editor@0.1.6`, `markdown-view@0.1.0`,
-`office-preview@0.1.0`, `folder-links@0.1.0` и
-`focus-probe@0.1.0`. Последний — локальный диагностический плагин;
-он не входит в универсальный комплект.
+## Часть 4. Телефон, проверка и ошибки
 
-Активные встроенные:
-`automations`, `bb-guide`, `concurrency-limit`, `connect`,
-`custom-instructions`, `drafts`, `environment-git-worktree`,
-`environment-personal-workspace`, `environment-project-checkout`,
-`inline-vis`, `keep-awake`, `monaco-editor`, `navigation`,
-`pdf-preview`, `provider-acp`, `provider-claude-code`,
-`provider-codex`, `provider-pi`, `provider-retry`, `provider-usage`,
-`push-notifications`, `scheduled-send`, `secrets`, `side-chat`,
-`simple-notes` (Docs 0.2.3), `tasks` (0.1.2), `thread-list`.
-Остальные из этого списка имеют версию 0.1.0. Их состояние не доказывает,
-что каждый провайдер авторизован или используется в работе.
+### 18. bb с телефона
 
-Отключены: `account-pool`, `agent-annotations`, `ask-user-question`,
-`file-tree@0.19.4`, `plugin-api-docs`, `plugin-api-tester`, `workflows`.
-Эта инструкция не предлагает включать их ради совпадения списков.
+**Компьютер или сервер с bb должен быть включён, с интернетом и не спать.** Телефон — пульт: отправляет
+задания, показывает ответы и запросы разрешений. Агенты и репозитории работают на компьютере.
+С сервером (блок 4) ноутбук можно выключать.
 
-Наличие настройки само по себе не доказывает, кто и когда её поменял.
-Происхождение собственных доработок подтверждается их локальными исходниками,
-README и решениями Вадима; полная git-история этих плагинов в проверенном
-чекауте отсутствует. Для остальных сохранённых параметров личное авторство
-не предполагается.
+На компьютере:
 
-## 12. macOS и Windows
+1. Запустите bb и войдите в свой аккаунт на [getbb.app](https://getbb.app).
+2. В кабинете выберите имя сервера, скопируйте команду подключения и выполните её в терминале. Вид
+   команды — `bb connect --code ОДНОРАЗОВЫЙ_КОД --server https://ВАШЕ_ИМЯ.getbb.app`. Код никому не
+   пересылайте.
+3. Проверьте: `bb connect status` — команда покажет и ваш адрес. Серверов несколько — `bb connect servers`.
 
-| Компонент | macOS | Локальный сервер BB на Windows |
-|---|---|---|
-| Общие настройки, sidebar, правила и дочерние треды | Проверены CLI и источники | Команды подготовлены; отдельный прогон не выполнен |
-| Тема atom-one_vibecom | Активна на BB 0.44.0 под именем `atom-one`, файлы включены | CSS/JSON переносимы; работу клиента проверить после установки |
-| Markdown_vibecom | Активен, исходники включены | На Windows не испытан; требуется npm и поддержка SDK |
-| Office_vibecom: XLSX, DOCX, PPTX | Активен | Браузерные рендереры; на Windows не испытаны |
-| Office_vibecom: DOC/RTF/ODT | Требует textutil на Mac-сервере | Используйте внешнее приложение |
-| Folder links_vibecom | Проверен для POSIX-путей | В текущем виде не предназначен для Windows-путей |
-| Explorer_vibecom | Активен | Не испытан; корзина, Home и загрузка рассчитаны на macOS |
-| Terminal_vibecom | Активен | Не испытан |
+На телефоне откройте в Safari или Chrome **свой** адрес `https://ВАШЕ_ИМЯ.getbb.app` и войдите в тот же
+аккаунт. Добавьте в закладки. Одна Wi-Fi-сеть не нужна: работает и мобильный интернет.
 
-**Профиль установки Windows:** тема, Markdown_vibecom, Office_vibecom для
-XLSX/DOCX/PPTX, Explorer_vibecom для дерева проекта и универсальные правила.
-Folder links_vibecom пропустите; папки проектов открывайте через Explorer_vibecom,
-рабочий корень `C:\Developer\_CODE` — через проект BB. На macOS можно установить весь комплект.
+Терминал с телефона — через Terminal_vibecom (раздел 10) в браузере: у встроенного терминала на телефоне
+нет Ctrl, Esc и вставки.
 
-Нативная версия BB для Windows обозначена upstream как alpha. Подготовленный
-профиль исключает известные платформенные ограничения, но здесь не испытан
-на Windows: доступен только Mac. До отдельного прогона это кандидат для
-Windows, а не подтверждённая полноценная Windows-установка.
+**Чтобы компьютер не уснул:** питание от сети, крышка открыта. `bb keep-awake enable` (выключить —
+`bb keep-awake disable`) работает на macOS и Windows; с закрытой крышкой ноутбук всё равно уснёт.
+На Windows дополнительно проверьте сон в параметрах электропитания. ⚠️ Keep awake на Windows не проверен.
 
-Если клиент Windows подключён к серверу BB на Mac, ограничения серверных
-операций определяются Mac-сервером, а не ОС клиента.
+**Приложение** — по желанию. Ссылки на iOS (TestFlight) и Android (APK) покажет `bb settings mobile-app`;
+подключение — **Settings → Mobile → Add mobile device**, одноразовый код вводится в приложении.
+В приложении не работают интерфейсы плагинов: Terminal_vibecom, Markdown_vibecom, Explorer_vibecom и File Manager доступны
+только в браузере. Поэтому для терминала с телефона открывайте `https://ВАШЕ_ИМЯ.getbb.app` в браузере.
+Вход в агентов (`claude`, `codex login`) с телефона не делается — нужен терминал на компьютере.
+Отключить удалённый доступ: `bb connect off`.
 
-## 13. Проверка после настройки
+`bb connect expose` открывает наружу отдельный порт — для доступа к bb с телефона он не нужен.
+Не выставляйте порты в интернет без необходимости.
+[Документация bb о нескольких устройствах](https://github.com/get-bb/bb/blob/main/docs/multiple-devices.md).
 
-1. `bb theme show` показывает `atom-one_vibecom`.
-2. `bb plugin list` показывает нужные плагины как `running`.
-3. `examples/demo.md` из комплекта открывается через Markdown_vibecom;
-   видны таблица и оглавление. После «Редактировать» меняется одна строка и сохраняется.
-4. В обычном рабочем Markdown-файле правка одной строки даёт понятный diff;
-   одновременное изменение агентом вызывает выбор версии.
-5. Excel/DOCX/PPTX открываются справа нужным открывателем; формулы и вёрстку
-   при необходимости сверяете с исходным приложением.
-6. Ссылка на существующую папку открывает дерево на Mac-сервере.
-   В Explorer_vibecom открываются `.md` и `.docx`; Terminal_vibecom — по Control+\`.
-7. Новый дочерний тред появился под родителем и использует заданные
-   проект, окружение, модель и effort.
-8. После вашей правки `AGENTS.md` новый тред понимает общие правила.
-9. Enter во время работы агента ставит сообщение в очередь.
+### 19. Проверка после настройки
 
-## 14. Как пользоваться BB с телефона
+1. В новом треде агент ответил: «Напиши “bb работает” и укажи путь к рабочей папке. Файлы не меняй».
+2. `bb provider models pi` показывает модели облака, если вы подключали путь 2.
+3. `bb theme show` → `atom-one_vibecom`.
+4. `bb plugin list` → нужные плагины `running`.
+5. `examples/demo.md` из комплекта открывается в Markdown_vibecom: таблица, оглавление, рабочие ссылки.
+   «Редактировать» → поменять строку → «Готово» → в diff изменилась одна строка.
+6. Excel, DOCX, PPTX открываются справа своими открывателями.
+7. В треде Ctrl+&#96; открывает вкладку Terminal_vibecom справа; спрятанная вкладка не останавливает команду; видна кириллица.
+8. Во вкладке Explorer_vibecom в треде клик по PDF или DOCX открывает документ рядом с деревом, а не заглушку.
+9. На macOS и Linux клик по ссылке на папку открывает дерево справа.
+10. Дочерний тред появился под родителем с заданными моделью и effort.
+11. Enter во время работы агента ставит сообщение в очередь.
+12. С телефона по мобильному интернету видны треды и уходит короткое сообщение.
 
-**Ноутбук с BB должен быть включён, иметь интернет и не уходить в сон.**
-На нём должен работать сервер BB. Телефон — клиент: отправляет задания,
-показывает ответы и запросы разрешений. Работа с репозиториями и запуск агентов
-происходят на ноутбуке. Выключенный или уснувший ноутбук недоступен с телефона.
+### 20. Если что-то не получилось
 
-### Подключение через браузер
+| Симптом | Что сделать |
+|---|---|
+| Агента нет в списке bb | Проверьте `claude --version`, `codex --version` или `pi --version`, завершите вход и полностью перезапустите bb |
+| Pi: модели не видны | Проверьте `~/.pi/agent/models.json` — валидный JSON, `YOUR_FOLDER_ID` заменён; перезапустите bb |
+| Cloud.ru: ошибка 401 | Ключ не того типа: нужен ключ **сервисного аккаунта уровня «Проект»** |
+| Яндекс: модель не найдена | Нужен полный ID вида `gpt://ID_КАТАЛОГА/deepseek-v4.1-flash/latest` |
+| Плагин не `running` | `bb plugin list`; в папке плагина повторите `npm ci` и `bb plugin build .`, затем `bb plugin reload <ID>` (ID — имя папки плагина) |
+| Markdown открывается не в Markdown_vibecom | Закрепите для `.md` открыватель «Markdown (как в Typora, правка)» в **Settings → File openers** (раздел 13) |
+| Квадраты вместо русских букв в терминале | Раздел 2.6 (macOS) или L4 (Linux) |
+| Windows: `winget` не найден | Шаг W1 — App Installer, новое окно PowerShell |
+| Windows: «codex не распознано» | Обновите PATH: `$env:Path = [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [Environment]::GetEnvironmentVariable('Path', 'User')`, затем `codex --version`. Не помогло — повторите установку из шага W4 |
+| Windows: `start the Windows daemon from a non-elevated terminal` | Окно PowerShell открыто от администратора. Откройте обычное и выполните `codex login status`, затем `codex` — повторный вход обычно не нужен |
+| Windows: несовпадение SHA-256 | Скачайте установщик заново; с другой суммой не запускайте |
+| bb не запускается | Логи ниже; Windows-версия — alpha, повторяющуюся ошибку можно сообщить в [Issues bb](https://github.com/get-bb/bb/issues) |
+| Телефон не подключается | Компьютер включён и не спит, bb запущен, есть интернет; `bb connect status` |
 
-На ноутбуке:
+Логи bb: на macOS и Linux — `~/.bb/logs/`, на Windows:
 
-1. Запустите BB и войдите в свой аккаунт на [getbb.app](https://getbb.app).
-2. В личном кабинете выберите имя сервера и скопируйте предложенную команду
-   подключения. Выполните её в Terminal / PowerShell на ноутбуке.
-   Её форма — `bb connect --code YOUR_ONE_TIME_CODE --server https://YOUR_HANDLE.getbb.app`.
-   Подставляйте только значения из своего кабинета; код подключения не пересылайте
-   в Telegram и не включайте в публичные инструкции.
-3. Проверьте `bb connect status`.
-
-На телефоне откройте Safari или Chrome, перейдите по **своему** адресу
-`https://YOUR_HANDLE.getbb.app` и войдите в тот же аккаунт.
-Откройте проект и нужный тред. Ссылку можно сохранить в закладках.
-
-Телефон может пользоваться мобильным интернетом; находиться в одной Wi-Fi-сети
-с ноутбуком не требуется. Для проверки отключите Wi-Fi на телефоне и убедитесь,
-что видны треды и отправляется короткое сообщение.
-
-Такой доступ позволяет читать ответы и файлы, давать новые задания,
-проверять планы и отвечать на запросы разрешений. Например:
-«В дочернем треде составь план этой задачи и верни ссылку».
-Запуск внешнего редактора на ноутбуке из телефона не даёт редактор на экране
-телефона; документы читайте через встроенные открыватели BB.
-
-Для подключения BB используйте Connect. Команда `bb connect expose`
-предназначена для отдельных HTTP-портов и для обычного доступа к BB с телефона
-не требуется. `localhost` в браузере телефона означает сам телефон.
-
-### Как оставить ноутбук доступным
-
-Подключите питание, оставьте крышку открытой и проверьте переход в сон.
-Экран может погаснуть, если сам компьютер продолжает работать.
-Закрытие крышки способно усыпить ноутбук: Keep awake не гарантирует работу
-с закрытой крышкой.
-
-На macOS и Windows BB умеет предотвращать **автоматический сон при простое**:
-
-```text
-bb keep-awake status
-bb keep-awake enable
-bb keep-awake status
+```powershell
+Get-Content -Path "$env:USERPROFILE\.bb\logs\server-stdio.log" -Tail 40
+Get-Content -Path "$env:USERPROFILE\.bb\logs\host-daemon-stdio.log" -Tail 40
 ```
 
-Ожидаемый результат после включения — `Enabled`.
-На моей проверенной среде было `Disabled`; выше приведена настройка,
-которую читателю нужно включить самому для длительного доступа.
-Она действует, пока BB работает. Вернуть прежний режим:
-`bb keep-awake disable`.
+Ошибку установщика сохраните целиком (скриншот всего окна) — по ней видно причину.
 
-На Windows дополнительно проверьте время перехода в сон при питании от сети
-в параметрах электропитания: Keep awake действует, только пока BB работает.
-Разблокировать экран постоянно не требуется; завершать BB и переводить
-компьютер в сон нельзя, пока нужен удалённый доступ.
+### 21. Как проверена инструкция
 
-### Необязательное мобильное приложение
+- **Mac Вадима, bb 0.45.0, 04–11.10.2026; bb 0.46.0 — 11.10:** настройки и плагины сняты командами `bb settings`,
+  `bb plugin list/source/config`, `bb provider models`; 11.10 снимок повторён на 0.46.0 и совпал, кроме
+  списка встроенных плагинов (раздел 17).
+- **Комплект 0.3.0, bb 0.46.0, 11.10:** все пять плагинов собраны с нуля во временной папке (`npm ci` с пустым
+  кэшем, `bb plugin build .`) и прошли тесты: Markdown 28/28, Office 10/10, Folder links 10/10,
+  Explorer 373/373, Terminal 86/86. Установка как у bb из Git — клон выпуска по тегу, установка зависимостей
+  без инструментов разработки npm-ом из bb, `bb plugin build` — все пять собраны. В bb из папки комплекта
+  плагины не устанавливались. Подробно — `VALIDATION.md`.
+  Агент Pi с моделями Яндекса, Cloud.ru и LM Studio работает в bb; прогон моделей — 06.10.
+- **Терминал:** исправленная вставка проверена в браузере с экраном iPhone и Вадимом на iPhone;
+  вкладка в правой панели — в работе у Вадима с 10.10.
+- **Windows:** Вадим 08.10.2026 сообщил: «Проверял — на винде всё прекрасно работает».
+  Маршрут установки (нативная Windows или WSL) и отдельные сценарии проверки не уточнены;
+  проверки каждого провайдера и плагина на Windows отдельно не подтверждены.
+- **Linux-сервер:** команды и ссылки сверены с официальной документацией; на настоящем VPS
+  эти шаги не выполнялись.
+- **Новая машина:** установка в чистый bb на другом компьютере не проверялась; `npm ci` с нуля — только на Mac.
+- **bb 0.46.0:** проверены сборка и тесты, установка плагинов комплекта из папки — нет (см. «Новая машина»).
+  Поправка темы для кнопок режимов разрешений на 0.46 не перепроверялась.
+- Лицензии: комплект — MIT (`LICENSE`), чужой код и шрифты — `THIRD_PARTY_NOTICES.md`.
+- В ZIP нет аккаунтов, ключей, `auth.json`, `.env`, баз bb, личных путей и клиентских данных.
+  Шаблон `models.json` — без ID каталога и ключей.
+- Цены моделей — на 06–07.10.2026; перед оплатой сверяйте в кабинете облака.
 
-Браузера достаточно. Если для вашей платформы доступно приложение BB,
-устанавливайте его по ссылке из официальной документации.
-В моей версии 0.44.0 включён эксперимент `mobileApp=true`.
-При необходимости его включает команда:
+Компоненты комплекта — снимок, а не автообновление. После обновления bb пройдите раздел 19.
+Справка по командам: `bb guide commands settings`, `bb guide commands plugin`,
+`bb guide commands thread`, `bb guide terminals`, `bb guide machines`.
 
-```text
-bb settings experiment mobileApp true
-```
-
-В 0.44 используйте **Settings → Remote access → Add mobile device**.
-В более новой документации этот пункт расположен в
-**Settings → Mobile → Add mobile device**. Сверьте интерфейс своей версии.
-Следуйте экрану подключения; одноразовый код вводится в своём приложении.
-CLI-альтернатива — `bb connect machine-code`; её выполняют только при
-подключении собственного устройства, результат не публикуют.
-Приложение тоже управляет сервером на ноутбуке.
-
-Если телефон не подключается, сначала проверьте питание, сон, интернет и
-работающий BB на ноутбуке, затем `bb connect status`.
-Когда удалённый доступ больше не нужен, `bb connect off` закрывает туннель;
-аккаунт остаётся подключённым, вернуть доступ — `bb connect on`.
-Забыть привязку — `bb account logout`.
-
-Маршрут и различия версий сверены со справкой текущего CLI и
-[официальной инструкцией BB для нескольких устройств](https://github.com/get-bb/bb/blob/main/docs/multiple-devices.md).
-Физический телефон при подготовке этого файла не подключался.
-
-## 15. Как проверена эта инструкция
-
-Источники — текущие `bb status`, `bb settings show/ui list`,
-`bb plugin list/source/config`, `bb provider models`,
-`bb concurrency-limit status`, справка CLI, файлы темы,
-исходники собственных плагинов и общие правила BB Вадима.
-Данные проверены 2026-10-04; экспорт баз BB и истории переписки не выполнялся.
-
-В репозитории — только выбранные исходники, тема, обобщённые правила и пример.
-Нет аккаунтов, auth.json, .env, cookie, баз, токенов, личных путей или клиентских
-данных. Индивидуальные настройки браузера, сохранённые назначения открывателей,
-закладки File Manager и точный масштаб Markdown не снимались:
-для них выше даны явные рекомендации или значения реализации.
-
-Команды настройки сверены со справкой BB 0.44.0 и 0.45.0. Для выпуска 0.2.0
-пять плагинов собраны на BB 0.46.0 из клона по тегу: зависимости поставлены
-npm из состава BB с теми же флагами, что при установке из Git, и отдельно —
-как у разработчика. Тесты: Markdown_vibecom — 28/28, Office_vibecom — 10/10,
-Folder links_vibecom — 10/10, Terminal_vibecom — 86/86, Explorer_vibecom — 366/366.
-CLI предупреждает, что закреплённый SDK (0.6.15 и 0.5.9) старше SDK BB 0.6.37;
-сборка проходит, версии не менялись. Установки из комплекта в рабочей среде
-Вадима не выполнялись. Подробности — в [VALIDATION.md](VALIDATION.md).
-Совместимость будущих версий BB нужно перепроверять:
-особенно внутренние селекторы темы и Folder links_vibecom.
-
-Плагины из Git обновляются `bb plugin update` в пределах выбранного диапазона.
-Тема, правила и локальная установка — снимок: новую версию берите из следующего
-выпуска. Зависимости устанавливаются по lockfile; чужие плагины закреплены
-на тегах. После обновления BB проверьте сценарии из раздела 13.
-
-Для самостоятельной проверки команд:
-`bb guide commands settings`, `bb guide commands plugin`,
-`bb guide commands thread`, `bb guide agent-configuration`.
+[yandex-ai-studio]: https://aistudio.yandex.ru
+[cloud-ru]: https://cloud.ru

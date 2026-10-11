@@ -2,16 +2,17 @@
 
 Last Updated: 2026-10-11
 
-Каждый подкаталог — отдельный плагин. Установка описана в GUIDE.md, разделы 5 и 6:
-из Git — `bb plugin install "git:<адрес репозитория>@semver:~0.2.0"
---subdirectory plugins/<папка>`; локально — в папке плагина npm ci →
-bb plugin build . → bb plugin install .
+Каждый подкаталог — отдельный плагин. Установка описана в GUIDE.md, раздел 12:
+из Git — `bb plugin install "git:<адрес репозитория>@semver:~0.3.0"
+--subdirectory plugins/<папка>`; из папки — `npm ci` (у files-editor и
+floating-terminal — `npm ci --ignore-scripts`) → `bb plugin build .` →
+`bb plugin install <путь папки>`.
 
 | Папка и id | Имя в BB | Версия | Что делает |
 |---|---|---|---|
-| markdown-view/ | Markdown_vibecom | 0.2.0 | просмотр Markdown в виде Typora и правка в Vditor |
-| office-preview/ | Office_vibecom | 0.2.0 | просмотр таблиц, Word и PowerPoint |
-| folder-links/ | Folder links_vibecom | 0.2.0 | ссылки на папки открывают дерево справа; macOS/POSIX |
+| markdown-view/ | Markdown_vibecom | 0.3.0 | просмотр Markdown в виде Typora и правка в Vditor |
+| office-preview/ | Office_vibecom | 0.3.0 | просмотр таблиц, Word и PowerPoint |
+| folder-links/ | Folder links_vibecom | 0.3.0 | ссылки на папки открывают дерево справа; macOS/POSIX |
 | files-editor/ | Explorer_vibecom | 0.1.6 | проводник и редактор рабочей копии, документы внутри панели; переделка плагина abdoutelb |
 | floating-terminal/ | Terminal_vibecom | 0.6.2 | терминал вкладкой правой панели и плавающим окном; переделка плагина vburojevic |
 
