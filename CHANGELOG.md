@@ -5,6 +5,24 @@ Last Updated: 2026-10-11
 Формат — по [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии — по [SemVer](https://semver.org/lang/ru/).
 
+## [0.3.1] — 2026-10-11
+
+Внешний плагин File Manager убран из комплекта: его заменяет Explorer_vibecom.
+Плагины с диапазоном `~0.3.0` получат выпуск через `bb plugin update`.
+
+### Удалено
+
+- File Manager (xMinor-1/bb-plugins) больше не ставится и не настраивается:
+  убран из `GUIDE.md` (разделы 1, 11, 13, 17 и про телефон), из `AGENT-TASK.md`
+  и из `MANIFEST.json` (`external_plugins`). Файлы, загрузка и скачивание, корень
+  Home — в Explorer_vibecom. Код загрузки, перенесённый из file-manager, остаётся
+  в Explorer_vibecom; его лицензия — в `THIRD_PARTY_NOTICES.md`.
+
+### Изменено
+
+- Версия трёх своих плагинов — 0.3.1; их код не менялся.
+- В README плагинов строки установки — с диапазоном `~0.3.0` (было `~0.2.0`).
+
 ## [0.3.0] — 2026-10-11
 
 Комплект студентов «bb как у Вадима» (`08-BB-VADIM-KIT.zip`) и этот репозиторий

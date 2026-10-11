@@ -2,7 +2,7 @@
   "format": 3,
   "created": "2026-10-11",
   "name": "bb-vadim-kit",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "license": "MIT",
   "checked_environment": [
     {
@@ -10,7 +10,7 @@
       "bb_sdk": "0.6.37",
       "node": "25.2.1",
       "os": "macOS",
-      "scope": "release 0.3.0: plugins built from scratch (npm ci, empty cache) and tested; tagged clone, BB-style npm install (--omit=dev) and bb plugin build for five plugins; kit ZIP and agent file checked by scripts/check-kit.py",
+      "scope": "release 0.3.1: plugins built from scratch (npm ci, empty cache) and tested; tagged clone, BB-style npm install (--omit=dev) and bb plugin build for five plugins; kit ZIP and agent file checked by scripts/check-kit.py",
       "bb_npm": "11.16.0"
     },
     {
@@ -32,7 +32,7 @@
     {
       "id": "markdown-view",
       "name": "Markdown_vibecom",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "path": "plugins/markdown-view",
       "pinned_sdk": "0.6.15",
       "tests": 28
@@ -40,7 +40,7 @@
     {
       "id": "office-preview",
       "name": "Office_vibecom",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "path": "plugins/office-preview",
       "pinned_sdk": "0.6.15",
       "tests": 10
@@ -48,7 +48,7 @@
     {
       "id": "folder-links",
       "name": "Folder links_vibecom",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "path": "plugins/folder-links",
       "pinned_sdk": "0.5.9",
       "tests": 10,
@@ -106,16 +106,6 @@
     "syntax_license": "MIT",
     "path": "theme/atom-one_vibecom"
   },
-  "external_plugins": [
-    {
-      "id": "file-manager",
-      "version": "0.9.2",
-      "source": "https://github.com/xMinor-1/bb-plugins",
-      "tag": "file-manager/v0.9.2",
-      "subdirectory": "plugins/file-manager",
-      "commit": "dfd8e07786b0fff90307c3e77c2f9c163a90e7b6"
-    }
-  ],
   "models_templates": [
     "models/pi/models.json",
     "models/pi/auth.example.json"
@@ -134,18 +124,18 @@
   "files": [
     {
       "path": "AGENT-TASK.md",
-      "bytes": 13111,
-      "sha256": "cc7b34242e07d2b55503b2fe830816bae80bbd8e8faf3eb95ef5ab79cc3bcf08"
+      "bytes": 12170,
+      "sha256": "ec5345182e386333ff14121ce0522f021d30a70894e48c787308bdfee152f1cb"
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 8340,
-      "sha256": "df7972b56b3cbef6181be43faa9238276bb433b4a4c137e62b73e737e5492004"
+      "bytes": 9381,
+      "sha256": "770abc60c4df9d72119b2852d056cdab32b2b4e763b1da56daeaf66a2a1f15b7"
     },
     {
       "path": "GUIDE.md",
-      "bytes": 94936,
-      "sha256": "40df635790030a7c65d02fd2048fbe5f83c6ccbe6ab6d93214cb0ffba22e0736"
+      "bytes": 93624,
+      "sha256": "d59b1cf57f67beeb63516d4f2c4d6a5bbddc810d216624b2ef66c847f16178f5"
     },
     {
       "path": "LICENSE",
@@ -154,8 +144,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 8355,
-      "sha256": "1d726c0d6ca5b3952c0624785a0071dbd10001fd6cc44b4f6da65ba9a605c0bf"
+      "bytes": 8357,
+      "sha256": "7b64a533f3f9f23321c2b48a29f03837a102cc1c61fc555764157566a78f2eef"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -164,13 +154,13 @@
     },
     {
       "path": "VALIDATION.md",
-      "bytes": 6306,
-      "sha256": "3ef64d0fdb165824bf79cdf7c936a36e24b6e27a47c7b6a411efce8d0c51930e"
+      "bytes": 8385,
+      "sha256": "71cd25435f32fd75298ec0b99bfe075d3098a7573752c76ed0a1d613a4664427"
     },
     {
       "path": "VERSION",
       "bytes": 6,
-      "sha256": "d915cc95d6ca8f47ae297713ed46d4e5c5d99ddd29fc3c61e263bdf305f2b5b0"
+      "sha256": "79e3f22ca37c7fdf4c29ae3648d6b008c3cb6547260a453409275470919dc674"
     },
     {
       "path": "examples/README.md",
@@ -210,7 +200,7 @@
     {
       "path": "plugins/README.md",
       "bytes": 2759,
-      "sha256": "bb127b401fc3c007322d4bc1e198a798e388a5d3f9a7af58a3caa9178debc4d3"
+      "sha256": "6fae0364ed17bdf39494a3bdbc86eabbc18e027ea970a2e24ad6c9c1490315b5"
     },
     {
       "path": "plugins/files-editor/LICENSE",
@@ -220,7 +210,7 @@
     {
       "path": "plugins/files-editor/README.md",
       "bytes": 4042,
-      "sha256": "16990cf3499afe771c2459c1547caba7b341c1c7937bbce58d04c776cdb124f6"
+      "sha256": "de4f5e0f3ae992f1d7c2ccdd60287a0622135722a5ecc04a8c0412353194de50"
     },
     {
       "path": "plugins/files-editor/app.tsx",
@@ -735,7 +725,7 @@
     {
       "path": "plugins/floating-terminal/README.md",
       "bytes": 3499,
-      "sha256": "d93e44387f20d57f4905f6ce646d00b60713eb7fc4c011cd27285b7baf8dc1c3"
+      "sha256": "813040a03c9cf69221722773dc65d1958575918f4368f79f7b68f36461628cd2"
     },
     {
       "path": "plugins/floating-terminal/app.tsx",
@@ -1060,7 +1050,7 @@
     {
       "path": "plugins/folder-links/README.md",
       "bytes": 1284,
-      "sha256": "f17806ec570327674cd513a8f3ca9b77c9e9db24d173e7c6f26c0bbc429cc4db"
+      "sha256": "95d3e72c386dc225eabc29fc536bd0b8d034f6e459a24ee1af0e0f65891e0595"
     },
     {
       "path": "plugins/folder-links/app.tsx",
@@ -1070,12 +1060,12 @@
     {
       "path": "plugins/folder-links/package-lock.json",
       "bytes": 3934,
-      "sha256": "140e23a65c91fd22dc04456063f288292559d056ea5d7fcb192d12f77061f8d6"
+      "sha256": "11e06abe499b6d2b3294d29bcd4c28933599f7353417131987bc4e520078b831"
     },
     {
       "path": "plugins/folder-links/package.json",
       "bytes": 844,
-      "sha256": "b72235ecb75fa5961189c95a7d6e58622304a506367fa6bb6d09b1d2677bfd17"
+      "sha256": "6e5d00da24354c73a3737fc820f3b871eeec7eec784e052cedab649419393f23"
     },
     {
       "path": "plugins/folder-links/rpc.ts",
@@ -1130,7 +1120,7 @@
     {
       "path": "plugins/markdown-view/README.md",
       "bytes": 2817,
-      "sha256": "72dc18c435f97d811e28481529b7be53135888cff6463b32248c178d2ba5e4c5"
+      "sha256": "d220541adcf21ad328493df2c1d39b356a0c38b93a9bf411deacc29968df5bfc"
     },
     {
       "path": "plugins/markdown-view/app.tsx",
@@ -1140,12 +1130,12 @@
     {
       "path": "plugins/markdown-view/package-lock.json",
       "bytes": 7922,
-      "sha256": "ac73d01e2617ca68d8c330d433726d171d9590e5171f76feae0dc4853ee443d4"
+      "sha256": "f65ac7da2559677369111404310ad4a2e11508f5c5f9976bed9bcfaba32b7f2a"
     },
     {
       "path": "plugins/markdown-view/package.json",
       "bytes": 1003,
-      "sha256": "d89b4031305b470057eb6d20b83459aa54c89b9c5007faafaf41b58c14c6ff94"
+      "sha256": "63c4e833409474961f51b8d07118431ed33ff0449a9602dc89677be255e90a59"
     },
     {
       "path": "plugins/markdown-view/server.ts",
@@ -1255,7 +1245,7 @@
     {
       "path": "plugins/office-preview/README.md",
       "bytes": 1914,
-      "sha256": "bba6dbcb2ee107078000f43a32b026b71d370b57a695361fcf3aafccfe135020"
+      "sha256": "5603e67111f91f94db79ec155e0fad797da356fe04ef9c1957dde6648babefef"
     },
     {
       "path": "plugins/office-preview/app.tsx",
@@ -1265,12 +1255,12 @@
     {
       "path": "plugins/office-preview/package-lock.json",
       "bytes": 49549,
-      "sha256": "01dc70ea8c57b642536228d3f09624f7640a6a4a11c8640fa59c7a164a248a98"
+      "sha256": "29a5cade93c3da73f908bccaab30b92daaacc983e18b742c1efebea966c9720b"
     },
     {
       "path": "plugins/office-preview/package.json",
       "bytes": 1038,
-      "sha256": "d01f19f817dfc821f0cc3681651d3aae481be408fa1aba188291b168c679fb42"
+      "sha256": "03ecabad271704f7cd1bf90c1d566b22c68c1b54e635ebb84cdd277ca83972b6"
     },
     {
       "path": "plugins/office-preview/server.ts",

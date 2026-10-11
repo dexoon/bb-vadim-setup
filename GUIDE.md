@@ -1,6 +1,6 @@
 # Как установить и настроить bb как у Вадима
 
-Last Updated: 2026-10-11 · Комплект **0.3.0** (история версий — `CHANGELOG.md` в комплекте)
+Last Updated: 2026-10-11 · Комплект **0.3.1** (история версий — `CHANGELOG.md` в комплекте)
 Проверенная среда: **bb 0.46.0, macOS на Apple Silicon** (11.10 плагины комплекта собраны с нуля и прошли
 тесты; до 11.10 комплект проверялся на 0.45.0). **Windows проверена Вадимом 08.10.2026** на 0.45.0;
 маршрут установки (нативная Windows или WSL) не уточнён. Linux-сервер описан по официальной
@@ -52,8 +52,7 @@ bb — приложение, в котором вы даёте задания И
 | Российские модели Яндекса и Cloud.ru без VPN, локальные модели | агент Pi | установщик Pi + шаблоны из ZIP |
 | Цвета интерфейса и подсветка кода | тема `atom-one_vibecom` (One Dark / One Light) | ZIP |
 | Терминал рядом с чатом, в том числе с телефона | встроенный терминал + Terminal_vibecom 0.6.2: вкладка в правой панели, исправленная вставка | ZIP |
-| Папки, загрузка и скачивание файлов | File Manager 0.9.2 | внешний плагин |
-| Дерево проекта или домашней папки, поиск, редактор, операции с файлами; PDF, офис и Markdown открываются рядом с деревом | Explorer_vibecom (копия Files editor 0.1.6) | ZIP |
+| Дерево проекта или домашней папки, поиск, редактор, операции с файлами, загрузка и скачивание; PDF, офис и Markdown открываются рядом с деревом | Explorer_vibecom (копия Files editor 0.1.6) | ZIP |
 | Markdown как в Typora, правка, ссылки между файлами и репозиториями | Markdown_vibecom | ZIP |
 | Excel, Word, PowerPoint рядом с чатом | Office_vibecom | ZIP |
 | Клик по папке в ответе агента открывает её дерево | Folder links_vibecom | ZIP, только macOS и Linux |
@@ -259,8 +258,8 @@ Start-Process -FilePath "$env:LOCALAPPDATA\Programs\bb\bb.exe"
 Не нашлось — откройте **bb** через **Start**. Создавать репозиторий в папке и добавлять проект —
 в [разделе 14](#14-репозитории-папки-и-дочерние-треды).
 
-Особенности Windows в части 3: Folder links_vibecom не ставьте; в Explorer_vibecom не выбирайте `Open documents in = Mac app`; File Manager видит только папки внутри
-`%USERPROFILE%`, поэтому `C:\Developer\_CODE` открывайте через проект bb. В Markdown_vibecom ссылки
+Особенности Windows в части 3: Folder links_vibecom не ставьте; в Explorer_vibecom не выбирайте `Open documents in = Mac app`; корень Home в Explorer_vibecom — домашняя папка
+`%USERPROFILE%`, поэтому `C:\Developer\_CODE` открывайте через проект bb ⚠️ (Home на Windows не проверялся). В Markdown_vibecom ссылки
 между файлами и картинки по относительным путям на Windows могут не работать: в коде пути
 склеиваются через `/`. ⚠️
 
@@ -757,39 +756,13 @@ bb theme show
 не спит; о завершении команды плагин не сообщает; на Mac вставка — Cmd+V, а не Ctrl+V. ✅ На iPhone
 вставка подтверждена Вадимом; ⚠️ многострочная вставка на iPhone, Android, Windows и Linux не проверены.
 
-### 11. Файлы: File Manager и Explorer_vibecom
+### 11. Файлы: Explorer_vibecom
 
-File Manager — внешний плагин для папок и файловых операций. Explorer_vibecom — дерево проекта или
-домашней папки, поиск, редактор и те же операции с файлами, включая загрузку и скачивание. У Вадима пока
-стоят оба; File Manager можно не ставить, если хватает Explorer_vibecom.
-File Manager ставится так:
-
-```text
-bb plugin install git:https://github.com/xMinor-1/bb-plugins.git@file-manager/v0.9.2 --subdirectory plugins/file-manager
-```
-
-bb покажет источник стороннего плагина: прочитайте и подтвердите. Команда закрепляет ту же версию, что
-у Вадима; ⚠️ в такой форме не запускалась — у Вадима плагин поставлен диапазоном версий
-(`…bb-plugins.git@semver:file-manager/:^0.9.1`). Explorer_vibecom ставится из комплекта —
-[раздел 12](#12-мои-плагины-из-комплекта).
-
-**File Manager** — **New tab → Actions → File Manager**; кнопка **Thread folder** ведёт в папку
-текущего треда. Значения Вадима:
-
-```text
-bb plugin config file-manager set restoreLastFolder true
-bb plugin config file-manager set openThreadWorkspace false
-bb plugin config file-manager set showHiddenFiles true
-bb plugin config file-manager set confirmOnDelete true
-bb plugin config file-manager set sortField name
-bb plugin config file-manager set sortDirection asc
-bb plugin config file-manager set viewMode list
-bb plugin config file-manager set uploadChunkMiB 16
-```
-
-Стартовую папку (**Start folder**) выберите в настройках плагина или командой с **полным** путём:
-`bb plugin config file-manager set startFolder "$HOME/Developer/_CODE"`. File Manager видит только
-домашнюю папку пользователя.
+Explorer_vibecom — дерево проекта или домашней папки, поиск, редактор и операции с файлами, включая
+загрузку с компьютера или телефона и скачивание. До выпуска 0.3.1 комплект ставил ещё внешний File Manager;
+теперь его заменяет Explorer_vibecom, у Вадима File Manager удалён. Если он стоит у вас и больше не нужен —
+`bb plugin remove file-manager` (его настройки удалятся вместе с ним). Explorer_vibecom ставится из
+комплекта — [раздел 12](#12-мои-плагины-из-комплекта).
 
 **Explorer_vibecom** — вкладка правой панели (меню **«+»** → **Explorer_vibecom** или в палитре действий
 **Files: browse this thread's project**) и страница **Files** в боковой панели. Что умеет:
@@ -832,9 +805,9 @@ bb. Они не привязаны к конкретному репозитор�
 
 | Папка (ID) | Имя в bb | Версия | macOS | Linux-сервер | Windows |
 |---|---|---|---|---|---|
-| `markdown-view` | Markdown_vibecom | 0.3.0, bb 0.45+ | ✅ | ⚠️ должен работать | ⚠️ ссылки между файлами могут не работать |
-| `office-preview` | Office_vibecom | 0.3.0, bb 0.45+ | ✅ | ⚠️ без `.doc/.rtf/.odt` | ⚠️ без `.doc/.rtf/.odt` |
-| `folder-links` | Folder links_vibecom | 0.3.0 | ✅ | ⚠️ должен работать | ✗ не ставить |
+| `markdown-view` | Markdown_vibecom | 0.3.1, bb 0.45+ | ✅ | ⚠️ должен работать | ⚠️ ссылки между файлами могут не работать |
+| `office-preview` | Office_vibecom | 0.3.1, bb 0.45+ | ✅ | ⚠️ без `.doc/.rtf/.odt` | ⚠️ без `.doc/.rtf/.odt` |
+| `folder-links` | Folder links_vibecom | 0.3.1 | ✅ | ⚠️ должен работать | ✗ не ставить |
 | `floating-terminal` | Terminal_vibecom | 0.6.2 | ✅ | ⚠️ | ⚠️ |
 | `files-editor` | Explorer_vibecom | 0.1.6 с правками | ✅ | ⚠️ без `Mac app` | ⚠️ без `Mac app` |
 
@@ -896,8 +869,8 @@ bb plugin install "git:https://github.com/vibe-commerce-org/bb-vadim-setup.git@s
 
 bb покажет источник и попросит подтвердить. Диапазон `~0.3.0` принимает выпуски 0.3.x: новую совместимую
 версию покажет `bb plugin outdated`, поставит `bb plugin update <ID>`. Для точного повторения укажите тег
-`@v0.3.0` вместо диапазона — такой источник `update` не меняет. Плагины из выпусков с диапазоном `~0.2.0`
-на 0.3.0 сами не перейдут: удалите и поставьте заново.
+`@v0.3.1` вместо диапазона — такой источник `update` не меняет. Плагины из выпусков с диапазоном `~0.2.0`
+на 0.3.x сами не перейдут: удалите и поставьте заново.
 
 Один плагин ставится одним путём. Чтобы перейти с папки на Git или обратно, сначала `bb plugin remove <ID>`:
 команда удаляет и настройки плагина (они есть у Explorer_vibecom и Terminal_vibecom) — задайте их заново
@@ -957,9 +930,9 @@ bb покажет источник и попросит подтвердить. �
 | `.pdf` | встроенный PDF preview |
 | код и конфигурации | встроенный редактор Monaco или BB preview |
 
-**Важно:** File Manager тоже регистрируется открывателем для многих форматов. Пока Markdown_vibecom
-не закреплён для `.md`, клик по файлу в чате может открыть его в File Manager. Для отдельного файла —
-правый клик → **Open with**.
+**Важно:** открывателями регистрируются и другие плагины (например, File Manager из прошлых выпусков
+комплекта). Пока Markdown_vibecom не закреплён для `.md`, клик по файлу в чате может открыть его не тем
+плагином. Для отдельного файла — правый клик → **Open with**.
 
 ### 14. Репозитории, папки и дочерние треды
 
@@ -1074,10 +1047,10 @@ bb provider-retry status
 
 | Группа | Значения |
 |---|---|
-| Плагины | 44 всего: 35 running, 9 disabled (bb 0.46.0) |
-| Свои (в bb — `_vibecom`) | `markdown-view`, `office-preview`, `folder-links` (в комплекте — 0.3.0); `floating-terminal` 0.6.2 и `files-editor` 0.1.6 — копии чужих плагинов с правками |
-| Внешние | `file-manager` 0.9.2 из git |
-| Настройки плагинов | `floating-terminal`: `fontSize=13`; `files-editor`: `excludedDirectories` по умолчанию, `openDocumentsIn=This panel`; `file-manager` — раздел 11 |
+| Плагины | 43 всего: 34 running, 9 disabled (bb 0.46.0) |
+| Свои (в bb — `_vibecom`) | `markdown-view`, `office-preview`, `folder-links` (в комплекте — 0.3.1); `floating-terminal` 0.6.2 и `files-editor` 0.1.6 — копии чужих плагинов с правками |
+| Внешние | нет: `file-manager` удалён, его заменяет Explorer_vibecom |
+| Настройки плагинов | `floating-terminal`: `fontSize=13`; `files-editor`: `excludedDirectories` по умолчанию, `openDocumentsIn=This panel` |
 | Новые встроенные | в 0.45 — `bb-account`, `bb-ai` (облачный ИИ для заголовков, коммитов, голосового ввода); в 0.46 — `bb--prompt-library`, `bb--storage-retention` (у Вадима отключены), встроенного `navigation` больше нет |
 | Встроенные активные | automations, bb--provider-usage, bb-guide, concurrency-limit, connect, custom-instructions, drafts, environment-git-worktree, environment-personal-workspace, environment-project-checkout, inline-vis, keep-awake, monaco-editor, pdf-preview, provider-acp, provider-claude-code, provider-codex, provider-pi, provider-retry, push-notifications, scheduled-send, secrets, side-chat, simple-notes (Docs), tasks, thread-list |
 | Отключены | account-pool, agent-annotations, ask-user-question, bb--prompt-library, bb--storage-retention, file-tree, plugin-api-docs, plugin-api-tester, workflows — включать ради совпадения не нужно |
@@ -1117,7 +1090,7 @@ bb provider-retry status
 
 **Приложение** — по желанию. Ссылки на iOS (TestFlight) и Android (APK) покажет `bb settings mobile-app`;
 подключение — **Settings → Mobile → Add mobile device**, одноразовый код вводится в приложении.
-В приложении не работают интерфейсы плагинов: Terminal_vibecom, Markdown_vibecom, Explorer_vibecom и File Manager доступны
+В приложении не работают интерфейсы плагинов: Terminal_vibecom, Markdown_vibecom и Explorer_vibecom доступны
 только в браузере. Поэтому для терминала с телефона открывайте `https://ВАШЕ_ИМЯ.getbb.app` в браузере.
 Вход в агентов (`claude`, `codex login`) с телефона не делается — нужен терминал на компьютере.
 Отключить удалённый доступ: `bb connect off`.
@@ -1174,7 +1147,7 @@ Get-Content -Path "$env:USERPROFILE\.bb\logs\host-daemon-stdio.log" -Tail 40
 - **Mac Вадима, bb 0.45.0, 04–11.10.2026; bb 0.46.0 — 11.10:** настройки и плагины сняты командами `bb settings`,
   `bb plugin list/source/config`, `bb provider models`; 11.10 снимок повторён на 0.46.0 и совпал, кроме
   списка встроенных плагинов (раздел 17).
-- **Комплект 0.3.0, bb 0.46.0, 11.10:** все пять плагинов собраны с нуля во временной папке (`npm ci` с пустым
+- **Комплект 0.3.1, bb 0.46.0, 11.10:** все пять плагинов собраны с нуля во временной папке (`npm ci` с пустым
   кэшем, `bb plugin build .`) и прошли тесты: Markdown 28/28, Office 10/10, Folder links 10/10,
   Explorer 373/373, Terminal 86/86. Установка как у bb из Git — клон выпуска по тегу, установка зависимостей
   без инструментов разработки npm-ом из bb, `bb plugin build` — все пять собраны. В bb из папки комплекта
