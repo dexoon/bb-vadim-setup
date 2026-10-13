@@ -2,7 +2,7 @@
 
 Last Updated: 2026-10-11
 
-Комплект 0.3.2 проверен на bb 0.46.0, macOS: 11.10 плагины собраны с нуля (`npm ci`, `bb plugin build .`)
+Комплект 0.3.3 проверен на bb 0.46.0, macOS: 11.10 плагины собраны с нуля (`npm ci`, `bb plugin build .`)
 и прошли тесты; до 11.10 комплект проверялся на 0.45.0. Windows проверена Вадимом 08.10.2026 на 0.45.0;
 маршрут установки не уточнён. Linux-сервер описан по официальной документации,
 на настоящем сервере не испытан.
@@ -22,7 +22,12 @@ bb и хотя бы один агент уже должны работать. В
 ## Порядок
 
 Команды `bb …` выполняй во встроенном терминале bb или там, где доступен `$BB_CLI`; на Linux-сервере
-по SSH — `npx --package bb-app bb …`. В обычном терминале команды `bb` нет.
+по SSH — `npx --package bb-app bb …`. В обычном терминале команды `bb` нет. Ты работаешь в обычном
+терминале (Claude Code или Codex вне bb) — сначала раздел «Если ты агент вне bb» ниже.
+
+**Выбор пунктов.** Если пользователь дал списки «Поставить» и «Не ставить» с id из `catalog.json`,
+выполняй шаги только для пунктов из «Поставить» — какой пункт к какому шагу относится, сказано в разделе
+«Пункты комплекта». Без списков ставь всё, что в `catalog.json` отмечено `"default": true`.
 
 1. Определи ОС **компьютера, где работает сервер bb**, и его папку данных:
    `bb --version`, `bb status --json`. Если твой тред работает на другом компьютере,
@@ -48,32 +53,60 @@ bb и хотя бы один агент уже должны работать. В
    удалённого плагина пропадут. Если плагин уже стоит из этой же папки комплекта (прошлый ZIP), не
    переустанавливай, а пересобери: `npm ci` (для `files-editor` и `floating-terminal` — `npm ci --ignore-scripts`),
    `bb plugin build .`, `bb plugin reload <id>` (ID — имя папки, не имя с `_vibecom`); сверь версию
-   в `bb plugin list` (`floating-terminal@0.6.2`, свои плагины — `@0.3.2`). Explorer_vibecom показывает
+   в `bb plugin list` (`floating-terminal@0.6.2`, свои плагины — `@0.3.3`). Explorer_vibecom показывает
    Markdown через сервер Markdown_vibecom: без `markdown-view` его не ставь. Lockfile и версии не меняй. Предупреждение сборки о закреплённой версии SDK — норма;
    `bb plugin types` не выполняй.
 6. Скопируй папку `theme/atom-one_vibecom` в каталог из `bb theme dir`, выполни
    `bb theme set atom-one_vibecom`, проверь `bb theme show`. Если там есть тема `atom-one` из прошлого
    комплекта (те же файлы под старым именем), предложи пользователю удалить её после проверки.
-7. Примени общие настройки (список ниже) и перечитай их через CLI. Текущего агента,
+7. Примени выбранные общие настройки (список ниже) и перечитай их через CLI. Текущего агента,
    модель и effort пользователя не меняй.
 8. Объедини `instructions/AGENTS.md` с `<папка данных bb>/AGENTS.md`: добавь блок между
    маркерами `<!-- bb-vadim-setup begin -->` и `<!-- bb-vadim-setup end -->`; при повторном
    запуске обновляй только его. Правила пользователя сохрани, противоречия покажи.
 9. Открыватели файлов назначь по разделу 13 GUIDE.md, если тебе доступен интерфейс.
    Есть только CLI — перечисли, что пользователю закрепить в **Settings → File openers**.
-10. Российские модели (путь 2 GUIDE.md) — только если пользователь попросил. Скопируй
+10. Модели (пути 2 и 3 GUIDE.md) — только если пользователь выбрал их или попросил. Скопируй
     `models/pi/models.json` и `models/pi/auth.example.json` в `~/.pi/agent/`
     (`models.json`, `auth.json`), **не перезаписывая** существующие файлы: при наличии —
     покажи, какие блоки добавить. На macOS и Linux сразу выполни `chmod 600 ~/.pi/agent/auth.json`.
-    Удали из `models.json` блоки провайдеров, которыми пользователь не будет пользоваться.
+    Оставь в `models.json` только блоки выбранных провайдеров (Яндекс, Cloud.ru, LM Studio).
     Ключи и ID каталога пользователь вписывает сам; не проси вставлять ключи в чат и не читай
     `auth.json` после заполнения.
-11. Проверь сборки и `npm test` в папке каждого из пяти плагинов. В `floating-terminal` запускай только
+11. Проверь сборки и `npm test` в папке каждого поставленного плагина. В `floating-terminal` запускай только
     `npm test`: другие его скрипты шлют команды в открытый терминал. Из раздела 19 GUIDE.md
     выполни пункты 2–4; остальные (новый и дочерний тред, вид Markdown, документы в Explorer_vibecom,
     офисные файлы, вкладка Terminal_vibecom, ссылка на папку, очередь по Enter, телефон) внеси в список того, что пользователь
     проверит сам. Соблюдай текущие разрешения: не отключай sandbox и не повышай
     режим прав.
+
+## Пункты комплекта
+
+Id — как в `catalog.json` и на странице выбора. Пункт, которого нет в таблице, не выполняй: остановись и
+спроси. Если выбранному пункту нужен пункт из «Не ставить» (поле `requires` в каталоге), спроси пользователя.
+Пункт, который по таблице «Профили ОС» не подходит к его ОС, пропусти и скажи почему.
+
+| Id | Что сделать |
+|---|---|
+| `theme` | шаг 6 |
+| `markdown-view`, `office-preview`, `folder-links`, `floating-terminal`, `files-editor` | шаг 5 для папки с этим именем и настройки плагина из «Общих настроек»; `files-editor` требует `markdown-view` |
+| `rules` | шаг 8 |
+| `phone` | Connect сам не подключай: проверь `bb connect status` и покажи пользователю шаги из `PHONE.md`, разделы 1–2 |
+| `settings-queue`, `settings-ui`, `settings-thread-list`, `provider-retry` | команды с этим id из «Общих настроек» |
+| `settings-hotkeys` | переход между панелями — Cmd+Shift+стрелки (на Windows и Linux — Ctrl+Shift): `bb settings keyboard set` для `pane.focus.left`, `pane.focus.right`, `pane.focus.up`, `pane.focus.down`; формат сочетания сверь с `bb settings keyboard list --json`. Не получилось — покажи, что закрепить в **Settings → Keyboard** |
+| `keep-awake` | `bb keep-awake enable` (macOS, Windows) |
+| `models-yandex`, `models-cloudru`, `models-lmstudio` | шаг 10 только для выбранных провайдеров |
+
+## Если ты агент вне bb
+
+Тебя запустили в обычном терминале (Claude Code или Codex), а bb ещё нет:
+
+1. Поставь bb по GUIDE.md, часть 1, блок для ОС пользователя. Перед установкой каждой программы скажи, что
+   ставишь и откуда, и дождись «да». В аккаунты входит пользователь сам.
+2. Дождись, пока пользователь запустит bb и увидит в нём своего агента.
+3. Дальше bb настраивает агент внутри bb: в обычном терминале команды `bb` нет. Выдай пользователю одним
+   блоком промпт для первого треда bb: «Установи мне bb как у Вадима», путь к папке комплекта, «Прочитай
+   AGENT-TASK.md и выполни его для моего выбора» и те же списки «Поставить» и «Не ставить».
 
 ## Профили ОС
 
@@ -90,15 +123,21 @@ bb и хотя бы один агент уже должны работать. В
 ## Общие настройки
 
 ```text
+# settings-queue
 bb settings general steerActiveThreadOnEnter false
+# settings-ui
 bb settings general showKeyboardHints true
 bb settings general showDiagnosticEvents false
 bb settings general confirmThreadArchive true
+# settings-thread-list
 bb thread-list prefs set organizationMode project
 bb thread-list prefs set environmentGrouping true
-bb plugin config floating-terminal set fontSize 13
-bb plugin config files-editor set openDocumentsIn "This panel"
+# provider-retry
 bb plugin config provider-retry set maximumWait "24 hours"
+# floating-terminal
+bb plugin config floating-terminal set fontSize 13
+# files-editor
+bb plugin config files-editor set openDocumentsIn "This panel"
 ```
 
 Команды `bb plugin config floating-terminal …` и `bb plugin config files-editor …` выполняй только после
@@ -106,7 +145,7 @@ bb plugin config provider-retry set maximumWait "24 hours"
 и скачивание даёт Explorer_vibecom. Если File Manager уже стоит, не удаляй его без просьбы пользователя.
 Сочетание Ctrl+` для вкладки Terminal_vibecom задаёт bb
 (команда «Terminal_vibecom: open in side panel», Settings → Keyboard) — отдельной настройки плагина нет. Concurrency оставь
-автоматическим. Переназначение клавиш Вадима (раздел 8 GUIDE.md) — по желанию пользователя.
+автоматическим.
 
 ## Чего не делать
 

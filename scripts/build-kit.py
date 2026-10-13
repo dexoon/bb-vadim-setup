@@ -12,6 +12,10 @@ version, created и files.
   08-BB-VADIM-SETUP.md   — копия GUIDE.md
   08-BB-AGENT-SETUP.md   — файл для агента со встроенным ZIP
   SHA256SUMS.txt         — суммы всех файлов release/
+  catalog.json           — копия каталога для сайта (в корне репозитория — тот же файл)
+
+В catalog.json сборщик сам проставляет version, tag, адрес архива и гайда на теге и версии
+плагинов из их package.json; остальное (тексты, разделы, промпты) правится вручную.
 """
 import argparse
 import base64
@@ -58,6 +62,18 @@ def main() -> None:
     date = args.date or manifest["created"]
     stamp = tuple(int(x) for x in date.split("-")) + (0, 0, 0)
 
+    catalog_path = ROOT / "catalog.json"
+    catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+    tag = f"v{version}"
+    repo = catalog["repository"]
+    catalog.update({"version": version, "tag": tag, "guide": f"{repo}/blob/{tag}/GUIDE.md"})
+    catalog["archive"]["url"] = f"{repo}/releases/download/{tag}/{catalog['archive']['name']}"
+    for item in catalog["items"]:
+        pkg = ROOT / "plugins" / item["id"] / "package.json"
+        if pkg.exists():
+            item["version"] = json.loads(pkg.read_text(encoding="utf-8"))["version"]
+    catalog_path.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
     files = kit_files()
     manifest.update({"version": version, "created": date})
     manifest["files"] = [
@@ -87,6 +103,7 @@ def main() -> None:
 
     guide = (ROOT / "GUIDE.md").read_bytes()
     (RELEASE / "08-BB-VADIM-SETUP.md").write_bytes(guide)
+    (RELEASE / "catalog.json").write_bytes(catalog_path.read_bytes())
 
     env = manifest.get("checked_environment", [{}])
     env = env[0] if isinstance(env, list) else env

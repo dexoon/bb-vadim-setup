@@ -45,6 +45,43 @@ def check(ok: bool, msg: str) -> None:
         failures.append(msg)
 
 
+def slug(heading: str) -> str:
+    """Якорь заголовка, как его строит GitHub."""
+    h = re.sub(r"[^\w\- ]", "", heading.strip().lower())
+    return h.replace(" ", "-")
+
+
+def check_catalog() -> None:
+    cat = json.loads((ROOT / "catalog.json").read_text(encoding="utf-8"))
+    version = (ROOT / "VERSION").read_text().strip()
+    tag = f"v{version}"
+    check("draft" not in cat and cat.get("version") == version and cat.get("tag") == tag
+          and tag in cat["archive"]["url"] and tag in cat["guide"], f"каталог: версия и тег = {tag}, без draft")
+    check((RELEASE / "catalog.json").read_bytes() == (ROOT / "catalog.json").read_bytes(), "каталог: копия в release/ = catalog.json")
+    ids = [i["id"] for i in cat["items"]]
+    sections = {s["id"] for s in cat["sections"]}
+    check(len(ids) == len(set(ids)) and all(i["section"] in sections for i in cat["items"]),
+          f"каталог: {len(ids)} пунктов, id уникальны, разделы существуют")
+    refs = [r for i in cat["items"] for r in i.get("requires", []) + i.get("recommends", [])]
+    check(all(r in ids for r in refs), "каталог: requires и recommends ссылаются на существующие пункты")
+    task = (ROOT / "AGENT-TASK.md").read_text(encoding="utf-8")
+    table = task.split("## Пункты комплекта", 1)[1].split("\n## ", 1)[0]
+    in_task = set(re.findall(r"`([a-z0-9-]+)`", table.split("|---|---|", 1)[1]))
+    check(set(ids) <= in_task, f"каталог: все id есть в AGENT-TASK.md «Пункты комплекта» {sorted(set(ids) - in_task)}")
+    bad_ver = [i["id"] for i in cat["items"] if (ROOT / "plugins" / i["id"] / "package.json").exists()
+               and i.get("version") != json.loads((ROOT / "plugins" / i["id"] / "package.json").read_text())["version"]]
+    plugins = [d.name for d in (ROOT / "plugins").iterdir() if (d / "package.json").exists()]
+    check(not bad_ver and set(plugins) <= set(ids), f"каталог: все плагины есть, версии = package.json {bad_ver}")
+    guide = (ROOT / "GUIDE.md").read_text(encoding="utf-8")
+    anchors = {slug(m) for m in re.findall(r"^#{1,6} (.+)$", re.sub(r"```.*?```", "", guide, flags=re.S), re.M)}
+    bad_docs = [i["id"] for i in cat["items"] if (i["docs"].lstrip("#") not in anchors if i["docs"].startswith("#")
+                                                  else not (ROOT / i["docs"]).exists())]
+    check(not bad_docs, f"каталог: docs — существующие якоря GUIDE.md или файлы {bad_docs}")
+    need = ["{{install}}", "{{skip}}", "{{repo}}", "{{tag}}", "{{archive_url}}"]
+    check(all(all(n in cat["prompts"][k] for n in need) for k in ("has_bb", "no_bb")),
+          "каталог: в обоих промптах есть подстановки списков, репозитория, тега и архива")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--private-patterns", type=Path)
@@ -96,6 +133,8 @@ def main() -> None:
         out.write_bytes(b"other")
         r3 = run()
         check(r3.returncode != 0 and out.read_bytes() == b"other", "извлечение: чужой файл не перезаписан")
+
+    check_catalog()
 
     patterns = list(GENERIC)
     if args.private_patterns:
