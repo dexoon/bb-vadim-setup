@@ -10,9 +10,9 @@ floating-terminal — `npm ci --ignore-scripts`) → `bb plugin build .` →
 
 | Папка и id | Имя в BB | Версия | Что делает |
 |---|---|---|---|
-| markdown-view/ | Markdown_vibecom | 0.3.4 | просмотр Markdown в виде Typora и правка в Vditor |
-| office-preview/ | Office_vibecom | 0.3.4 | просмотр таблиц, Word и PowerPoint |
-| folder-links/ | Folder links_vibecom | 0.3.4 | ссылки на папки открывают дерево справа; macOS/POSIX |
+| markdown-view/ | Markdown_vibecom | 0.3.5 | просмотр Markdown в виде Typora и правка в Vditor |
+| office-preview/ | Office_vibecom | 0.3.5 | просмотр таблиц, Word и PowerPoint |
+| folder-links/ | Folder links_vibecom | 0.3.5 | ссылки на папки открывают дерево справа; macOS, Linux, Windows |
 | files-editor/ | Explorer_vibecom | 0.1.6 | проводник и редактор рабочей копии, документы внутри панели; переделка плагина abdoutelb |
 | floating-terminal/ | Terminal_vibecom | 0.6.2 | терминал вкладкой правой панели и плавающим окном; переделка плагина vburojevic |
 

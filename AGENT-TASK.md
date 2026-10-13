@@ -2,7 +2,7 @@
 
 Last Updated: 2026-10-11
 
-Комплект 0.3.4 проверен на bb 0.46.0, macOS: 11.10 плагины собраны с нуля (`npm ci`, `bb plugin build .`)
+Комплект 0.3.5 проверен на bb 0.46.0, macOS: 11.10 плагины собраны с нуля (`npm ci`, `bb plugin build .`)
 и прошли тесты; до 11.10 комплект проверялся на 0.45.0. Windows проверена Вадимом 08.10.2026 на 0.45.0;
 маршрут установки не уточнён. Linux-сервер описан по официальной документации,
 на настоящем сервере не испытан.
@@ -53,7 +53,7 @@ bb и хотя бы один агент уже должны работать. В
    удалённого плагина пропадут. Если плагин уже стоит из этой же папки комплекта (прошлый ZIP), не
    переустанавливай, а пересобери: `npm ci` (для `files-editor` и `floating-terminal` — `npm ci --ignore-scripts`),
    `bb plugin build .`, `bb plugin reload <id>` (ID — имя папки, не имя с `_vibecom`); сверь версию
-   в `bb plugin list` (`floating-terminal@0.6.2`, свои плагины — `@0.3.4`). Explorer_vibecom показывает
+   в `bb plugin list` (`floating-terminal@0.6.2`, свои плагины — `@0.3.5`). Explorer_vibecom показывает
    Markdown через сервер Markdown_vibecom: без `markdown-view` его не ставь. Lockfile и версии не меняй. Предупреждение сборки о закреплённой версии SDK — норма;
    `bb plugin types` не выполняй.
 6. Скопируй папку `theme/atom-one_vibecom` в каталог из `bb theme dir`, выполни
@@ -65,8 +65,10 @@ bb и хотя бы один агент уже должны работать. В
    маркерами `<!-- bb-vadim-setup begin -->` и `<!-- bb-vadim-setup end -->`; при повторном
    запуске обновляй только его. Правила пользователя сохрани, противоречия покажи.
 9. Открыватели файлов назначь по разделу 13 GUIDE.md, если тебе доступен интерфейс.
-   Есть только CLI — перечисли, что пользователю закрепить в **Settings → Files → File openers**, включая
-   `.html` и `.htm` → «Built-in preview». Выбор хранится в браузере: на телефоне его закрепляют отдельно.
+   Есть только CLI — перечисли, что пользователю закрепить в **Settings → Files → File openers**. `.html` и `.htm`
+   → «Built-in preview» Explorer_vibecom закрепляет сам при загрузке bb на каждом устройстве; попроси
+   пользователя обновить окно bb (⌘R) и страницу на телефоне. Остальной выбор хранится в браузере: на телефоне
+   его закрепляют отдельно.
 10. Модели (пути 2 и 3 GUIDE.md) — только если пользователь выбрал их или попросил. Скопируй
     `models/pi/models.json` и `models/pi/auth.example.json` в `~/.pi/agent/`
     (`models.json`, `auth.json`), **не перезаписывая** существующие файлы: при наличии —
@@ -93,7 +95,7 @@ Id — как в `catalog.json` и на странице выбора. Пунк�
 | `markdown-view`, `office-preview`, `folder-links`, `floating-terminal`, `files-editor` | шаг 5 для папки с этим именем и настройки плагина из «Общих настроек»; `files-editor` требует `markdown-view` |
 | `rules` | шаг 8 |
 | `phone` | Connect сам не подключай: проверь `bb connect status` и покажи пользователю шаги из `PHONE.md`, разделы 1–2 |
-| `settings-queue`, `settings-ui`, `settings-thread-list`, `provider-retry` | команды с этим id из «Общих настроек» |
+| `settings-queue`, `settings-ui`, `provider-retry` | команды с этим id из «Общих настроек» |
 | `settings-hotkeys` | переход между панелями — Cmd+Shift+стрелки (на Windows и Linux — Ctrl+Shift): `bb settings keyboard set` для `pane.focus.left`, `pane.focus.right`, `pane.focus.up`, `pane.focus.down`; формат сочетания сверь с `bb settings keyboard list --json`. Не получилось — покажи, что закрепить в **Settings → Keyboard** |
 | `keep-awake` | `bb keep-awake enable` (macOS, Windows) |
 | `models-yandex`, `models-cloudru`, `models-lmstudio` | шаг 10 только для выбранных провайдеров |
@@ -116,7 +118,7 @@ Id — как в `catalog.json` и на странице выбора. Пунк�
 | Тема atom-one_vibecom | ставить | ставить | ставить, проверить вид |
 | Markdown_vibecom (`markdown-view`) | ставить | ставить | ставить как кандидат: ссылки между файлами могут не работать |
 | Office_vibecom (`office-preview`) | ставить | ставить, без `.doc/.rtf/.odt` | ставить, без `.doc/.rtf/.odt` |
-| Folder links_vibecom (`folder-links`) | ставить | ставить | **пропустить** — нет поддержки путей Windows |
+| Folder links_vibecom (`folder-links`) | ставить | ставить | ставить как кандидат: на живой Windows не испытан; ссылки на папки пиши как `file:///C:/…` |
 | Terminal_vibecom (`floating-terminal`) | ставить | ставить | ставить как кандидат |
 | Explorer_vibecom (`files-editor`) | ставить | ставить; «Open documents in» — не `Mac app`: вне Mac он не работает | ставить; «Open documents in» — не `Mac app` |
 | Не давать уснуть | `bb keep-awake enable`, если пользователь попросил | не нужно | `bb keep-awake enable` и параметры электропитания, если попросил |
@@ -130,9 +132,6 @@ bb settings general steerActiveThreadOnEnter false
 bb settings general showKeyboardHints true
 bb settings general showDiagnosticEvents false
 bb settings general confirmThreadArchive true
-# settings-thread-list
-bb thread-list prefs set organizationMode project
-bb thread-list prefs set environmentGrouping true
 # provider-retry
 bb plugin config provider-retry set maximumWait "24 hours"
 # floating-terminal

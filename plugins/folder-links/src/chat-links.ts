@@ -11,6 +11,7 @@
 // a note. Everything else — a file, a missing `foo.md`, a path outside the
 // home folder, an unanswered question — is left to BB untouched, and so is
 // every click with a modifier key.
+import { linkPath } from "./link-path";
 import { anyPane, onPaneAdded, paneFor } from "./panes";
 import type { LinkVerdict } from "./panes";
 
@@ -21,26 +22,6 @@ const LINK_SELECTOR = `${MESSAGE_SELECTOR} a[href]`;
 const STALE_MS = 15_000;
 const SWEEP_DELAY_MS = 400;
 const BATCH = 200;
-
-/** The absolute path a link points at: `file:///…` or `/…`. Anything else is not ours. */
-export function linkPath(href: string): string | null {
-  if (href.startsWith("file:")) {
-    try {
-      const url = new URL(href);
-      if (url.host !== "" || url.search !== "") return null;
-      return decodeURIComponent(url.pathname);
-    } catch {
-      return null;
-    }
-  }
-  if (!href.startsWith("/") || href.startsWith("//") || href.includes("?")) return null;
-  const [path = ""] = href.split("#");
-  try {
-    return decodeURIComponent(path);
-  } catch {
-    return null;
-  }
-}
 
 function chatLinkOf(target: EventTarget | null): HTMLAnchorElement | null {
   if (!(target instanceof Element)) return null;

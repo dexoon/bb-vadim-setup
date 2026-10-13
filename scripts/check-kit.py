@@ -28,9 +28,9 @@ PREFIX = "bb-vadim-kit/"
 # Встроенный в Terminal_vibecom шрифт значков (base64) даёт ложные совпадения.
 SKIP = ("plugins/floating-terminal/fonts/nerd-symbols.css",)
 # Вымышленные пользователи в примерах и тестах.
-FICTIONAL = r"me|dev|user|alex|someone-else|ИМЯ"
+FICTIONAL = r"(?:me|dev|user|alex|someone-else|ИМЯ|Ivan|Kate)\b|Имя|Другой|\$\{|%D0|…"
 GENERIC = [
-    r"/Users/(?!(?:" + FICTIONAL + r")\b)[A-Za-z]", r"C:[/\\]+Users[/\\]+(?![/\\]*(?:" + FICTIONAL + r")\b)",
+    r"/Users/(?!(?:" + FICTIONAL + r"))[A-Za-z]", r"C:[/\\]+Users[/\\]+(?![/\\]*(?:" + FICTIONAL + r"))",
     r"\b(thr|proj|env|host)_[a-z0-9]{8,}\b", r"@gmail\.com", r"\bsk-[A-Za-z0-9]{10,}", r"\bghp_[A-Za-z0-9]{10,}",
     r"\beyJ[A-Za-z0-9_-]{20,}\.", r"\bAQVN[A-Za-z0-9_-]{10,}", r"\bb1g[a-z0-9]{17}\b",
     r"Documents/_CODE", r"\.bb/thread-storage", r"getbb\.app/[a-z]",

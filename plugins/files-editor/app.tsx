@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import "@/components/ui/icon-extended";
 import { HOME_SCOPE, formatRoute, isScopeKind, parseRoute, sameScope, type ScopeRef } from "@/lib/route";
 import { EXPLORER_OPENER_EXTENSIONS } from "@/lib/open-with";
+import { pinHtmlPreviewInWindow } from "@/lib/opener-pin";
 import {
   panelStateKey,
   parsePanelParams,
@@ -369,6 +370,10 @@ function PreviewSection() {
 }
 
 export default definePluginApp((app) => {
+  // A link to an HTML file shows the page, not its source: BB's own preview
+  // is pinned for .html and .htm on this client, once (lib/opener-pin.ts).
+  pinHtmlPreviewInWindow();
+
   app.slots.settingsSection({
     id: "preview",
     title: "What it looks like",

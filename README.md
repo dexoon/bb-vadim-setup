@@ -1,7 +1,7 @@
 # BB как у Вадима — комплект настройки
 
 Last Updated: 2026-10-11
-Версия: 0.3.4 · Лицензия: [MIT](LICENSE) для собственных материалов ·
+Версия: 0.3.5 · Лицензия: [MIT](LICENSE) для собственных материалов ·
 Сторонние части: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 
 Инструкция и комплект, чтобы установить [bb](https://github.com/get-bb/bb) и настроить
@@ -61,14 +61,14 @@ bb plugin list
 Explorer_vibecom показывает `.md` через Markdown_vibecom — ставьте их вместе.
 Если у вас уже стоят Files editor (abdoutelb) или Floating Terminal (vburojevic),
 сначала удалите их: id совпадают (`bb plugin remove files-editor`,
-`bb plugin remove floating-terminal`). Folder links_vibecom на Windows пропустите.
+`bb plugin remove floating-terminal`). Folder links_vibecom на Windows проверен только тестами.
 
 ## Обновление и откат
 
 | Что | Обновить | Откатить |
 |---|---|---|
 | Плагин из Git с диапазоном `~0.3.0` | `bb plugin outdated`, затем `bb plugin update ИМЯ` | `bb plugin remove ИМЯ` и установка нужного тега, например `@v0.3.1` |
-| Плагин из Git с тегом `@v0.3.4` | закреплён: `remove` и установка нового тега | то же |
+| Плагин из Git с тегом `@v0.3.5` | закреплён: `remove` и установка нового тега | то же |
 | Плагин из папки комплекта | новые файлы в ту же папку, `npm ci`, `bb plugin build .`, `bb plugin reload ИМЯ` | предыдущая версия папки и те же команды |
 | Тема | скопировать новую папку `atom-one_vibecom` | резервная копия темы или `bb theme reset` |
 | Правила | сравнить новый шаблон со своим `AGENTS.md` и перенести нужное | ваш файл остаётся вашим |
@@ -83,8 +83,8 @@ Explorer_vibecom показывает `.md` через Markdown_vibecom — ст
 
 ## Ограничения
 
-- Folder links_vibecom использует POSIX-пути и внутренние селекторы чата bb; локальный
-  сервер bb на Windows не поддержан.
+- Folder links_vibecom опирается на внутренние селекторы чата bb; пути Windows проверены тестами,
+  на живой Windows не испытаны. Сетевые пути `\\сервер\папка` не поддерживаются.
 - Office_vibecom показывает файлы только для чтения; DOC/RTF/ODT конвертирует
   через `textutil` macOS. Его тесты проверяют чтение файлов, но не вёрстку.
 - Корзина, домашняя папка, загрузка файлов и «Open in Mac app» в Explorer_vibecom

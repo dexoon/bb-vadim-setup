@@ -1,16 +1,16 @@
 {
   "schema": 1,
-  "version": "0.3.4",
-  "tag": "v0.3.4",
+  "version": "0.3.5",
+  "tag": "v0.3.5",
   "repository": "https://github.com/vibe-commerce-org/bb-vadim-setup",
   "archive": {
     "name": "08-BB-VADIM-KIT.zip",
-    "url": "https://github.com/vibe-commerce-org/bb-vadim-setup/releases/download/v0.3.4/08-BB-VADIM-KIT.zip",
+    "url": "https://github.com/vibe-commerce-org/bb-vadim-setup/releases/download/v0.3.5/08-BB-VADIM-KIT.zip",
     "folder": "bb-vadim-kit",
     "mirrors": []
   },
   "checked": "bb 0.46.0 на macOS; Windows — bb 0.45.0",
-  "guide": "https://github.com/vibe-commerce-org/bb-vadim-setup/blob/v0.3.4/GUIDE.md",
+  "guide": "https://github.com/vibe-commerce-org/bb-vadim-setup/blob/v0.3.5/GUIDE.md",
   "sections": [
     {
       "id": "theme",
@@ -60,7 +60,7 @@
       "id": "markdown-view",
       "section": "plugins",
       "name": "Markdown_vibecom",
-      "version": "0.3.4",
+      "version": "0.3.5",
       "gives": "Планы и отчёты агентов — как в Typora: оглавление, таблицы, ссылки между файлами и репозиториями. Правка без разметки, сохранение само, правки агента не затираются.",
       "for": "Всем, кто читает и правит документы агентов",
       "os": {
@@ -78,7 +78,7 @@
       "id": "office-preview",
       "section": "plugins",
       "name": "Office_vibecom",
-      "version": "0.3.4",
+      "version": "0.3.5",
       "gives": "Excel, CSV, Word и PowerPoint с заметками докладчика — рядом с чатом, без Office. Только просмотр: формулы показывают сохранённый результат.",
       "for": "Селлерам, аналитикам и всем, кто работает с таблицами и презентациями",
       "os": {
@@ -134,16 +134,16 @@
       "id": "folder-links",
       "section": "plugins",
       "name": "Folder links_vibecom",
-      "version": "0.3.4",
+      "version": "0.3.5",
       "gives": "Клик по ссылке на папку в ответе агента открывает её дерево справа, а не браузер.",
       "for": "Тем, кому агенты присылают ссылки на папки",
       "os": {
         "macos": "yes",
-        "windows": "no",
+        "windows": "candidate",
         "linux": "candidate"
       },
       "os_notes": {
-        "windows": "пути Windows не поддерживаются"
+        "windows": "проверено тестами, на живой Windows не испытано; ссылки на папки — в виде file:///C:/…"
       },
       "default": true,
       "docs": "#folder-links_vibecom--папка-из-ответа-агента-в-дерево-справа"
@@ -196,20 +196,6 @@
       "name": "Спокойная лента",
       "gives": "Подсказки сочетаний клавиш, служебные события не засоряют ленту, перед архивацией треда bb переспрашивает.",
       "for": "Всем",
-      "os": {
-        "macos": "yes",
-        "windows": "yes",
-        "linux": "yes"
-      },
-      "default": true,
-      "docs": "#8-общие-настройки-bb"
-    },
-    {
-      "id": "settings-thread-list",
-      "section": "settings",
-      "name": "Треды по проектам",
-      "gives": "Список тредов сгруппирован по проектам, треды одного окружения свёрнуты.",
-      "for": "Тем, у кого несколько проектов",
       "os": {
         "macos": "yes",
         "windows": "yes",
