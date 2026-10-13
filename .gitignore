@@ -7,3 +7,4 @@ dist/
 .DS_Store
 # release artifacts are attached to GitHub Releases, not committed
 release/
+__pycache__/
