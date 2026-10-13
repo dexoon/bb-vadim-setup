@@ -14,7 +14,7 @@ import { parseTreeSort, type FlatEntry, type TreeSort } from "@/lib/tree";
 import { createIgnoreMatcher } from "@/lib/gitignore";
 import type { ScopeRef } from "@/lib/route";
 import { sameScope } from "@/lib/route";
-import { isMarkdownPath } from "@/lib/markdown";
+import { hasPreview, isHtmlPath, isMarkdownPath } from "@/lib/markdown";
 import { focusIfFree } from "@/lib/focus";
 import {
   OPEN_DOCUMENTS_SETTING,
@@ -44,6 +44,7 @@ import {
 } from "@/lib/entry-paths";
 import type { ResolvedScope, rpcContract } from "../server.js";
 import { DocumentView, MarkdownDocument, type ViewerTarget } from "./DocumentView";
+import { HtmlPage } from "./HtmlPage";
 import { Explorer, type RevealFolderRequest } from "./Explorer";
 import { FileView, HandOffStub, fileMetaLabel } from "./FileView";
 import { RecentMenu } from "./RecentMenu";
@@ -971,8 +972,13 @@ export function Workspace({
                 </span>
                 <ModeToggle
                   mode={activeTab.mode}
-                  isMarkdown={isMarkdownPath(activeTab.path)}
+                  hasPreview={hasPreview(activeTab.path)}
                   canPreview={canPreview(activeTab)}
+                  previewOffReason={
+                    isHtmlPath(activeTab.path)
+                      ? "Save (⌘S) to see the page with your edits"
+                      : "This file is too large to preview"
+                  }
                   canEdit={activeTab.file.editable}
                   onChange={(next) => {
                     // Preview is markdown-view, which saves edits itself: leaving
@@ -1064,7 +1070,17 @@ export function Workspace({
             renderPreview={
               viewerTarget !== null && isMarkdownPath(activeTab.path)
                 ? () => <MarkdownDocument target={viewerTarget} Original={HandOffFallback} />
-                : null
+                : resolved !== null && isHtmlPath(activeTab.path)
+                  ? () => (
+                      <HtmlPage
+                        hostId={resolved.hostId}
+                        root={resolved.root}
+                        path={activeTab.path}
+                        wholeWorkspace={resolved.ref.kind !== "home"}
+                        revision={activeTab.sha256}
+                      />
+                    )
+                  : null
             }
             revealLine={
               reveal !== null && reveal.path === activeTab.path
@@ -1244,15 +1260,18 @@ function EmptyEditor({
  */
 function ModeToggle({
   mode,
-  isMarkdown,
+  hasPreview,
   canPreview,
+  previewOffReason,
   canEdit,
   onChange,
 }: {
   mode: FileViewMode;
-  /** Only markdown has a rendered form; every other file gets two segments. */
-  isMarkdown: boolean;
+  /** Only markdown and HTML have a rendered form; every other file gets two segments. */
+  hasPreview: boolean;
   canPreview: boolean;
+  /** Why Preview is off, shown on the segment when it is. */
+  previewOffReason: string;
   canEdit: boolean;
   onChange: (mode: FileViewMode) => void;
 }) {
@@ -1262,15 +1281,16 @@ function ModeToggle({
       aria-label="File mode"
       className="flex shrink-0 items-center gap-0.5 rounded-md border border-border p-0.5"
     >
-      {isMarkdown ? (
+      {hasPreview ? (
         <ModeSegment
           icon="FileText"
           label="Preview"
           isSelected={mode === "preview"}
-          // Rendering is one synchronous pass over the whole document, so a
-          // huge one would freeze the surface; the segment says why it is off.
+          // Markdown renders in one synchronous pass over the whole document,
+          // so a huge one would freeze the surface; a page shows the file on
+          // disk, not unsaved edits. The segment says why it is off.
           isDisabled={!canPreview}
-          title={canPreview ? undefined : "This file is too large to preview"}
+          title={canPreview ? undefined : previewOffReason}
           onClick={() => onChange("preview")}
         />
       ) : null}

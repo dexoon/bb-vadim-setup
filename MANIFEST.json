@@ -2,7 +2,7 @@
   "format": 3,
   "created": "2026-10-13",
   "name": "bb-vadim-kit",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "license": "MIT",
   "checked_environment": [
     {
@@ -32,7 +32,7 @@
     {
       "id": "markdown-view",
       "name": "Markdown_vibecom",
-      "version": "0.3.3",
+      "version": "0.3.4",
       "path": "plugins/markdown-view",
       "pinned_sdk": "0.6.15",
       "tests": 28
@@ -40,7 +40,7 @@
     {
       "id": "office-preview",
       "name": "Office_vibecom",
-      "version": "0.3.3",
+      "version": "0.3.4",
       "path": "plugins/office-preview",
       "pinned_sdk": "0.6.15",
       "tests": 10
@@ -48,7 +48,7 @@
     {
       "id": "folder-links",
       "name": "Folder links_vibecom",
-      "version": "0.3.3",
+      "version": "0.3.4",
       "path": "plugins/folder-links",
       "pinned_sdk": "0.5.9",
       "tests": 10,
@@ -63,7 +63,7 @@
       "version": "0.1.6",
       "path": "plugins/files-editor",
       "pinned_sdk": "0.6.15",
-      "tests": 373,
+      "tests": 387,
       "upstream": {
         "source": "https://github.com/abdoutelb/bb-plugin-files-editor",
         "tag": "v0.1.6",
@@ -127,18 +127,18 @@
   "files": [
     {
       "path": "AGENT-TASK.md",
-      "bytes": 15798,
-      "sha256": "a9a50f46bd4eeb8e83e0f55d9ac0f588af87087db220ecaddfa424e3f1672e0c"
+      "bytes": 15987,
+      "sha256": "b7fd21882b7e07fb22a4bec1681f03463d5fa3415cfa6d037f1c5f4d35f0ddea"
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 11587,
-      "sha256": "f43dea172bcacdb5b95e7079694e866fb4441596ab0058e4dcac99dd95d1b685"
+      "bytes": 12552,
+      "sha256": "a44c3dccbc0c387fa8e76e3fba56933205b02ddbb450bad0b9b0ea5e34806de7"
     },
     {
       "path": "GUIDE.md",
-      "bytes": 93808,
-      "sha256": "16c87b91419df53e0ccc93ea77d6115243d482227bfe5ee0e062cd6f600efcbf"
+      "bytes": 94759,
+      "sha256": "e7b3b6135c52bbbf7958af4b4bb897528534421a2e08396adac53ba248723710"
     },
     {
       "path": "LICENSE",
@@ -147,13 +147,13 @@
     },
     {
       "path": "PHONE.md",
-      "bytes": 8913,
-      "sha256": "48ad5fb0f2387917f785c0e6f522eb6990e5bae148f27ff25c063b9ee1f7e4ef"
+      "bytes": 9316,
+      "sha256": "a54b7d20b48b00326d43bf80bec4a2f95fcc5fd986b91680c1267b6885973831"
     },
     {
       "path": "README.md",
       "bytes": 8689,
-      "sha256": "700fe3059112559a5b99322d78760e9fb986cbf8b92ab0a746b11ffdfefaa077"
+      "sha256": "439fda035704ee0bd7cfd7cf2dadbe46cc66a6ac7d9042267e61e7961f5576b8"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -162,18 +162,18 @@
     },
     {
       "path": "VALIDATION.md",
-      "bytes": 9646,
-      "sha256": "6da4b6217604592b65fee9b0a3f0bcc63e5fba1a9b037dd0c850a4cda214faf7"
+      "bytes": 9866,
+      "sha256": "41a9117f2d83a7968ab8d9efbec70d3b2f8f658c32e461f434ab10d05818db16"
     },
     {
       "path": "VERSION",
       "bytes": 6,
-      "sha256": "a0dc8325e2fbe558e09bf7d61260ca378151b0a3f875dd8b46ecd3693e34c10b"
+      "sha256": "027a61167f091a427fa7844dcac0c5141bafbcbdcadc7e04a93578147ab956f2"
     },
     {
       "path": "catalog.json",
-      "bytes": 17001,
-      "sha256": "122ef4c28c1d1f00bfa30edaede7a07e0e8f699060bbac2b0c9a1831edd54716"
+      "bytes": 17024,
+      "sha256": "b53127580a455c2009a3c4063025f7f50c2e3dd2bf8f7f9238f466019254293a"
     },
     {
       "path": "examples/README.md",
@@ -213,7 +213,7 @@
     {
       "path": "plugins/README.md",
       "bytes": 2759,
-      "sha256": "7470509464097c6d19dd9095ad3abd199aad5c52937a086fe679fc3e8dec5fd0"
+      "sha256": "9edebec11f9b57a7df986d85796cc75d8e6ab7c5bac0fd5c350e95eee7daffa3"
     },
     {
       "path": "plugins/files-editor/LICENSE",
@@ -272,13 +272,18 @@
     },
     {
       "path": "plugins/files-editor/components/FileView.tsx",
-      "bytes": 24359,
-      "sha256": "4aebcbda551b319a0d71122709475677e1c30c736b87b2bd94b3d89ce1bb1063"
+      "bytes": 24470,
+      "sha256": "1981f9c5196b0787e186bde9d72bc60a519692013e5de6552d11fdbb753d29e0"
     },
     {
       "path": "plugins/files-editor/components/FindBar.tsx",
       "bytes": 4835,
       "sha256": "576794793c9713c5eecb38b29d5457c1e8b5fa998f664f0fdd08387aec3210f3"
+    },
+    {
+      "path": "plugins/files-editor/components/HtmlPage.tsx",
+      "bytes": 3096,
+      "sha256": "38f725ca51663a8400580bf2e18480d7f0433f38a29ef348090672a0311cdf43"
     },
     {
       "path": "plugins/files-editor/components/NameResults.tsx",
@@ -322,8 +327,8 @@
     },
     {
       "path": "plugins/files-editor/components/Workspace.tsx",
-      "bytes": 54387,
-      "sha256": "65c685d01186d2651f73c526ccc8150ede07fea58b552e47f217ad2a9e7b37f4"
+      "bytes": 55288,
+      "sha256": "b496b28def6102a0adca4b6463209ed513e134413f12ae3f4d3dc9f8a924e1d9"
     },
     {
       "path": "plugins/files-editor/components/WorkspacePicker.tsx",
@@ -407,8 +412,8 @@
     },
     {
       "path": "plugins/files-editor/components/use-file-tabs.ts",
-      "bytes": 13969,
-      "sha256": "1dc489e9898d9643fe227cde517b4643154b1c3182f45cf8d502d693ab9bbacd"
+      "bytes": 14204,
+      "sha256": "bf0e7aa10381e7b486923b42e311bd80e6c46e3d0b6ca88742fcb7d87681caa7"
     },
     {
       "path": "plugins/files-editor/components/use-transfers.tsx",
@@ -447,8 +452,8 @@
     },
     {
       "path": "plugins/files-editor/lib/file-kind.ts",
-      "bytes": 4360,
-      "sha256": "f6fd4d4a7403250fc5a8dc0e0dfed3cdb6cb3dec2d230e1c267788c25b167656"
+      "bytes": 4392,
+      "sha256": "6e97414a67f246eabb7da7caf7d70c9648acff821636a69efd1fa48ea846e2c5"
     },
     {
       "path": "plugins/files-editor/lib/find.test.ts",
@@ -491,6 +496,16 @@
       "sha256": "efb4a50560c39605525f63f4fe5289a7307d93a6402fc362d95a59520ec99f5c"
     },
     {
+      "path": "plugins/files-editor/lib/html-page.test.ts",
+      "bytes": 1591,
+      "sha256": "dbd48caf7ee1b66d2983e108c382c312945e417831c664f748d5d7dc798940c6"
+    },
+    {
+      "path": "plugins/files-editor/lib/html-page.ts",
+      "bytes": 1807,
+      "sha256": "cd102f2cbde1482e3a6b0fdc0c4fb8373e9459ab21968ff73d2bb4a0017e49aa"
+    },
+    {
       "path": "plugins/files-editor/lib/lazy-tree.test.ts",
       "bytes": 3218,
       "sha256": "2c3b8cbd84038836ddf015e30932634b8525d24e593c4500f4242a5658c8b2b4"
@@ -502,13 +517,13 @@
     },
     {
       "path": "plugins/files-editor/lib/markdown.test.ts",
-      "bytes": 3327,
-      "sha256": "2374daa924460baa6d4e9ec92f444a339b653a4e8697be57588d43e4bd910acb"
+      "bytes": 4835,
+      "sha256": "baaf6f252d01ed0caee19a72fc892549cdd2b1293a3e13a909639a48f07b3bbb"
     },
     {
       "path": "plugins/files-editor/lib/markdown.ts",
-      "bytes": 2510,
-      "sha256": "b3fd04f3ba159e12557cc71f77ff8c33936258e6d8f091efe74b39fe3ae44b74"
+      "bytes": 3108,
+      "sha256": "397f9dc33cc1afdfb7dc9288390c5ad74fd10f53d6ccaf1bad44be27ed0f5735"
     },
     {
       "path": "plugins/files-editor/lib/mutations.test.ts",
@@ -1073,12 +1088,12 @@
     {
       "path": "plugins/folder-links/package-lock.json",
       "bytes": 3934,
-      "sha256": "36590022dabc3677647aff203db0e5070aac8671de6a27736aabbe24cff2507d"
+      "sha256": "08695cf8fef4f26392e4850fc016302be40f085ee02d91ef26025f7b5b0586a6"
     },
     {
       "path": "plugins/folder-links/package.json",
       "bytes": 844,
-      "sha256": "50beca22c2e7127a11ea1ee2beceb9d0c17416f9d1cc3ccd58251077c4333f21"
+      "sha256": "5bb49e035c53c74e36343850184ee206ec2e0d3e530c2eaf8075fd7a810d46f6"
     },
     {
       "path": "plugins/folder-links/rpc.ts",
@@ -1143,12 +1158,12 @@
     {
       "path": "plugins/markdown-view/package-lock.json",
       "bytes": 7922,
-      "sha256": "fb707f8f3ef3fa60e4673c257ab68887e60d74089e818a0567e50793d602c6b3"
+      "sha256": "e276f3a2856763f7fc38c71ccfdccfb0b76837c4b2a70d9e8947b7f406fa8036"
     },
     {
       "path": "plugins/markdown-view/package.json",
       "bytes": 1003,
-      "sha256": "f26253df3d900f65031d4b57748227fcf4a367803e54871f4bfb5c32b81d8991"
+      "sha256": "9406c3f22c2c9c265e38724c4dd5fc6f6345c0e07806ef64e75fe31b1dacede8"
     },
     {
       "path": "plugins/markdown-view/server.ts",
@@ -1268,12 +1283,12 @@
     {
       "path": "plugins/office-preview/package-lock.json",
       "bytes": 49549,
-      "sha256": "ca7f2e06a38b4a69539f158f5eca76c4c0ce3df537acc1d2954d4ca8ef3227aa"
+      "sha256": "2da04282d46ed99262705fb1d45388854257c3d1b26138e0cd4181bd59976dcb"
     },
     {
       "path": "plugins/office-preview/package.json",
       "bytes": 1038,
-      "sha256": "4380fd03d7cd91e0e981d28bb1de93c7b30bca1374440682baf396ef50307462"
+      "sha256": "b5b5d03d7991b4363edff7197ed9f0e5a3f00ec1537c9a139de1471ea75008c5"
     },
     {
       "path": "plugins/office-preview/server.ts",

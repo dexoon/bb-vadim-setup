@@ -1,10 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { languageLabel } from "./file-kind.js";
 import {
+  HTML_EXTENSIONS,
   MARKDOWN_EXTENSIONS,
   MARKDOWN_PREVIEW_MAX_CHARS,
   allowedMode,
   canPreviewMarkdown,
+  hasPreview,
+  isHtmlPath,
   isMarkdownPath,
 } from "./markdown.js";
 
@@ -83,12 +86,54 @@ describe("allowedMode", () => {
   });
 });
 
+describe("isHtmlPath and hasPreview", () => {
+  it("takes .html and .htm in any case", () => {
+    expect(isHtmlPath("backlog/plans/flow.html")).toBe(true);
+    expect(isHtmlPath("old/INDEX.HTM")).toBe(true);
+  });
+
+  it("leaves templates and fragments that are not pages to the source", () => {
+    expect(isHtmlPath("views/page.html.erb")).toBe(false);
+    expect(isHtmlPath("index.xhtml")).toBe(false);
+    expect(isHtmlPath(".html")).toBe(false);
+  });
+
+  it("gives Preview to markdown and HTML only", () => {
+    expect(hasPreview("README.md")).toBe(true);
+    expect(hasPreview("report.html")).toBe(true);
+    expect(hasPreview("server.ts")).toBe(false);
+  });
+});
+
+describe("allowedMode for a page", () => {
+  it("keeps Preview for HTML", () => {
+    expect(allowedMode("preview", "report.html", "<!DOCTYPE html>")).toBe("preview");
+  });
+
+  it("keeps Preview past the markdown cap: the frame loads the page itself", () => {
+    const huge = "a".repeat(MARKDOWN_PREVIEW_MAX_CHARS + 1);
+    expect(allowedMode("preview", "report.htm", huge)).toBe("preview");
+  });
+
+  it("falls back to Read before the text is in", () => {
+    expect(allowedMode("preview", "report.html", null)).toBe("read");
+  });
+});
+
 describe("the markdown list and the language table", () => {
   it("agree: every previewable extension is labelled Markdown", () => {
     for (const extension of MARKDOWN_EXTENSIONS) {
       const path = `docs/notes.${extension}`;
       expect(isMarkdownPath(path)).toBe(true);
       expect(languageLabel(path)).toBe("Markdown");
+    }
+  });
+});
+
+describe("the HTML list and the language table", () => {
+  it("agree: every page extension is labelled HTML", () => {
+    for (const extension of HTML_EXTENSIONS) {
+      expect(languageLabel(`site/index.${extension}`)).toBe("HTML");
     }
   });
 });

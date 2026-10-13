@@ -17,7 +17,19 @@ export function isMarkdownPath(path: string): boolean {
   return MARKDOWN_EXTENSIONS.has(extensionOf(path));
 }
 
-/** What the pane shows: rendered markdown, BB's source viewer, or an editor. */
+export const HTML_EXTENSIONS: ReadonlySet<string> = new Set(["html", "htm"]);
+
+/** A page Preview shows as a browser would, in a sandboxed frame. */
+export function isHtmlPath(path: string): boolean {
+  return HTML_EXTENSIONS.has(extensionOf(path));
+}
+
+/** Whether the file has a rendered form at all: markdown and HTML pages. */
+export function hasPreview(path: string): boolean {
+  return isMarkdownPath(path) || isHtmlPath(path);
+}
+
+/** What the pane shows: the rendered file, BB's source viewer, or an editor. */
 export type FileViewMode = "preview" | "read" | "edit";
 
 /**
@@ -46,6 +58,9 @@ export function canPreviewMarkdown(path: string, text: string): boolean {
  * would render — the draft over the file — or null when it has no text: not
  * read yet, an image, a binary. Preview is the only mode with a precondition,
  * and a tab that fails it shows the source instead.
+ *
+ * A page has no size cap: the frame loads it from disk on its own, and none of
+ * the parsing happens on this surface.
  */
 export function allowedMode(
   requested: FileViewMode,
@@ -53,5 +68,6 @@ export function allowedMode(
   text: string | null,
 ): FileViewMode {
   if (requested !== "preview") return requested;
-  return text !== null && canPreviewMarkdown(path, text) ? "preview" : "read";
+  if (text === null) return "read";
+  return canPreviewMarkdown(path, text) || isHtmlPath(path) ? "preview" : "read";
 }

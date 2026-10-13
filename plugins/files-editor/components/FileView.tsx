@@ -10,7 +10,7 @@ import { findMatches, matchIndexAt, stepMatch } from "@/lib/find";
 import { focusIfFree } from "@/lib/focus";
 import type { OpenWith } from "@/lib/open-with";
 import { FindBar } from "./FindBar";
-import type { FileTab } from "./use-file-tabs";
+import { isDirty, type FileTab } from "./use-file-tabs";
 
 export interface FileViewProps {
   tab: FileTab;
@@ -25,8 +25,8 @@ export interface FileViewProps {
    */
   onHandOff: ((how: OpenWith) => boolean) | null;
   /**
-   * Draws Preview for a markdown file in place of the built-in rendering —
-   * the markdown-view viewer. Null keeps the built-in one.
+   * Draws Preview in place of the built-in rendering: the markdown-view
+   * viewer for markdown; the page itself for HTML. Null keeps the built-in one.
    */
   renderPreview?: (() => ReactNode) | null;
   /**
@@ -106,9 +106,10 @@ export function FileView({
     );
   }
 
-  // markdown-view shows the file as saved. A draft it has not seen stays with
-  // the built-in rendering, which is what the unsaved dot promises.
-  if (renderPreview !== null && tab.mode === "preview" && tab.draft === null) {
+  // markdown-view and the page show the file as saved. A draft they have not
+  // seen stays with the built-in rendering, which is what the unsaved dot
+  // promises; a page has none, so the toolbar keeps HTML out of Preview then.
+  if (renderPreview !== null && tab.mode === "preview" && !isDirty(tab)) {
     return <>{renderPreview()}</>;
   }
 
@@ -690,7 +691,7 @@ function HandOffButton({
   );
 }
 
-function Centered({
+export function Centered({
   children,
   tone,
 }: {

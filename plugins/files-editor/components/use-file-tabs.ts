@@ -3,7 +3,7 @@ import { useRpc } from "@get-bb/plugin-sdk/app";
 import type { rpcContract } from "../server.js";
 import type { ScopeRef } from "@/lib/route";
 import { sameScope } from "@/lib/route";
-import { allowedMode, isMarkdownPath, type FileViewMode } from "@/lib/markdown";
+import { allowedMode, hasPreview, isHtmlPath, type FileViewMode } from "@/lib/markdown";
 
 export type FileContent =
   | {
@@ -53,8 +53,12 @@ export function renderedText(tab: FileTab): string | null {
   return tab.file !== null && tab.file.kind === "text" ? tab.file.content : null;
 }
 
-/** Whether the tab may be shown in Preview — the rule `setMode` applies. */
+/**
+ * Whether the tab may be shown in Preview — the rule `setMode` applies. A page
+ * is loaded from disk, so an unsaved edit would not be in it: save first.
+ */
 export function canPreview(tab: FileTab): boolean {
+  if (isHtmlPath(tab.path) && isDirty(tab)) return false;
   return allowedMode("preview", tab.path, renderedText(tab)) === "preview";
 }
 
@@ -201,9 +205,9 @@ export function useFileTabs(scope: ScopeRef | null, maxTabs = MAX_TABS): FileTab
         draft: null,
         sha256: null,
         // The read has not been issued yet, so the path is all there is to go
-        // on: markdown is worth reading rendered, everything else is source.
-        // Whether the file is small enough to render is settled in `load`.
-        mode: isMarkdownPath(path) ? "preview" : "read",
+        // on: markdown and HTML are worth reading rendered, everything else is
+        // source. Whether the file is small enough to render is settled in `load`.
+        mode: hasPreview(path) ? "preview" : "read",
         save: { kind: "clean" },
       };
       setTabs((current) => {
@@ -346,9 +350,13 @@ export function useFileTabs(scope: ScopeRef | null, maxTabs = MAX_TABS): FileTab
     ),
     setMode: useCallback(
       // The toolbar disables what a tab cannot hold, but the rule lives here,
-      // so no caller can put a `.ts` tab or an oversized document in Preview.
+      // so no caller can put a `.ts` tab, an oversized document or a page with
+      // unsaved edits in Preview.
       (path, mode) =>
-        patch(path, (tab) => ({ ...tab, mode: allowedMode(mode, path, renderedText(tab)) })),
+        patch(path, (tab) => ({
+          ...tab,
+          mode: mode === "preview" && !canPreview(tab) ? "read" : mode,
+        })),
       [patch],
     ),
     showSource: useCallback(
