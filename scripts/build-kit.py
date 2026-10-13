@@ -163,8 +163,10 @@ Windows — `Expand-Archive -LiteralPath КОМПЛЕКТ.zip -DestinationPath �
 """
     (RELEASE / "08-BB-AGENT-SETUP.md").write_text(agent, encoding="utf-8")
 
-    sums = [f"{sha(p.read_bytes())}  {p.name}" for p in sorted(RELEASE.iterdir())
-            if p.is_file() and p.name != "SHA256SUMS.txt" and not p.name.startswith(".")]
+    # Суммы только файлов этого выпуска: SHA256SUMS.txt прикладывается к выпуску на GitHub.
+    artifacts = ["08-BB-VADIM-KIT.zip", "08-BB-VADIM-SETUP.md", "08-BB-AGENT-SETUP.md",
+                 "08-BB-VADIM-SETUP.pdf", "08-BB-PHONE.pdf", "catalog.json"]
+    sums = [f"{sha((RELEASE / n).read_bytes())}  {n}" for n in artifacts if (RELEASE / n).exists()]
     (RELEASE / "SHA256SUMS.txt").write_text("\n".join(sums) + "\n", encoding="utf-8")
 
     print(json.dumps({"version": version, "date": date, "files_in_zip": len(entries),
