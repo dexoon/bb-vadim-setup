@@ -1,7 +1,7 @@
 # BB как у Вадима — комплект настройки
 
 Last Updated: 2026-10-11
-Версия: 0.3.1 · Лицензия: [MIT](LICENSE) для собственных материалов ·
+Версия: 0.3.2 · Лицензия: [MIT](LICENSE) для собственных материалов ·
 Сторонние части: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 
 Инструкция и комплект, чтобы установить [bb](https://github.com/get-bb/bb) и настроить
@@ -23,6 +23,7 @@ Last Updated: 2026-10-11
 | Путь | Что это |
 |---|---|
 | [GUIDE.md](GUIDE.md) | Полная инструкция: установка bb, модели, настройка, телефон, проверка |
+| [PHONE.md](PHONE.md) | Как пользоваться bb с телефона: подключение, голос, документы, терминал |
 | [AGENT-TASK.md](AGENT-TASK.md) | Готовое задание кодинговому агенту: настроить bb по комплекту |
 | [theme/](theme/README.md) | Тема `atom-one_vibecom` (One Dark / One Light) |
 | [plugins/](plugins/README.md) | Исходники плагинов Markdown_vibecom, Office_vibecom, Folder links_vibecom, Explorer_vibecom, Terminal_vibecom |
@@ -66,7 +67,7 @@ Explorer_vibecom показывает `.md` через Markdown_vibecom — ст
 | Что | Обновить | Откатить |
 |---|---|---|
 | Плагин из Git с диапазоном `~0.3.0` | `bb plugin outdated`, затем `bb plugin update ИМЯ` | `bb plugin remove ИМЯ` и установка нужного тега, например `@v0.3.1` |
-| Плагин из Git с тегом `@v0.3.1` | закреплён: `remove` и установка нового тега | то же |
+| Плагин из Git с тегом `@v0.3.2` | закреплён: `remove` и установка нового тега | то же |
 | Плагин из папки комплекта | новые файлы в ту же папку, `npm ci`, `bb plugin build .`, `bb plugin reload ИМЯ` | предыдущая версия папки и те же команды |
 | Тема | скопировать новую папку `atom-one_vibecom` | резервная копия темы или `bb theme reset` |
 | Правила | сравнить новый шаблон со своим `AGENTS.md` и перенести нужное | ваш файл остаётся вашим |

@@ -1,8 +1,8 @@
 {
   "format": 3,
-  "created": "2026-10-11",
+  "created": "2026-10-13",
   "name": "bb-vadim-kit",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "license": "MIT",
   "checked_environment": [
     {
@@ -32,7 +32,7 @@
     {
       "id": "markdown-view",
       "name": "Markdown_vibecom",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "path": "plugins/markdown-view",
       "pinned_sdk": "0.6.15",
       "tests": 28
@@ -40,7 +40,7 @@
     {
       "id": "office-preview",
       "name": "Office_vibecom",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "path": "plugins/office-preview",
       "pinned_sdk": "0.6.15",
       "tests": 10
@@ -48,7 +48,7 @@
     {
       "id": "folder-links",
       "name": "Folder links_vibecom",
-      "version": "0.3.1",
+      "version": "0.3.2",
       "path": "plugins/folder-links",
       "pinned_sdk": "0.5.9",
       "tests": 10,
@@ -115,7 +115,9 @@
     "release_assets": [
       "08-BB-VADIM-KIT.zip",
       "08-BB-VADIM-SETUP.md",
-      "08-BB-AGENT-SETUP.md"
+      "08-BB-AGENT-SETUP.md",
+      "08-BB-VADIM-SETUP.pdf",
+      "08-BB-PHONE.pdf"
     ],
     "zip_folder": "bb-vadim-kit",
     "windows_executed": false
@@ -125,17 +127,17 @@
     {
       "path": "AGENT-TASK.md",
       "bytes": 12170,
-      "sha256": "ec5345182e386333ff14121ce0522f021d30a70894e48c787308bdfee152f1cb"
+      "sha256": "ff337a54bf51e85ee8ef61ab612649790cef4c002addf8b6169214970d449767"
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 9381,
-      "sha256": "770abc60c4df9d72119b2852d056cdab32b2b4e763b1da56daeaf66a2a1f15b7"
+      "bytes": 10166,
+      "sha256": "601696902dc1f9f116a92db9abfa1db466ab4ad6bebb37a7bfc98109cec47d89"
     },
     {
       "path": "GUIDE.md",
-      "bytes": 93624,
-      "sha256": "d59b1cf57f67beeb63516d4f2c4d6a5bbddc810d216624b2ef66c847f16178f5"
+      "bytes": 93808,
+      "sha256": "4232beff9f602ff929233d42646f9e3cb568678f5c31cf90eb47346496e44268"
     },
     {
       "path": "LICENSE",
@@ -143,9 +145,14 @@
       "sha256": "b89c1394c40952ae54f2333fcef1d45dda360fbf8ea27b4d20361ba2794e3373"
     },
     {
+      "path": "PHONE.md",
+      "bytes": 8913,
+      "sha256": "48ad5fb0f2387917f785c0e6f522eb6990e5bae148f27ff25c063b9ee1f7e4ef"
+    },
+    {
       "path": "README.md",
-      "bytes": 8357,
-      "sha256": "7b64a533f3f9f23321c2b48a29f03837a102cc1c61fc555764157566a78f2eef"
+      "bytes": 8513,
+      "sha256": "27ba4c386b1928329ee9d14c5a5b475b9052839b9ab060b9f52691506149f871"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -154,13 +161,13 @@
     },
     {
       "path": "VALIDATION.md",
-      "bytes": 8385,
-      "sha256": "71cd25435f32fd75298ec0b99bfe075d3098a7573752c76ed0a1d613a4664427"
+      "bytes": 8964,
+      "sha256": "d7ac830a1d74857bd113c7934bd55adb5a2aedbb63e950d65e005a19576dfd90"
     },
     {
       "path": "VERSION",
       "bytes": 6,
-      "sha256": "79e3f22ca37c7fdf4c29ae3648d6b008c3cb6547260a453409275470919dc674"
+      "sha256": "511a100eedfb9ea66441e5d506392dba2d8aa290f98c4c544c70ae75ec3c3396"
     },
     {
       "path": "examples/README.md",
@@ -200,7 +207,7 @@
     {
       "path": "plugins/README.md",
       "bytes": 2759,
-      "sha256": "6fae0364ed17bdf39494a3bdbc86eabbc18e027ea970a2e24ad6c9c1490315b5"
+      "sha256": "bd1a5c157503cef2f7e64c64647b6a98e26a8f905d54d44db7fb7d7877b80a1b"
     },
     {
       "path": "plugins/files-editor/LICENSE",
@@ -1060,12 +1067,12 @@
     {
       "path": "plugins/folder-links/package-lock.json",
       "bytes": 3934,
-      "sha256": "11e06abe499b6d2b3294d29bcd4c28933599f7353417131987bc4e520078b831"
+      "sha256": "ceaa48c35f68855659d04529561371ae6a9dc084361872105c3668b0f8918833"
     },
     {
       "path": "plugins/folder-links/package.json",
       "bytes": 844,
-      "sha256": "6e5d00da24354c73a3737fc820f3b871eeec7eec784e052cedab649419393f23"
+      "sha256": "4e74be8ad1f8025e7f4f89f1b0ea2180e8d4682cf152a2724ef3ed648f7a78c2"
     },
     {
       "path": "plugins/folder-links/rpc.ts",
@@ -1130,12 +1137,12 @@
     {
       "path": "plugins/markdown-view/package-lock.json",
       "bytes": 7922,
-      "sha256": "f65ac7da2559677369111404310ad4a2e11508f5c5f9976bed9bcfaba32b7f2a"
+      "sha256": "1a7e06ddef0432fc2a285ac30d395de176325ce7b09d0343a39d30089ae20861"
     },
     {
       "path": "plugins/markdown-view/package.json",
       "bytes": 1003,
-      "sha256": "63c4e833409474961f51b8d07118431ed33ff0449a9602dc89677be255e90a59"
+      "sha256": "ea1edac732dec65bfe268f186def31b0c974ac72b7e6121d5bf41e15e4d9391b"
     },
     {
       "path": "plugins/markdown-view/server.ts",
@@ -1255,12 +1262,12 @@
     {
       "path": "plugins/office-preview/package-lock.json",
       "bytes": 49549,
-      "sha256": "29a5cade93c3da73f908bccaab30b92daaacc983e18b742c1efebea966c9720b"
+      "sha256": "79c67377b8166cb90b8f5941db8506426ca0f12fd1f5c8831dafb8d0a9c92fb9"
     },
     {
       "path": "plugins/office-preview/package.json",
       "bytes": 1038,
-      "sha256": "03ecabad271704f7cd1bf90c1d566b22c68c1b54e635ebb84cdd277ca83972b6"
+      "sha256": "29f82e3383c89c55ca0359f12297ada136a746efa796dc49d555894db9bfea45"
     },
     {
       "path": "plugins/office-preview/server.ts",

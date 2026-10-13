@@ -1,6 +1,6 @@
-"""PDF инструкции: GUIDE.md → release/08-BB-VADIM-SETUP.pdf.
+"""PDF инструкций: GUIDE.md → release/08-BB-VADIM-SETUP.pdf, PHONE.md → release/08-BB-PHONE.pdf.
 
-Использование: python3 scripts/render-pdf.py
+Использование: python3 scripts/render-pdf.py [ФАЙЛ.md ...]   (по умолчанию — оба)
 Нужны pandoc и Playwright для Python с Chromium:
   brew install pandoc && python3 -m pip install playwright && python3 -m playwright install chromium
 
@@ -9,11 +9,12 @@ pandoc собирает HTML с оглавлением, Chromium печатае�
 Команды удобнее копировать из GUIDE.md: в PDF длинные строки кода переносятся.
 """
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT = ROOT / "release" / "08-BB-VADIM-SETUP.pdf"
+TARGETS = {"GUIDE.md": "08-BB-VADIM-SETUP.pdf", "PHONE.md": "08-BB-PHONE.pdf"}
 
 CSS = """
 @page { size: A4; margin: 16mm 15mm 18mm 15mm; }
@@ -44,16 +45,17 @@ FOOTER = ('<div style="font-family:\'PT Sans\',Arial,sans-serif;font-size:8pt;co
           'bb как у Вадима · <span class="pageNumber"></span> / <span class="totalPages"></span></div>')
 
 
-def main() -> None:
+def render(src_name: str, version: str) -> None:
     from playwright.sync_api import sync_playwright
 
-    version = (ROOT / "VERSION").read_text().strip()
+    out = ROOT / "release" / TARGETS[src_name]
     with tempfile.TemporaryDirectory() as tmp:
         css = Path(tmp) / "style.css"
         css.write_text(CSS, encoding="utf-8")
         html = Path(tmp) / "guide.html"
         subprocess.run(
-            ["pandoc", str(ROOT / "GUIDE.md"), "-f", "gfm", "-t", "html5", "-s", "--toc", "--toc-depth=3",
+            ["pandoc", str(ROOT / src_name), "-f", "gfm", "-t", "html5", "-s",
+             *(["--toc", "--toc-depth=3"] if src_name == "GUIDE.md" else []),
              "--embed-resources", "--css", str(css),
              "--metadata", f"pagetitle=bb как у Вадима — комплект {version}", "--metadata", "toc-title=Содержание", "-o", str(html)],
             check=True,
@@ -62,11 +64,17 @@ def main() -> None:
             browser = p.chromium.launch()
             page = browser.new_page()
             page.goto(html.as_uri())
-            page.pdf(path=str(OUT), format="A4", print_background=True, display_header_footer=True,
+            page.pdf(path=str(out), format="A4", print_background=True, display_header_footer=True,
                      header_template="<div></div>", footer_template=FOOTER,
                      margin={"top": "16mm", "bottom": "18mm", "left": "15mm", "right": "15mm"})
             browser.close()
-    print(f"{OUT.relative_to(ROOT)}: {OUT.stat().st_size} байт")
+    print(f"{out.relative_to(ROOT)}: {out.stat().st_size} байт")
+
+
+def main() -> None:
+    version = (ROOT / "VERSION").read_text().strip()
+    for name in sys.argv[1:] or list(TARGETS):
+        render(name, version)
 
 
 if __name__ == "__main__":

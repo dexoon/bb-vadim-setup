@@ -1,21 +1,23 @@
-# Проверка выпуска 0.3.1
+# Проверка выпуска 0.3.2
 
-Last Updated: 2026-10-11
+Last Updated: 2026-10-13
 
 Среда: macOS, bb 0.46.0 (SDK 0.6.37, npm в составе bb 11.16.0), Node.js 25.2.1,
 npm 11.6.2. Итоги выпусков 0.3.0, 0.2.0 и 0.1.0 — ниже.
 
 ## Выполнено для этого выпуска
 
-Выпуск убирает внешний File Manager; код плагинов тот же, что в 0.3.0.
+Выпуск добавляет инструкцию для телефона (`PHONE.md`, `08-BB-PHONE.pdf`) и PDF гайда; код плагинов тот же,
+что в 0.3.0–0.3.1. Строка про File Manager — из проверки 0.3.1.
 
 | Проверка | Результат |
 |---|---|
-| Перенос плагинов | `scripts/sync-plugins.py` против рабочего репозитория автора: источник не менялся с прошлого переноса (`3dc2ff6`), изменений нет. Версия трёх своих плагинов поднята до 0.3.1 в `package.json` и корне `package-lock.json` |
+| Перенос плагинов | `scripts/sync-plugins.py` против рабочего репозитория автора: источник не менялся с прошлого переноса (`3dc2ff6`), изменений нет. Версия трёх своих плагинов поднята до 0.3.2 в `package.json` и корне `package-lock.json` |
 | File Manager | Упоминания как рекомендуемого плагина убраны из `GUIDE.md`, `AGENT-TASK.md`, `MANIFEST.json`; остались только история в `CHANGELOG.md` и атрибуция перенесённого кода (README и LICENSE Explorer_vibecom, `THIRD_PARTY_NOTICES.md`). У автора `file-manager` удалён из bb |
 | Сборка с нуля и тесты | `scripts/test-plugins.sh`: Markdown_vibecom 28/28, Office_vibecom 10/10, Folder links_vibecom 10/10, Explorer_vibecom 373/373, Terminal_vibecom 86/86 |
-| Установка как у bb из Git | `scripts/check-git-install.sh`: клон по тегу `v0.3.1`, `npm install --ignore-scripts --omit=dev --omit=optional` npm-ом из bb (11.16.0), `bb plugin build` — все пять собраны |
-| Комплект | `scripts/check-kit.py` с частными шаблонами: все проверки ZIP, манифеста (259 файлов), файла для агента и извлечения прошли, поиск личного — 0 совпадений |
+| Установка как у bb из Git | `scripts/check-git-install.sh`: клон по тегу `v0.3.2`, `npm install --ignore-scripts --omit=dev --omit=optional` npm-ом из bb (11.16.0), `bb plugin build` — все пять собраны |
+| Комплект | `scripts/check-kit.py` с частными шаблонами: все проверки ZIP, манифеста (260 файлов), файла для агента и извлечения прошли, поиск личного — 0 совпадений |
+| Инструкция для телефона | Факты `PHONE.md` сверены 13.10 с bb автора: `bb connect status` (адрес подключён), `bb push-notifications status` и `list` (браузер, приложение не зарегистрировано), `bb settings general`, `bb settings mobile-app`, справка `bb push-notifications`. Скриншотов нет. PDF — 2 страницы A4 |
 | Приватность | Дополнительно тот же список частных шаблонов и общие (личные пути, e-mail, ID bb, ключи и токены) — по всем файлам репозитория, включая `scripts/`, и по `08-BB-VADIM-SETUP.md` и `08-BB-AGENT-SETUP.md`: 0 совпадений |
 
 ## Итоги выпуска 0.3.0
