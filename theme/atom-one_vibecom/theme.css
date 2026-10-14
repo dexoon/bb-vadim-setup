@@ -70,22 +70,50 @@
 }
 
 .dark {
-  /* Anchors — darker than VS Code's editor.background (#282c34) for contrast;
-     text stays VS Code editor.foreground */
+  /* Contrast profile of Telegram Desktop's default dark theme ("Tinted"),
+     in Atom One's blue-gray: body text 14.9:1, list one step (1.12:1)
+     darker than the content, quiet lines and hovers.
+     Canvas stays #1a1c21; ink keeps Atom's hue (263) at near-white.
+     Before 2026-10-14: ink #abb2bf (8:1), sidebar #141619. */
   --canvas: #1a1c21;
-  --ink: #abb2bf;
+  /* ~#edf0f6. Written in oklch() on purpose: Chromium drops the hue of hex
+     grays with chroma < 0.02 in color-mix(in oklch), and every derived
+     gray would turn pinkish. */
+  --ink: oklch(0.955 0.009 263);
 
-  /* Left rail — one step darker than canvas, like VS Code's sideBar */
-  --sidebar: #141619;
+  /* Thread list — one step darker than canvas (Telegram: 1.12:1) */
+  --sidebar: #0f1013;
 
-  /* Accent — One Dark blue */
+  /* Accent — One Dark blue, 7.2:1 on canvas (Telegram link blue: 7.3:1) */
   --primary: #61afef;
-  --primary-foreground: #282c34;
+  --primary-foreground: #1a1c21;
   --file-accent: #61afef;
+
+  /* Text tiers, dark only (light keeps the :root mixes):
+     5.0:1 / 4.2:1 / 3.6:1 like Telegram's preview / subtext / placeholder */
+  --muted-foreground: color-mix(in oklch, var(--ink) 56.4%, var(--canvas));
+  --readback-foreground: color-mix(in oklch, var(--ink) 50.5%, var(--canvas));
+  --subtle-foreground: color-mix(in oklch, var(--ink) 45.3%, var(--canvas));
+
+  /* Lines and fills. bb's fixed mixes overshoot with the brighter ink, so
+     they are re-pinned: Telegram values where it has the role, the old
+     contrast where it does not. --state-active (22.5%) and
+     --surface-recessed (6%) stay bb-derived: they land on Telegram's
+     selected-row (1.9:1) and bubble (1.17:1) steps. */
+  --border-seam: color-mix(in oklch, var(--ink) 8.2%, var(--canvas));       /* 1.19:1, menu separator */
+  --border: color-mix(in oklch, var(--ink) 15.8%, var(--canvas));           /* 1.45:1, input border */
+  --border-hairline: color-mix(in oklch, var(--ink) 13.7%, var(--canvas));  /* as before on the sidebar */
+  --input: color-mix(in oklch, var(--ink) 24.2%, var(--canvas));            /* as before */
+  --muted: color-mix(in oklch, var(--ink) 12%, var(--canvas));              /* as before: separators, inline code */
+  --secondary: color-mix(in oklch, var(--ink) 8%, var(--canvas));           /* 1.18:1, Telegram hover */
+  --accent: color-mix(in oklch, var(--ink) 10%, var(--canvas));             /* 1.25:1, keyboard selection stays visible */
+  --state-hover: color-mix(in oklab, var(--ink) 6.4%, transparent);         /* 1.19:1 over canvas */
+  --sidebar-accent: color-mix(in oklch, var(--ink) 9.7%, var(--sidebar));   /* 1.18:1 over the list */
+  --sidebar-border: color-mix(in oklch, var(--ink) 17.6%, var(--sidebar));  /* as before */
 
   /* Semantic */
   --destructive: #e06c75;
-  --destructive-foreground: #282c34;
+  --destructive-foreground: #1a1c21;
   --destructive-text: #e06c75;
   --warning: #e5c07b;
   --warning-text: #e5c07b;
@@ -111,7 +139,8 @@
   --ansi-12: #61afef;
   --ansi-13: #c678dd;
   --ansi-14: #56b6c2;
-  --ansi-15: #dcdfe4;
+  /* bright white stays brighter than the default text (#edf0f6) */
+  --ansi-15: #f5f7fa;
 
   --ansi-bg-fg-0: #fafafa;
   --ansi-bg-fg-1: #282c34;

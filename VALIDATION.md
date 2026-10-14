@@ -1,4 +1,4 @@
-# Проверка выпуска 0.3.5
+# Проверка выпуска 0.3.6
 
 Last Updated: 2026-10-14
 
@@ -7,16 +7,17 @@ npm 11.6.2. Итоги выпусков 0.3.0, 0.2.0 и 0.1.0 — ниже.
 
 ## Выполнено для этого выпуска
 
-Выпуск переносит пути Windows в Folder links_vibecom и автозакрепление HTML в Explorer_vibecom, убирает группировку
-тредов по проектам из рекомендаций; код Markdown, Office и Terminal тот же. Строки про File Manager и инструкцию для телефона — из проверок 0.3.1 и 0.3.2.
+Выпуск обновляет `theme.css` темы atom-one_vibecom (контрастный тёмный режим); код плагинов тот же, что в 0.3.5,
+где перенесены пути Windows в Folder links_vibecom и автозакрепление HTML в Explorer_vibecom. Строки про File Manager и инструкцию для телефона — из проверок 0.3.1 и 0.3.2.
 
 | Проверка | Результат |
 |---|---|
-| Перенос плагинов | `scripts/sync-plugins.py` против рабочего репозитория автора: перенесены коммиты `7dbcb99` (Explorer_vibecom закрепляет просмотр HTML) и `5997c4b` (Folder links_vibecom — пути Windows); ранее `8d73911` (HTML в Explorer_vibecom); в `FileView.tsx`, `Workspace.tsx` заново обезличены комментарии, в `lib/html-page.test.ts` тестовые пути заменены на вымышленный `/Users/me`. Версия трёх своих плагинов поднята до 0.3.5 в `package.json` и корне `package-lock.json` |
+| Перенос плагинов | `scripts/sync-plugins.py` против рабочего репозитория автора: перенесены коммиты `7dbcb99` (Explorer_vibecom закрепляет просмотр HTML) и `5997c4b` (Folder links_vibecom — пути Windows); ранее `8d73911` (HTML в Explorer_vibecom); в `FileView.tsx`, `Workspace.tsx` заново обезличены комментарии, в `lib/html-page.test.ts` тестовые пути заменены на вымышленный `/Users/me`. Версия трёх своих плагинов поднята до 0.3.6 в `package.json` и корне `package-lock.json` |
 | File Manager | Упоминания как рекомендуемого плагина убраны из `GUIDE.md`, `AGENT-TASK.md`, `MANIFEST.json`; остались только история в `CHANGELOG.md` и атрибуция перенесённого кода (README и LICENSE Explorer_vibecom, `THIRD_PARTY_NOTICES.md`). У автора `file-manager` удалён из bb |
 | Сборка с нуля и тесты | `scripts/test-plugins.sh`: Markdown_vibecom 28/28, Office_vibecom 10/10, Folder links_vibecom 26/26, Explorer_vibecom 393/393, Terminal_vibecom 86/86 |
-| Установка как у bb из Git | `scripts/check-git-install.sh`: клон по тегу `v0.3.5`, `npm install --ignore-scripts --omit=dev --omit=optional` npm-ом из bb (11.16.0), `bb plugin build` — все пять собраны |
+| Установка как у bb из Git | `scripts/check-git-install.sh`: клон по тегу `v0.3.6`, `npm install --ignore-scripts --omit=dev --omit=optional` npm-ом из bb (11.16.0), `bb plugin build` — все пять собраны |
 | Комплект | `scripts/check-kit.py` с частными шаблонами: все проверки ZIP, манифеста (269 файлов), файла для агента и извлечения прошли, поиск личного — 0 совпадений |
+| Тема | `theme.css` = рабочая тема автора `~/.bb/theme/atom-one_vibecom/theme.css` (14.10), поиск личного — 0 совпадений; `theme.json`, `one-dark.json` и `LICENSE-One-Dark.txt` не менялись |
 | Каталог | `scripts/check-kit.py`: в `catalog.json` версия и тег совпадают с выпуском, 16 пунктов в 5 разделах, id уникальны, `requires` ссылаются на существующие пункты, каждый id описан в `AGENT-TASK.md` («Пункты комплекта»), версии плагинов = `package.json`, `docs` — существующие якоря `GUIDE.md` или файлы, в обоих промптах есть все подстановки; проверка якорей ловит несуществующий якорь |
 | Инструкция для телефона | Факты `PHONE.md` сверены 13.10 с bb автора: `bb connect status` (адрес подключён), `bb push-notifications status` и `list` (браузер, приложение не зарегистрировано), `bb settings general`, `bb settings mobile-app`, справка `bb push-notifications`. Скриншотов нет. PDF — 2 страницы A4 |
 | Приватность | Дополнительно тот же список частных шаблонов и общие (личные пути, e-mail, ID bb, ключи и токены) — по всем файлам репозитория, включая `scripts/`, и по `08-BB-VADIM-SETUP.md` и `08-BB-AGENT-SETUP.md`: 0 совпадений |
