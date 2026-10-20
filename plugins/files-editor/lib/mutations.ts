@@ -31,6 +31,7 @@ import {
   lstat,
   mkdir,
   open,
+  readdir,
   readlink,
   realpath,
   rename,
@@ -371,16 +372,20 @@ async function copyWithoutOverwrite(source: ResolvedEntry, destination: string):
     return;
   }
   if (source.stats.isDirectory()) {
-    // Claim the name first (mkdir fails if taken), then copy into it. Links
-    // inside are copied as links, so one pointing outside is not followed.
+    // Claim the name first (mkdir fails if taken), then copy the contents
+    // into it: `cp` of the folder itself onto the just-claimed name is refused
+    // on Node before 25. Links are copied as links, so one pointing outside
+    // is not followed.
     await mkdir(destination);
-    await cp(source.absolutePath, destination, {
-      recursive: true,
-      force: false,
-      errorOnExist: true,
-      verbatimSymlinks: true,
-      preserveTimestamps: true,
-    });
+    for (const child of await readdir(source.absolutePath, { withFileTypes: true })) {
+      await cp(path.join(source.absolutePath, child.name), path.join(destination, child.name), {
+        recursive: true,
+        force: false,
+        errorOnExist: true,
+        verbatimSymlinks: true,
+        preserveTimestamps: true,
+      });
+    }
     return;
   }
   throw new MutationError("unsupported", `${source.name} is not a file or a folder.`);
