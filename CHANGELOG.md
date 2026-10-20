@@ -1,9 +1,35 @@
 # Changelog
 
-Last Updated: 2026-10-11
+Last Updated: 2026-10-20
 
 Формат — по [Keep a Changelog](https://keepachangelog.com/ru/1.1.0/),
 версии — по [SemVer](https://semver.org/lang/ru/).
+
+## [Unreleased]
+
+### Добавлено
+
+- CI в GitHub Actions (`.github/workflows/ci.yml`): на каждый push и pull request —
+  typecheck, сборка bb и тесты пяти плагинов на Linux и Windows, сборка и проверка
+  комплекта (`build-kit.py`, `check-kit.py`). bb в CI ставится из npm: `bb-app@0.46`.
+- Скрипт `typecheck` у трёх своих плагинов (`tsc --noEmit` по их `tsconfig.json`); тот же
+  шаг добавлен в `scripts/test-plugins.sh` (проверка типов не входит ни в `node --test`,
+  ни в vitest — типовые ошибки раньше дошли бы только до сборки).
+- `CONTRIBUTING.md` — что проверить перед pull request; `SECURITY.md` — как сообщать
+  об уязвимостях.
+
+### Исправлено
+
+- Explorer_vibecom: «Дублировать» папки падало на Node 22–24. `fs.cp` с `errorOnExist: true`
+  не копирует поверх созданной папки — так ведут себя Node до 25; на Node 25 у автора
+  работало, поэтому тесты это не ловили. Теперь в папку с заявленным заранее именем
+  копируется содержимое, порядок имён и защита от перезаписи прежние. Тесты: 393/393
+  на Node 24, Linux.
+
+### Изменено
+
+- README: убрана оговорка «когда репозиторий опубликован» — репозиторий опубликован;
+  в «Участии» ссылка на `CONTRIBUTING.md`.
 
 ## [0.3.6] — 2026-10-14
 
