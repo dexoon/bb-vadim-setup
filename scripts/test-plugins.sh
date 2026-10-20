@@ -1,5 +1,6 @@
 #!/bin/bash
-# Сборка и тесты пяти плагинов с нуля в копии: npm ci с пустым кэшем, bb plugin build, npm test.
+# Сборка и тесты пяти плагинов с нуля в копии: npm ci с пустым кэшем, typecheck,
+# bb plugin build, npm test.
 # Использование: scripts/test-plugins.sh [ПАПКА_ДЛЯ_КОПИИ]   (по умолчанию — новая папка в $TMPDIR)
 # Сеть: registry.npmjs.org и cdn.sheetjs.com. В floating-terminal запускается только npm test:
 # его другие скрипты шлют команды в открытый терминал.
@@ -15,6 +16,7 @@ for p in markdown-view office-preview folder-links files-editor floating-termina
   flags=""; case "$p" in files-editor|floating-terminal) flags="--ignore-scripts";; esac
   printf "=== %-18s " "$p"
   (cd "$d" && npm ci $flags --cache "$OUT/npm-cache" --no-audit --no-fund >"$OUT/$p.npm.log" 2>&1) || { echo "npm ci FAIL"; fail=1; continue; }
+  (cd "$d" && npm run typecheck --if-present --silent >"$OUT/$p.typecheck.log" 2>&1) || { echo "typecheck FAIL (лог: $OUT/$p.typecheck.log)"; fail=1; continue; }
   (cd "$d" && bb plugin build . >"$OUT/$p.build.log" 2>&1) || { echo "build FAIL"; fail=1; continue; }
   if (cd "$d" && npm test >"$OUT/$p.test.log" 2>&1); then
     echo "ok  $(grep -hE '^ℹ (pass|fail) |Tests +[0-9]+' "$OUT/$p.test.log" | tr -s ' ' | tr '\n' ' ')"

@@ -1,0 +1,56 @@
+# Проверка каждого push и pull request: типы, сборка bb и тесты пяти плагинов
+# на Linux и Windows, сборка и проверка комплекта. bb ставится из npm (`bb-app`),
+# авторизация не нужна. Локально то же самое, кроме Windows, делает
+# scripts/test-plugins.sh.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  plugins:
+    name: плагины (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: npm ci, typecheck, bb plugin build, npm test
+        shell: bash
+        run: |
+          set -euo pipefail
+          for p in markdown-view office-preview folder-links files-editor floating-terminal; do
+            flags=""
+            case "$p" in files-editor|floating-terminal) flags="--ignore-scripts";; esac
+            echo "=== $p: npm ci"
+            (cd "plugins/$p" && npm ci $flags --no-audit --no-fund)
+            echo "=== $p: typecheck"
+            (cd "plugins/$p" && npm run typecheck --if-present --silent)
+            echo "=== $p: bb plugin build"
+            (cd "plugins/$p" && npx --yes --package bb-app@0.46 bb plugin build .)
+            echo "=== $p: npm test"
+            (cd "plugins/$p" && npm test --silent)
+          done
+
+  kit:
+    name: комплект (сборка и проверка)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python3 scripts/build-kit.py
+      - run: python3 scripts/check-kit.py
